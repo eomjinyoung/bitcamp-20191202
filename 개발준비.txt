@@ -1,0 +1,80 @@
+1. scoop 설치
+  - 윈도우 패키지 관리자
+2. graalvm 설치
+  - 유니버셜 가상 머신 : JVM, NodeJS 포함
+  - graalvm.org 사이트에서 java11 버전 다운로드 받는다.
+  - c:\bitcamp\에 압축 푼다.
+  - graalvm의 bin 폴더를 실행 경로(path)에 추가한다.
+    - 왜? path에 추가해 놓으면 아무 디렉토리에서나 해당 폴더의 프로그램을 실행할 수 있다.
+    - 등록 안하면? 해당 프로그램의 위치를 모르기 때문에 실행할 수 없다.
+    - 등록 방법은? 
+      - "시스템 환경 변수 편집" 검색하여 해당 프로그램 실행
+      - "고급" 탭 선택 => "환경변수" 버튼 클릭
+      - "시스템 변수" 목록에서 path 변수의 값에 graalvm의 bin 폴더를 추가한다.
+  - graalvm이 설치된 폴더는 JAVA_HOME 이름으로 환경 변수에 등록한다.
+    - 자바 프로그램 중에서는 JDK(JRE)를 찾을 때 JAVA_HOME으로 등록된 경로를 찾기 때문이다.
+    - JDK(자바 개발 도구)를 설치한 후에는 반드시 이 환경 변수에 설치 디렉토리의 경로를 등록하라!
+    - 어떻게 설정하는가?
+      - "시스템 변수" 목록에서 "새로 만들기" 버튼을 클릭한다.
+      - "JAVA_HOME" 이라는 이름으로 graalvm을 설치한 디렉토리를 지정한다.
+3. Visual Studio Code(VSCode) 설치
+  - 일반 및 개발 용 편집기
+  - 자바스크립트로 만든 프로그램
+  - 크롬 웹 브라우저를 기반으로 실행된다. (크롬 웹브라우저에 살을 붙여 만든 프로그램)
+  - 소스 코드(.java, .html, .css, .js 등)를 편집하기 위해 설치
+  - 물론 일반 텍스트(.txt, .md 등)를 편집할 때도 사용한다. 
+4. Eclipse 통합 개발환경(IDE) 설치
+  - www.eclipse.org에서 설치를 도와주는 프로그램을 다운로드 받는다.
+  - 설치 도우미를 실행하여 eclipse를 설치한다.
+  - 이클립스의 작업 폴더(workspace 디렉토리)를 설정한다.
+  - 이클립스의 개발 환경을 설정한다.
+    - eclipse-inst-win64.exe 실행한다.
+    - update 마크(느낌표)가 있으면 일단 해당 도구를 먼저 갱신한다.
+    - 갱신이 완료되면 이 프로그램을 재시작시킨다.
+    - eclipse-enterprise 버전설치
+    - eclipse 실행
+    - 워크스페이스(작업폴더) 지정: c:\Users\사용자아이디\eclipse-workspace 
+  - eclipse 사용 환경 설정
+    - JDK 경로 확인 및 지정
+      - window 메뉴 > Preferences 메뉴 클릭
+      - Java 노드 > installed JREs 클릭 및 JDK 설정 확인
+    - 자바 소스 코드를 저장할 때 사용할 인코딩 규칙 설정
+      - General 노드 > Workspace 노드 클릭
+      - "Text file encoding"의 값을 UTF-8 로 설정한다.
+    - 기본 편집기의 실행 환경 설정
+      - General 노드 > Editors 노드 > Text Editors 노드 선택
+      - "Displayed Tab Width" = 2
+      - "insert spaces for tabs" = 체크
+      - "show print margin" = 체크, 컬럼 크기는 100으로 설정
+      - "show white space characters"의 "configure visibility" 링크 클릭
+        - carrage return과 line feed 는 체크 해제한다.
+        - 공백을 표시할 때 30% 투명도로 흐리게 출력한다.
+    - 웹 관련 파일을 저장할 때 사용할 인코딩 규칙을 설정
+      - Web 노드 > CSS Files 노드 선택: encoding = UTF-8
+      - Web 노드 > HTML Files 노드 선택: encoding = UTF-8
+      - Web 노드 > JSP Files 노드 선택: encoding = UTF-8
+    - 폰트 및 크기 설정
+      - General 노드 > Appearance 노드 > Colors and Fonts 노드선택
+      - "Basic" 항목 > Text Font 선택
+      - 폰트의 종류와 크기를 설정한다.
+5. Git 준비
+  - github.com 저장소 준비
+    - 회원가입
+    - 회원 인증 메일 확인
+    - 로그인
+    - "bitcamp-study" 저장소 생성
+  - 개발 PC에 github.com의 저장소복제
+    - 저장소 복제할 폴더 생성
+      - c:\Users\user\git 폴더 생성
+    - $ git clone [깃허브 저장소 주소]
+  - 로컬 git 사용자 정보 설정
+    - 사용자 이메일 설정 : $ git config --global user.email "이메일"
+    - 사용자 이름 설정 : $ git config --global user.name "이름"
+  - git 초간단 사용법
+    - 파일 추가하기
+      - bitcamp-study\test1.txt 파일 생성
+      - 로컬 저장소에 백업 대상 목록 작성  : $ git add test1.txt
+      - 로컬 저장소에 백업: $ git commit -m "저장하는 이유"
+      - 로컬 저장소의 내용을 git 서버에 업로드 : $ git push
+    - 서버 저장소의 변경 사항 가져오기
+      - $ git pull
