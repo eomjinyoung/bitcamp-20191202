@@ -58,7 +58,7 @@
 - [ ] 각 디렉토리의 용도를 이해한다.
 - [ ] 프로젝트 디렉토리에서 소스 디렉토리에 있는 자바 소스 파일을 컴파일 할 수 있다. `src/main/java/Hello2.java`, `$ javac src/main/java/Hello2.java`
 - [ ] 컴파일 할 때 컴파일 결과로 생성된 클래스 파일을 별도 디렉토리에 분리할 수 있다. `src/main/java/Hello2.java`, `$ javac -d bin/main src/main/java/Hello2.java`
-- [ ] 다른 디렉토리에 있는 클래스 파일을 실행할 수 있다. `src/main/java/Hello2.java`, `$ java -classpath bin/main Hello2`
+- [ ] 다른 디렉토리에 있는 클래스 파일을 실행할 수 있다. `src/main/java/Hello2.java`, `$ java -   bin/main Hello2`
 
 #### 패키지와 소스 파일
 
