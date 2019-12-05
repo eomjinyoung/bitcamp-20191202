@@ -20,7 +20,8 @@ settings.gradle
 지정한 유형에 맞춰 프로젝트 폴더 및 기본 파일들을 자동으로 생성한다.
 
 ## gradle tasks --all
-gradle로 사용할 수 있는 모든 작업을 출력한다.
+- gradle로 사용할 수 있는 모든 작업을 출력한다.
+- gradle 설정 파일(build.gradle)이 있는 폴더에서 실행해야 한다.
 
 ## plugin
 gradle로 실행할 수 있는 작업들을 모아둔 라이브러리이다.
