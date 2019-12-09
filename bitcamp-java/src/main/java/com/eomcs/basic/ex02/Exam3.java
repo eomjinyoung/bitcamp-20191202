@@ -1,4 +1,4 @@
-package com.ohoracs.basic.ex02;
+package com.eomcs.basic.ex02;
 
 // 애노테이션(annotation)
 // - 컴파일러나 JVM에게 지시하는 명령 

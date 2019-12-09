@@ -11,7 +11,7 @@
 
 - [ ] 컴퓨터에서 프로그램이 실행되는 원리를 이해한다.
 - [ ] CPU(ARM CPU 기준) 인스트럭션이 무엇인지 이해한다. `http://vision.gel.ulaval.ca/~jflalonde/cours/1001/h17/docs/arm-instructionset.pdf`
-- [ ] CPU 인스트럭션과 실행 파일, OS의 관계를 이해한다.
+- [ ]  과 실행 파일, OS의 관계를 이해한다.
 - [ ] 같은 CPU에 맞춰 작성된 실행 파일이더라도 OS가 다르면 실행되지 않는 이유를 설명할 수 있다.
 
 #### 중간 언어와 가상 머신

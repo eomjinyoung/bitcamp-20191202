@@ -1,4 +1,4 @@
-package com.ohoracs.basic.ex03;
+package com.eomcs.basic.ex03;
 
 // 리터럴(literal)
 // - 자바 언어에서 값을 표기하는 문법

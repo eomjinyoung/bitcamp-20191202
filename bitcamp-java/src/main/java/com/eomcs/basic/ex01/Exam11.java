@@ -1,4 +1,4 @@
-package com.ohoracs.basic.ex01;
+package com.eomcs.basic.ex01;
 
 // 클래스 블록 과 컴파일
 
