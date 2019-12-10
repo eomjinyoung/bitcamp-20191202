@@ -1,6 +1,6 @@
 package com.eomcs.basic.ex03;
 
-// 문자 리터럴(literal)
+// 문자 리터럴(literal) - 문자코드를 이용하여 문자 출력
 // 
 public class Exam42 {
   public static void main(String[] args) {
