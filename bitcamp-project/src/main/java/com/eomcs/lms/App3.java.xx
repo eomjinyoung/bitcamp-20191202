@@ -15,15 +15,9 @@ import java.util.Scanner;
 //    클래스
 public class App3 {
   
-  
   static final int size = 5734;
-  
   static Board[] boards = new Board[size];
-  
-  static int[] viewCount = new int[size];
-  
   static int count = 0;
-  
 
   public static void main(String[] args) {
     
