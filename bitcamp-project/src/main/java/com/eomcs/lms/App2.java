@@ -17,7 +17,11 @@ public class App2 {
     String[] tel = new String[SIZE];
     Date[] registeredDate = new Date[SIZE];
 
+    int count = 0;
+    
     for (int i = 0; i < SIZE; i++) {
+      count++;
+      
       System.out.print("번호? ");
       no[i] = keyboard.nextInt();
       keyboard.nextLine(); // 줄바꿈 기호 제거용
@@ -37,8 +41,7 @@ public class App2 {
       System.out.print("전화? ");
       tel[i] = keyboard.nextLine();
 
-      System.out.print("가입일? ");
-      registeredDate[i] = Date.valueOf(keyboard.nextLine());
+      registeredDate[i] = new Date(System.currentTimeMillis());
       
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
       String response = keyboard.nextLine();
@@ -49,13 +52,9 @@ public class App2 {
 
     System.out.println();
 
-    System.out.printf("번호: %d\n", no);
-    System.out.printf("이름: %s\n", name);
-    System.out.printf("이메일: %s\n", email);
-    System.out.printf("암호: %s\n", password);
-    System.out.printf("사진: %s\n", photo);
-    System.out.printf("전화: %s\n", tel);
-    System.out.printf("가입일: %s\n", registeredDate   );
-
+    for (int i = 0; i < count; i++) {
+      System.out.printf("%d, %s, %s, %s, %s\n", 
+          no[i], name[i], email[i], tel[i], registeredDate[i]);
+    }
   }
 }
