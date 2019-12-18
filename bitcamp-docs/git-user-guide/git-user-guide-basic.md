@@ -679,7 +679,7 @@ v0.2
 
 ```
 예6) 로컬 저장소에 있는 태그를 서버에 공유하기
-$ git push [원격저장소 단출이름] [태그 이름]
+$ git push [원격저장소 이름] [태그 이름]
 $ git push origin v0.1
 Counting objects: 1, done.
 Writing objects: 100% (1/1), 166 bytes | 166.00 KiB/s, done.
