@@ -8,45 +8,58 @@ public class App {
   public static void main(String[] args) {
 
     Scanner keyboard = new Scanner(System.in);
-
+    
+    // 강의 정보를 담을 메모리의 설계도를 만든다.
+    class Lecture {
+      int no;
+      String title;
+      String description;
+      Date startDate;
+      Date endDate;
+      int totalHours;
+      int dayHours;
+    }
+    
     final int SIZE = 100;
 
-    int[] no = new int[SIZE];
-    String[] title = new String[SIZE];
-    String[] description = new String[SIZE];
-    Date[] startDate = new Date[SIZE];
-    Date[] endDate = new Date[SIZE];
-    int[] totalHours = new int[SIZE];
-    int[] dayHours = new int[SIZE];
-
+    // Lecture 인스턴스 주소를 담을 레퍼런스 배열을 만든다.
+    Lecture[] lectures = new Lecture[SIZE];
+    
+    // Lecture 인스턴스를 미리 준비한다.
+    for (int i = 0; i < SIZE; i++) {
+      lectures[i] = new Lecture();
+    }
+    
     int count = 0;
     
     for (int i = 0; i < SIZE; i++) {
+      Lecture lecture = lectures[i];
+      
       count++;
       
       System.out.print("번호? ");
-      no[i] = keyboard.nextInt();
+      lecture.no = keyboard.nextInt();
 
       keyboard.nextLine(); // nextInt() 후에 남아 있는 줄바꿈 기호를 제거한다.
 
       System.out.print("수업명? ");
-      title[i] = keyboard.nextLine();
+      lecture.title = keyboard.nextLine();
 
       System.out.print("설명? ");
-      description[i] = keyboard.nextLine();
+      lecture.description = keyboard.nextLine();
 
       System.out.print("시작일? ");
       // "yyyy-MM-dd" 형태로 입력된 문자열을 날짜 정보로 바꾼다.
-      startDate[i] = Date.valueOf(keyboard.next());
+      lecture.startDate = Date.valueOf(keyboard.next());
 
       System.out.print("종료일? ");
-      endDate[i] = Date.valueOf(keyboard.next());
+      lecture.endDate = Date.valueOf(keyboard.next());
 
       System.out.print("총수업시간? ");
-      totalHours[i] = keyboard.nextInt();
+      lecture.totalHours = keyboard.nextInt();
 
       System.out.print("일수업시간? ");
-      dayHours[i] = keyboard.nextInt();
+      lecture.dayHours = keyboard.nextInt();
       keyboard.nextLine(); // 일수업시간 입력 값 다음에 남아 있는 줄바꿈 값 제거
       
       System.out.print("계속 입력하시겠습니까?(Y/n) ");
@@ -57,8 +70,11 @@ public class App {
     System.out.println();
 
     for (int i = 0; i < count; i++) {
+      Lecture lecture = lectures[i];
       System.out.printf("%d, %s, %s ~ %s, %d\n",
-          no[i], title[i], startDate[i], endDate[i], totalHours[i]);
+          lecture.no, lecture.title, 
+          lecture.startDate, lecture.endDate, 
+          lecture.totalHours);
     }
 
     keyboard.close();
