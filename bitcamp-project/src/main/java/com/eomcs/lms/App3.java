@@ -3,28 +3,45 @@ package com.eomcs.lms;
 import java.sql.Date;
 import java.util.Scanner;
 
-// 입력을 카운트하기
 public class App3 {
   public static void main(String[] args) {
+    
     Scanner keyboard = new Scanner(System.in);
 
-    int[] no = new int[100];
-    String[] title = new String[100];
-    Date[] date = new Date[100];
-    int[] viewCount = new int[100];
+    // 게시글 데이터를 저장할 메모리를 설계한다.
+    class Board {
+      int no;
+      String title;
+      Date date;
+      int viewCount;
+    }
+    
+    final int SIZE = 100;
+    
+    // Board 인스턴스의 주소를 담을 레퍼런스 배열을 준비한다.
+    Board[] boards = new Board[SIZE];
+    
+    // Board 인스턴스를 생성하여 레퍼런스 배열에 저장한다.
+    for (int i = 0; i < SIZE; i++) {
+      boards[i] = new Board();
+    }
+    
     String response;
-
     int count = 0;
+    
     for (int i = 0; i < 100; i++) {
+      
+      Board board = boards[i];
+      
       System.out.print("번호? ");
-      no[i] = keyboard.nextInt();
+      board.no = keyboard.nextInt();
       keyboard.nextLine(); // 줄바꿈 기호 제거용
 
       System.out.print("내용? ");
-      title[i] = keyboard.nextLine();
+      board.title = keyboard.nextLine();
 
-      date[i] = new Date(System.currentTimeMillis());
-      viewCount[i] = 0;
+      board.date = new Date(System.currentTimeMillis());
+      board.viewCount = 0;
       
       count++;
       
@@ -42,8 +59,9 @@ public class App3 {
     System.out.println();
 
     for (int i = 0; i < count; i++) {
+      Board board = boards[i];
       System.out.printf("%d, %s, %s, %d\n", 
-          no[i], title[i], date[i], viewCount[i]);
+          board.no, board.title, board.date, board.viewCount);
     }
   }
 }
