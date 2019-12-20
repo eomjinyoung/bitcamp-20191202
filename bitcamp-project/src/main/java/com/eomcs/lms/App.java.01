@@ -9,27 +9,7 @@ public class App {
 
     Scanner keyboard = new Scanner(System.in);
     
-    String command;
-    
-    do {
-      System.out.print("명령> ");
-      command = keyboard.nextLine();
-      
-      switch (command) {
-        case "/lesson/add":
-          break;
-        case "/lesson/list":
-          break;
-        default:
-          if (!command.equalsIgnoreCase("quit")) {
-            System.out.println("실행할 수 없는 명령입니다.");
-          }
-      }
-      
-    } while (!command.equalsIgnoreCase("quit"));
-    
-    System.out.println("안녕!");
-    
+    System.out.println("명령>");
     /*
     class Lesson {
       int no;
