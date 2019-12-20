@@ -146,11 +146,6 @@ public class App {
           System.out.println("저장하였습니다.");
           break;
         case "/board/list":
-          for (int i = 0; i < boardCount; i++) {
-            Board b = boards[i];
-            System.out.printf("%d, %s, %s, %d\n", 
-                b.no, b.title, b.date, b.viewCount);
-          }
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
