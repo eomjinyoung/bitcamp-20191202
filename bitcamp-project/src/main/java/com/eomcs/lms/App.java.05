@@ -63,15 +63,6 @@ public class App {
           
           break;
         case "/lesson/list":
-          for (int i = 0; i < count; i++) {
-            Lesson l = lessons[i];
-            System.out.printf("%d, %s, %s ~ %s, %d\n",
-                l.no, l.title, l.startDate, l.endDate, l.totalHours);
-          }
-          break;
-        case "/member/add":
-          break;
-        case "/member/list":
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
@@ -83,6 +74,31 @@ public class App {
     
     System.out.println("안녕!");
     
+    /*
+    
+    
+    
+    
+    for (int i = 0; i < SIZE; i++) {
+      count++;
+
+      
+      
+      System.out.print("계속 입력하시겠습니까?(Y/n) ");
+      String response = keyboard.nextLine();
+      if (!response.equalsIgnoreCase("y"))
+        break;
+    }
+    System.out.println();
+
+    for (int i = 0; i < count; i++) {
+      Lesson lesson = lessons[i];
+      System.out.printf("%d, %s, %s ~ %s, %d\n",
+          lesson.no, lesson.title, 
+          lesson.startDate, lesson.endDate, 
+          lesson.totalHours);
+    }
+    */
     keyboard.close();
   }
 }

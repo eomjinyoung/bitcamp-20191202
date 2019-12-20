@@ -69,10 +69,6 @@ public class App {
                 l.no, l.title, l.startDate, l.endDate, l.totalHours);
           }
           break;
-        case "/member/add":
-          break;
-        case "/member/list":
-          break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
