@@ -7,19 +7,6 @@ public class App {
 
   static Scanner keyboard = new Scanner(System.in);
   
-  static class Lesson {
-    int no;
-    String title;
-    String description;
-    Date startDate;
-    Date endDate;
-    int totalHours;
-    int dayHours;
-  }
-  static final int LESSON_SIZE = 100;
-  static Lesson[] lessons = new Lesson[LESSON_SIZE];
-  static int lessonCount = 0;
-  
   static class Member {
     int no;
     String name;
@@ -47,6 +34,9 @@ public class App {
   
   public static void main(String[] args) {
     
+    // LessonHandler의 메서드를 사용하기 전에 
+    // 그 메서드가 작업할 때 사용할 키보드 객체를 설정해줘야 한다.
+    LessonHandler.keyboard = keyboard;
     
     String command;
     
@@ -56,12 +46,12 @@ public class App {
       
       switch (command) {
         case "/lesson/add":
-          // 분리된 코드(메서드)를 실행(호출)시킨다.
-          // => 보통 "메서드를 호출한다"라고 표현한다.
-          addLesson();
+          // 다른 클래스로 분리한 메서드를 호출할 때는
+          // 클래스를 이름을 지정해야 한다.
+          LessonHandler.addLesson();
           break;
         case "/lesson/list":
-          listLesson();
+          LessonHandler.listLesson();
           break;
         case "/member/add":
           addMember();
@@ -149,44 +139,7 @@ public class App {
     System.out.println("저장하였습니다.");
   }
   
-  static void addLesson() {
-    Lesson lesson = new Lesson();
-    
-    System.out.print("번호? ");
-    lesson.no = keyboard.nextInt();
 
-    keyboard.nextLine(); 
-
-    System.out.print("수업명? ");
-    lesson.title = keyboard.nextLine();
-
-    System.out.print("설명? ");
-    lesson.description = keyboard.nextLine();
-
-    System.out.print("시작일? ");
-    lesson.startDate = Date.valueOf(keyboard.next());
-
-    System.out.print("종료일? ");
-    lesson.endDate = Date.valueOf(keyboard.next());
-
-    System.out.print("총수업시간? ");
-    lesson.totalHours = keyboard.nextInt();
-
-    System.out.print("일수업시간? ");
-    lesson.dayHours = keyboard.nextInt();
-    keyboard.nextLine(); 
-    
-    lessons[lessonCount++] = lesson;
-    System.out.println("저장하였습니다.");
-  }
-  
-  static void listLesson() {
-    for (int i = 0; i < lessonCount; i++) {
-      Lesson l = lessons[i];
-      System.out.printf("%d, %s, %s ~ %s, %d\n",
-          l.no, l.title, l.startDate, l.endDate, l.totalHours);
-    }
-  }
 }
 
 
