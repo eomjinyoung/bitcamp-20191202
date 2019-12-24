@@ -2,18 +2,9 @@ package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-  
-  static class Member {
-    int no;
-    String name;
-    String email;
-    String password;
-    String photo;
-    String tel;
-    Date registeredDate;
-  }
   
   static final int MEMBER_SIZE = 100;
   static Member[] members = new Member[MEMBER_SIZE];

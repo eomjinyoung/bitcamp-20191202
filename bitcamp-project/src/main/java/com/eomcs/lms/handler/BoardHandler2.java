@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
-public class BoardHandler {
+public class BoardHandler2 {
   
   static final int BOARD_SIZE = 100;
   static Board[] boards = new Board[BOARD_SIZE];

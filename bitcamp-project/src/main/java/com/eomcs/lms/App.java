@@ -2,6 +2,7 @@ package com.eomcs.lms;
 
 import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
+import com.eomcs.lms.handler.BoardHandler2;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 
@@ -16,6 +17,7 @@ public class App {
     LessonHandler.keyboard = keyboard;
     MemberHandler.keyboard = keyboard;
     BoardHandler.keyboard = keyboard;
+    BoardHandler2.keyboard = keyboard;
     
     String command;
     
@@ -43,6 +45,12 @@ public class App {
           break;
         case "/board/list":
           BoardHandler.listBoard();
+          break;
+        case "/board2/add":
+          BoardHandler2.addBoard();
+          break;
+        case "/board2/list":
+          BoardHandler2.listBoard();
           break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
