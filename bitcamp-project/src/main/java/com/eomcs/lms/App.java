@@ -25,6 +25,10 @@ public class App {
     BoardHandler 게시판5 = new BoardHandler();
     BoardHandler 게시판6 = new BoardHandler();
     
+    LessonHandler 정규수업 = new LessonHandler();
+    
+    MemberHandler 일반회원 = new MemberHandler();
+    
     String command;
     
     do {
@@ -35,16 +39,16 @@ public class App {
         case "/lesson/add":
           // 다른 클래스로 분리한 메서드를 호출할 때는
           // 클래스를 이름을 지정해야 한다.
-          LessonHandler.addLesson();
+          LessonHandler.addLesson(정규수업);
           break;
         case "/lesson/list":
-          LessonHandler.listLesson();
+          LessonHandler.listLesson(정규수업);
           break;
         case "/member/add":
-          MemberHandler.addMember();
+          MemberHandler.addMember(일반회원);
           break;
         case "/member/list":
-          MemberHandler.listMember();
+          MemberHandler.listMember(일반회원);
           break;
         case "/board/add":
           BoardHandler.addBoard(게시판1);

@@ -6,14 +6,17 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
   
-  static final int LESSON_SIZE = 100;
-  static Lesson[] lessons = new Lesson[LESSON_SIZE];
-  static int lessonCount = 0;
+  // 인스턴스 필드 = 논-스태틱 필드 
+  // => 각 수업 목록을 개별적으로 관리
+  Lesson[] lessons = new Lesson[LESSON_SIZE];
+  int lessonCount = 0;
   
-  // 다른 패키지에 있는 클래스에서도 이 변수를 사용하게 하려면 공개해야 한다.
+  // 클래스 필드 = 스태틱 필드
+  // => 공유할 변수
+  static final int LESSON_SIZE = 100;
   public static Scanner keyboard;
   
-  public static void addLesson() {
+  public static void addLesson(LessonHandler lessonHandler) {
     Lesson lesson = new Lesson();
     
     System.out.print("번호? ");
@@ -40,13 +43,13 @@ public class LessonHandler {
     lesson.dayHours = keyboard.nextInt();
     keyboard.nextLine(); 
     
-    lessons[lessonCount++] = lesson;
+    lessonHandler.lessons[lessonHandler.lessonCount++] = lesson;
     System.out.println("저장하였습니다.");
   }
   
-  public static void listLesson() {
-    for (int i = 0; i < lessonCount; i++) {
-      Lesson l = lessons[i];
+  public static void listLesson(LessonHandler lessonHandler) {
+    for (int i = 0; i < lessonHandler.lessonCount; i++) {
+      Lesson l = lessonHandler.lessons[i];
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.no, l.title, l.startDate, l.endDate, l.totalHours);
     }
