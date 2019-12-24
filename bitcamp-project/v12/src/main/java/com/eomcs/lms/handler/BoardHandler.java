@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
-public class BoardHandler2 {
+public class BoardHandler {
   
   static final int BOARD_SIZE = 100;
   static Board[] boards = new Board[BOARD_SIZE];
@@ -35,7 +35,7 @@ public class BoardHandler2 {
     boards[boardCount++] = board;
     System.out.println("저장하였습니다.");
   }
-
+  
   public static void detailBoard() {
     System.out.print("게시물 번호? ");
     int no = keyboard.nextInt();
@@ -59,4 +59,14 @@ public class BoardHandler2 {
     System.out.printf("등록일: %s\n", board.date);
     System.out.printf("조회수: %d\n", board.viewCount);
   }
+
 }
+
+
+
+
+
+
+
+
+
