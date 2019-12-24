@@ -35,5 +35,32 @@ public class BoardHandler {
     boards[boardCount++] = board;
     System.out.println("저장하였습니다.");
   }
+  
+  public static void detailBoard() {
+    System.out.print("게시물 번호? ");
+    int no = keyboard.nextInt();
+    keyboard.nextLine(); // 숫자 뒤의 남은 공백 제거
+    
+    if (no < 0 || no >= boardCount) {
+      System.out.println("게시물 번호가 유효하지 않습니다.");
+      return;
+    }
+    
+    Board board = boards[no];
+    
+    System.out.printf("번호: %d\n", board.no);
+    System.out.printf("제목: %s\n", board.title);
+    System.out.printf("등록일: %s\n", board.date);
+    System.out.printf("조회수: %d\n", board.viewCount);
+  }
 
 }
+
+
+
+
+
+
+
+
+
