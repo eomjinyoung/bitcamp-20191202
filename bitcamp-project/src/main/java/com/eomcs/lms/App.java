@@ -4,6 +4,9 @@ import java.util.Scanner;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.BoardHandler2;
 import com.eomcs.lms.handler.BoardHandler3;
+import com.eomcs.lms.handler.BoardHandler4;
+import com.eomcs.lms.handler.BoardHandler5;
+import com.eomcs.lms.handler.BoardHandler6;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 
@@ -20,6 +23,9 @@ public class App {
     BoardHandler.keyboard = keyboard;
     BoardHandler2.keyboard = keyboard;
     BoardHandler3.keyboard = keyboard;
+    BoardHandler4.keyboard = keyboard;
+    BoardHandler5.keyboard = keyboard;
+    BoardHandler6.keyboard = keyboard;
     
     String command;
     
@@ -68,6 +74,33 @@ public class App {
           break;
         case "/board3/detail":
           BoardHandler3.detailBoard();
+          break;  
+        case "/board4/add":
+          BoardHandler4.addBoard();
+          break;
+        case "/board4/list":
+          BoardHandler4.listBoard();
+          break;
+        case "/board4/detail":
+          BoardHandler4.detailBoard();
+          break;  
+        case "/board5/add":
+          BoardHandler5.addBoard();
+          break;
+        case "/board5/list":
+          BoardHandler5.listBoard();
+          break;
+        case "/board5/detail":
+          BoardHandler5.detailBoard();
+          break;  
+        case "/board6/add":
+          BoardHandler6.addBoard();
+          break;
+        case "/board6/list":
+          BoardHandler6.listBoard();
+          break;
+        case "/board6/detail":
+          BoardHandler6.detailBoard();
           break;  
         default:
           if (!command.equalsIgnoreCase("quit")) {
