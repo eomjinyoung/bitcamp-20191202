@@ -1,6 +1,10 @@
 package com.eomcs.oop.ex02.study;
 
 public class Car {
+  
+  public static final int OIL = 1;
+  public static final int GAS = 2;
+  
   String name;
   int type;
   String color;

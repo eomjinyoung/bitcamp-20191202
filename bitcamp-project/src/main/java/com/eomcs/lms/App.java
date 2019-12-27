@@ -37,12 +37,10 @@ public class App {
       
       switch (command) {
         case "/lesson/add":
-          // 다른 클래스로 분리한 메서드를 호출할 때는
-          // 클래스를 이름을 지정해야 한다.
-          LessonHandler.addLesson(정규수업);
+          정규수업.addLesson();
           break;
         case "/lesson/list":
-          LessonHandler.listLesson(정규수업);
+          정규수업.listLesson();
           break;
         case "/member/add":
           MemberHandler.addMember(일반회원);
@@ -51,58 +49,58 @@ public class App {
           MemberHandler.listMember(일반회원);
           break;
         case "/board/add":
-          BoardHandler.addBoard(게시판1);
+          게시판1.addBoard();
           break;
         case "/board/list":
-          BoardHandler.listBoard(게시판1);
+          게시판1.listBoard();
           break;
         case "/board/detail":
-          BoardHandler.detailBoard(게시판1);
+          게시판1.detailBoard();
           break;  
         case "/board2/add":
-          BoardHandler.addBoard(게시판2);
+          게시판2.addBoard();
           break;
         case "/board2/list":
-          BoardHandler.listBoard(게시판2);
+          게시판2.listBoard();
           break;
         case "/board2/detail":
-          BoardHandler.detailBoard(게시판2);
+          게시판2.detailBoard();
           break;    
         case "/board3/add":
-          BoardHandler.addBoard(게시판3);
+          게시판3.addBoard();
           break;
         case "/board3/list":
-          BoardHandler.listBoard(게시판3);
+          게시판3.listBoard();
           break;
         case "/board3/detail":
-          BoardHandler.detailBoard(게시판3);
+          게시판3.detailBoard();
           break;  
         case "/board4/add":
-          BoardHandler.addBoard(게시판4);
+          게시판4.addBoard();
           break;
         case "/board4/list":
-          BoardHandler.listBoard(게시판4);
+          게시판4.listBoard();
           break;
         case "/board4/detail":
-          BoardHandler.detailBoard(게시판4);
+          게시판4.detailBoard();
           break;  
         case "/board5/add":
-          BoardHandler.addBoard(게시판5);
+          게시판5.addBoard();
           break;
         case "/board5/list":
-          BoardHandler.listBoard(게시판5);
+          게시판5.listBoard();
           break;
         case "/board5/detail":
-          BoardHandler.detailBoard(게시판5);
+          게시판5.detailBoard();
           break;  
         case "/board6/add":
-          BoardHandler.addBoard(게시판6);
+          게시판6.addBoard();
           break;
         case "/board6/list":
-          BoardHandler.listBoard(게시판6);
+          게시판6.listBoard();
           break;
         case "/board6/detail":
-          BoardHandler.detailBoard(게시판6);
+          게시판6.detailBoard();
           break;  
         default:
           if (!command.equalsIgnoreCase("quit")) {

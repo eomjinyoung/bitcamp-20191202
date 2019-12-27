@@ -20,19 +20,23 @@ public class BoardHandler {
   static final int BOARD_SIZE = 100;
   public static Scanner keyboard;
   
-  // 클래스 메서드
-  // => 인스턴스 없이 호출하는 메서드이다.
-  // => 인스턴스를 사용하려면 파라미터를 통해 호출할 때 외부에서 받아야 한다.
+  // 인스턴스 메서드
+  // => 인스턴스가 있어야만 호출할 수 있는 메서드이다.
+  // => 인스턴스를 사용하는 메서드인 경우 인스턴스 메서드로 선언하라.
+  // => 호출할 때는 반드시 인스턴스 주소를 줘야 한다.
+  //      인스턴스주소.메서드명();
+  // => 이렇게 인스턴스의 변수 값을 다루는 메서드는
+  //    "연산자(operation)"라 부를 수 있다.
   //
-  public static void listBoard(BoardHandler boardHandler) {
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      Board b = boardHandler.boards[i];
+  public void listBoard() {
+    for (int i = 0; i < this.boardCount; i++) {
+      Board b = this.boards[i];
       System.out.printf("%d, %s, %s, %d\n", 
           b.no, b.title, b.date, b.viewCount);
     }
   }
 
-  public static void addBoard(BoardHandler boardHandler) {
+  public void addBoard() {
     Board board = new Board();
     
     System.out.print("번호? ");
@@ -45,19 +49,19 @@ public class BoardHandler {
     board.date = new Date(System.currentTimeMillis());
     board.viewCount = 0;
     
-    boardHandler.boards[boardHandler.boardCount++] = board;
+    this.boards[this.boardCount++] = board;
     System.out.println("저장하였습니다.");
   }
   
-  public static void detailBoard(BoardHandler boardHandler) {
+  public void detailBoard() {
     System.out.print("게시물 번호? ");
     int no = keyboard.nextInt();
     keyboard.nextLine(); // 숫자 뒤의 남은 공백 제거
     
     Board board = null;
-    for (int i = 0; i < boardHandler.boardCount; i++) {
-      if (boardHandler.boards[i].no == no) {
-        board = boardHandler.boards[i];
+    for (int i = 0; i < this.boardCount; i++) {
+      if (this.boards[i].no == no) {
+        board = this.boards[i];
         break;
       }
     }
