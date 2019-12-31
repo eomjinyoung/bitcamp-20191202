@@ -7,18 +7,18 @@ import com.eomcs.lms.domain.Board;
 public class BoardHandler {
   
   BoardList boardList;
+  
   Scanner input;
   
-  {
-    boardList = new BoardList();
-  }
   
   public BoardHandler(Scanner input) {
     this.input = input;
+    boardList = new BoardList();
   }
   
   public BoardHandler(Scanner input, int capacity) {
     this.input = input;
+    boardList = new BoardList(capacity);
   }
   
   public void listBoard() {
