@@ -1,29 +1,29 @@
 package com.eomcs.lms.handler;
 
 import java.util.Arrays;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.domain.Member;
 
-public class BoardList {
+public class MemberList {
   
-  static final int DEFAULT_CAPACITY = 3;
+  static final int DEFAULT_CAPACITY = 100;
   
-  Board[] list;
+  Member[] list;
   int size = 0;
   
-  public BoardList() {
-    this.list = new Board[DEFAULT_CAPACITY];
+  public MemberList() {
+    this.list = new Member[DEFAULT_CAPACITY];
   }
   
-  public BoardList(int capacity) {
+  public MemberList(int capacity) {
     if (capacity < DEFAULT_CAPACITY || capacity > 10000)
-      this.list = new Board[DEFAULT_CAPACITY];
+      this.list = new Member[DEFAULT_CAPACITY];
     else 
-      this.list = new Board[capacity];
+      this.list = new Member[capacity];
   }
 
-  public Board[] toArray() {
+  public Member[] toArray() {
     /*
-    Board[] arr = new Board[this.size];
+    Member[] arr = new Member[this.size];
     for (int i = 0; i < this.size; i++) {
       arr[i] = this.list[i];
     }
@@ -32,25 +32,17 @@ public class BoardList {
     return Arrays.copyOf(this.list, this.size);
   }
 
-  public void add(Board board) {
+  public void add(Member member) {
     if (this.size == this.list.length) {
       // 현재 배열에 게시글 객체가 꽉 찼으면, 배열을 늘린다.
       int oldCapacity = this.list.length;
       int newCapacity = oldCapacity + (oldCapacity >> 1);
-      /*
-      Board[] arr = new Board[newCapacity];
-      for (int i = 0; i < this.list.length; i++) {
-        arr[i] = this.list[i];
-      }
-      this.list = arr;
-      */
       this.list = Arrays.copyOf(this.list, newCapacity);
-      System.out.printf("새 배열을 %d 개 생성하였음!", newCapacity);
     }
-    this.list[this.size++] = board;
+    this.list[this.size++] = member;
   }
   
-  public Board get(int no) {
+  public Member get(int no) {
     for (int i = 0; i < this.size; i++) {
       if (this.list[i].getNo() == no) {
         return this.list[i];
