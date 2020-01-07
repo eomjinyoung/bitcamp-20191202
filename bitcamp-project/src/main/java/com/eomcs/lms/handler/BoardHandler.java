@@ -70,6 +70,37 @@ public class BoardHandler {
     System.out.printf("등록일: %s\n", board.getDate());
     System.out.printf("조회수: %d\n", board.getViewCount());
   }
+  
+  public void updateBoard() {
+    System.out.print("게시물 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    
+    Board oldBoard = this.boardList.get(index);
+    
+    if (oldBoard == null) {
+      System.out.println("게시물 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    
+    System.out.printf("내용(%s)? ", oldBoard.getTitle());
+    String title = input.nextLine();
+    
+    if (title.length() == 0) {
+      System.out.println("게시물 변경을 취소했습니다.");
+      return;
+    }
+    
+    Board newBoard = new Board();
+    newBoard.setNo(oldBoard.getNo());
+    newBoard.setViewCount(oldBoard.getViewCount());
+    newBoard.setTitle(title);
+    newBoard.setDate(new Date(System.currentTimeMillis()));
+    
+    this.boardList.set(index, newBoard);
+    
+    System.out.println("게시글을 변경했습니다.");
+  }
 
 }
 
