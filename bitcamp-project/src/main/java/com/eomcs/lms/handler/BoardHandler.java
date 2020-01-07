@@ -23,7 +23,12 @@ public class BoardHandler {
   }
   
   public void listBoard() {
-    Board[] arr = this.boardList.toArray(Board[].class);
+    // BoardList의 보관된 값을 받을 배열을 준비한다. 
+    Board[] arr = new Board[this.boardList.size()];
+
+    // toArray()에게 빈 배열을 넘겨서 복사 받는다.
+    this.boardList.toArray(arr);
+    
     for (Board b : arr) {
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());

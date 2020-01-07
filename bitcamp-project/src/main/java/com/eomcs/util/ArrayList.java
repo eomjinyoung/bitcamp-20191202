@@ -20,13 +20,21 @@ public class ArrayList<E> {
       this.list = new Object[capacity];
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  public E[] toArray(Class arrayType) {
-    // copyOf() 메서드야,
-    // arrayType 에 지정된 배열을 size 만큼 만들어라.
-    // 그리고 list 배열에 저장된 주소를 새로 만든 배열에 복사하라.
-    // 마지막으로 새로 만든 배열의 주소를 리턴하라!
-    return (E[]) Arrays.copyOf(this.list, this.size, arrayType);
+  @SuppressWarnings({"unchecked"})
+  public E[] toArray(E[] arr) {
+    
+    if (arr.length < this.size) {
+      return (E[]) Arrays.copyOf(this.list, this.size, arr.getClass());
+    }
+    System.arraycopy(this.list, 0, arr, 0, this.size);
+    /*
+    // 위의 arraycopy()는 다음 코드와 같다.
+    for (int i = 0; i < this.size; i++) {
+      arr[i] = (E) this.list[i];
+    }
+    */
+
+    return arr;
   }
 
   public void add(E obj) {
@@ -45,6 +53,10 @@ public class ArrayList<E> {
     } else {
       return null;
     }
+  }
+  
+  public int size() {
+    return this.size;
   }
 }
 
