@@ -46,6 +46,9 @@ public class App {
         case "/board/update":
           boardHandler.updateBoard();
           break; 
+        case "/board/delete":
+          boardHandler.deleteBoard();
+          break; 
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
