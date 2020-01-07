@@ -3,22 +3,22 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.ArrayList;
 
 public class MemberHandler {
   
-  ArrayList memberList;
+  ArrayList<Member> memberList;
 
   public Scanner input;
 
   public MemberHandler(Scanner input) {
     this.input = input;
-    this.memberList = new ArrayList();
+    this.memberList = new ArrayList<>();
   }
   
   public void listMember() {
-    Object[] arr = this.memberList.toArray();
-    for (Object obj : arr) {
-      Member m = (Member) obj;
+    Member[] arr = this.memberList.toArray(Member[].class);
+    for (Member m : arr) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.getNo(), m.getName(), m.getEmail(), 
           m.getTel(), m.getRegisteredDate());

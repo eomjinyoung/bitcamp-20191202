@@ -1,8 +1,8 @@
-package com.eomcs.lms.handler;
+package com.eomcs.util;
 
 import java.util.Arrays;
 
-public class ArrayList {
+public class ArrayList<E> {
   
   static final int DEFAULT_CAPACITY = 3;
   
@@ -20,11 +20,16 @@ public class ArrayList {
       this.list = new Object[capacity];
   }
 
-  public Object[] toArray() {
-    return Arrays.copyOf(this.list, this.size);
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public E[] toArray(Class arrayType) {
+    // copyOf() 메서드야,
+    // arrayType 에 지정된 배열을 size 만큼 만들어라.
+    // 그리고 list 배열에 저장된 주소를 새로 만든 배열에 복사하라.
+    // 마지막으로 새로 만든 배열의 주소를 리턴하라!
+    return (E[]) Arrays.copyOf(this.list, this.size, arrayType);
   }
 
-  public void add(Object obj) {
+  public void add(E obj) {
     if (this.size == this.list.length) {
       int oldCapacity = this.list.length;
       int newCapacity = oldCapacity + (oldCapacity >> 1);
@@ -33,9 +38,10 @@ public class ArrayList {
     this.list[this.size++] = obj;
   }
   
-  public Object get(int idx) {
+  @SuppressWarnings("unchecked")
+  public E get(int idx) {
     if (idx >= 0 && idx < this.size) {
-      return this.list[idx];
+      return (E)this.list[idx];
     } else {
       return null;
     }

@@ -3,16 +3,17 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.util.ArrayList;
 
 public class LessonHandler {
   
-  ArrayList lessonList;
+  ArrayList<Lesson> lessonList;
   
   public Scanner input;
   
   public LessonHandler(Scanner input) {
     this.input = input;
-    this.lessonList = new ArrayList();
+    this.lessonList = new ArrayList<>();
   }
   
   public void addLesson() {
@@ -48,9 +49,8 @@ public class LessonHandler {
   }
   
   public void listLesson() {
-    Object[] arr = this.lessonList.toArray();
-    for (Object obj : arr) {
-      Lesson l = (Lesson) obj;
+    Lesson[] arr = this.lessonList.toArray(Lesson[].class);
+    for (Lesson l : arr) {
       System.out.printf("%d, %s, %s ~ %s, %d\n",
           l.getNo(), l.getTitle(), 
           l.getStartDate(), l.getEndDate(), l.getTotalHours());

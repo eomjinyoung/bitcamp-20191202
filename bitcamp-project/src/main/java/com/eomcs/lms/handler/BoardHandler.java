@@ -3,28 +3,28 @@ package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.ArrayList;
 
 public class BoardHandler {
   
-  ArrayList boardList;
+  ArrayList<Board> boardList;
   
   Scanner input;
   
   
   public BoardHandler(Scanner input) {
     this.input = input;
-    this.boardList = new ArrayList();
+    this.boardList = new ArrayList<>();
   }
   
   public BoardHandler(Scanner input, int capacity) {
     this.input = input;
-    this.boardList = new ArrayList(capacity);
+    this.boardList = new ArrayList<>(capacity);
   }
   
   public void listBoard() {
-    Object[] arr = this.boardList.toArray();
-    for (Object obj : arr) {
-      Board b = (Board) obj;
+    Board[] arr = this.boardList.toArray(Board[].class);
+    for (Board b : arr) {
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
     }
@@ -53,7 +53,7 @@ public class BoardHandler {
     int index = input.nextInt();
     input.nextLine(); // 숫자 뒤의 남은 공백 제거
     
-    Board board = (Board) this.boardList.get(index);
+    Board board = this.boardList.get(index);
     
     if (board == null) {
       System.out.println("게시물 인덱스가 유효하지 않습니다.");
