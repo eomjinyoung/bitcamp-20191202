@@ -4,7 +4,7 @@ public class ArrayListTest {
 
   public static void main(String[] args) {
     
-    ArrayList a1 = new ArrayList();
+    ArrayList<String> a1 = new ArrayList<>();
     
     a1.add("aaa");
     a1.add("bbb");
@@ -12,11 +12,12 @@ public class ArrayListTest {
     a1.add("ddd");
     a1.add("eee");
     a1.add("fff");
+    //a1.add(new Member()); // 컴파일 오류!
     
     System.out.println(a1.get(-1));
     System.out.println(a1.get(6));
     
-    String oldValue = (String) a1.set(0, "xxx");
+    String oldValue = a1.set(0, "xxx");
     System.out.printf("%s ==> %s\n", oldValue, a1.get(0));
     
     a1.set(-1, "yyy");
@@ -28,7 +29,7 @@ public class ArrayListTest {
     
     a1.remove(-1);
     
-    oldValue = (String) a1.remove(0);
+    oldValue = a1.remove(5);
     System.out.printf("삭제 전(%s) ==> 삭제 후(%s)\n", oldValue, a1.get(0));
     
     System.out.println("---------------");
@@ -36,9 +37,11 @@ public class ArrayListTest {
     print(a1);
   }
   
-  static void print(ArrayList arr) {
-    for (int i = 0; i < arr.size(); i++) {
-      System.out.println(arr.get(i));
+  static void print(ArrayList<String> arr) {
+    String[] list = new String[arr.size()];
+    arr.toArray(list);
+    for (String e : list) {
+      System.out.println(e);
     }
   }
 

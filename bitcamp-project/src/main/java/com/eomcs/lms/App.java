@@ -6,7 +6,7 @@ import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 
 public class App {
-  java.util.ArrayList l;
+  
   static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
