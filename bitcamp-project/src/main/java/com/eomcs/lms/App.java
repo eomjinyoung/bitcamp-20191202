@@ -43,6 +43,15 @@ public class App {
         case "/member/list":
           memberHandler.listMember();
           break;
+        case "/member/detail":
+          memberHandler.detailMember();
+          break;
+        case "/member/update":
+          memberHandler.updateMember();
+          break;
+        case "/member/delete":
+          memberHandler.deleteMember();
+          break;
         case "/board/add":
           boardHandler.addBoard();
           break;
