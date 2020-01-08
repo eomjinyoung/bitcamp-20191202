@@ -59,4 +59,65 @@ public class LessonHandler {
     }
   }
   
+  public void detailLesson() {
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    
+    Lesson lesson = this.lessonList.get(index);
+    
+    if (lesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    
+    System.out.printf("번호: %d\n", lesson.getNo());
+    System.out.printf("수업명: %s\n", lesson.getTitle());
+    System.out.printf("설명: %s\n", lesson.getDescription());
+    System.out.printf("시작일: %s\n", lesson.getStartDate());
+    System.out.printf("종료일: %s\n", lesson.getEndDate());
+    System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
+    System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+  }
+  
+  public void updateLesson() {
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    
+    Lesson oldLesson = this.lessonList.get(index);
+    
+    if (oldLesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    
+    Lesson newLesson = new Lesson();
+    
+    newLesson.setNo(oldLesson.getNo());
+    
+    System.out.print("수업명? ");
+    newLesson.setTitle(input.nextLine());
+
+    System.out.print("설명? ");
+    newLesson.setDescription(input.nextLine());
+
+    System.out.print("시작일? ");
+    newLesson.setStartDate(Date.valueOf(input.next()));
+
+    System.out.print("종료일? ");
+    newLesson.setEndDate(Date.valueOf(input.next()));
+
+    System.out.print("총수업시간? ");
+    newLesson.setTotalHours(input.nextInt());
+
+    System.out.print("일수업시간? ");
+    newLesson.setDayHours(input.nextInt());
+    input.nextLine(); 
+    
+    this.lessonList.set(index, newLesson);
+    
+    System.out.println("수업을 변경했습니다.");
+  }
+  
 }

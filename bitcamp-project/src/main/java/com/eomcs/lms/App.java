@@ -10,7 +10,7 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
-    java.util.ArrayList list;
+    
     BoardHandler boardHandler = new BoardHandler(keyboard);
     LessonHandler lessonHandler = new LessonHandler(keyboard);
     MemberHandler memberHandler = new MemberHandler(keyboard);
@@ -27,6 +27,12 @@ public class App {
           break;
         case "/lesson/list":
           lessonHandler.listLesson();
+          break;
+        case "/lesson/detail":
+          lessonHandler.detailLesson();
+          break;
+        case "/lesson/update":
+          lessonHandler.updateLesson();
           break;
         case "/member/add":
           memberHandler.addMember();
