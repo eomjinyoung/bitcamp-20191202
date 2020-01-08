@@ -45,30 +45,20 @@ public class ArrayList {
     return this.elementData[index];
   }
   
-  public Object set(int index, Object e) {
+  public void set(int index, Object e) {
     if (index < 0 || index >= this.size) {
-      return null;
+      return;
     }
-    Object oldValue = this.elementData[index];
     this.elementData[index] = e;
-    return oldValue;
   }
   
-  public Object remove(int index) {
-    if (index < 0 || index >= this.size) {
-      return null;
-    }
+  public void remove(int index) {
     
-    Object oldValue = this.elementData[index];
     for (int i = index + 1; i < this.size; i++) {
       this.elementData[i - 1] = this.elementData[i];
     }
+    
     this.size--;
-    return oldValue;
-  }
-  
-  public int size() {
-    return this.size;
   }
 }
 
