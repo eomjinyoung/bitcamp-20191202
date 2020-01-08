@@ -92,32 +92,72 @@ public class LessonHandler {
       return;
     }
     
+    boolean changed = false;
+    String inputStr = null;
     Lesson newLesson = new Lesson();
     
     newLesson.setNo(oldLesson.getNo());
     
-    System.out.print("수업명? ");
-    newLesson.setTitle(input.nextLine());
+    System.out.printf("수업명(%s)? ", oldLesson.getTitle());
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setTitle(oldLesson.getTitle());
+    } else {
+      newLesson.setTitle(inputStr);
+      changed = true;
+    }
 
     System.out.print("설명? ");
-    newLesson.setDescription(input.nextLine());
-
-    System.out.print("시작일? ");
-    newLesson.setStartDate(Date.valueOf(input.next()));
-
-    System.out.print("종료일? ");
-    newLesson.setEndDate(Date.valueOf(input.next()));
-
-    System.out.print("총수업시간? ");
-    newLesson.setTotalHours(input.nextInt());
-
-    System.out.print("일수업시간? ");
-    newLesson.setDayHours(input.nextInt());
-    input.nextLine(); 
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setDescription(oldLesson.getDescription());
+    } else {
+      newLesson.setDescription(inputStr);
+      changed = true;
+    }
     
-    this.lessonList.set(index, newLesson);
+    System.out.printf("시작일(%s)? ", oldLesson.getStartDate());
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setStartDate(oldLesson.getStartDate());
+    } else {
+      newLesson.setStartDate(Date.valueOf(inputStr));
+      changed = true;
+    }
     
-    System.out.println("수업을 변경했습니다.");
+    System.out.printf("종료일(%s)? ", oldLesson.getEndDate());
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setEndDate(oldLesson.getEndDate());
+    } else {
+      newLesson.setEndDate(Date.valueOf(inputStr));
+      changed = true;
+    }
+
+    System.out.printf("총수업시간(%d)? ", oldLesson.getTotalHours());
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setTotalHours(oldLesson.getTotalHours());
+    } else {
+      newLesson.setTotalHours(Integer.parseInt(inputStr));
+      changed = true;
+    }
+    
+    System.out.printf("일수업시간(%d)? ", oldLesson.getDayHours());
+    inputStr = input.nextLine();
+    if (inputStr.length() == 0) {
+      newLesson.setDayHours(oldLesson.getDayHours());
+    } else {
+      newLesson.setDayHours(Integer.parseInt(inputStr));
+      changed = true;
+    }
+    
+    if (changed) {
+      this.lessonList.set(index, newLesson);
+      System.out.println("수업을 변경했습니다.");
+    } else {
+      System.out.println("수업 변경을 취소하였습니다.");
+    }
   }
   
 }
