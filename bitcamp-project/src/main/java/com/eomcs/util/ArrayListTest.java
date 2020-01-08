@@ -47,12 +47,10 @@ public class ArrayListTest {
     
     System.out.println("---------------");
     
-    
   }
   
   static void print(ArrayList<String> arr) {
-    String[] list = new String[arr.size()];
-    arr.toArray(list);
+    String[] list = arr.toArray(new String[0]);
     for (String e : list) {
       System.out.println(e);
     }

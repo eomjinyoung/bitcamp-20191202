@@ -160,4 +160,21 @@ public class LessonHandler {
     }
   }
   
+  public void deleteLesson() {
+    System.out.print("수업 인덱스? ");
+    int index = input.nextInt();
+    input.nextLine(); // 숫자 뒤의 남은 공백 제거
+    
+    Lesson lesson = this.lessonList.get(index);
+    
+    if (lesson == null) {
+      System.out.println("수업 인덱스가 유효하지 않습니다.");
+      return;
+    }
+    
+    this.lessonList.remove(index);
+    
+    System.out.println("수업을 삭제했습니다.");
+  }
+  
 }
