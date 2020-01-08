@@ -34,6 +34,9 @@ public class App {
         case "/lesson/update":
           lessonHandler.updateLesson();
           break;
+        case "/lesson/delete":
+          lessonHandler.deleteLesson();
+          break;
         case "/member/add":
           memberHandler.addMember();
           break;
