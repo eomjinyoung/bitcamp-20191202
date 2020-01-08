@@ -12,11 +12,7 @@ public class ArrayList {
   }
   
   public ArrayList(int initialCapacity) {
-    if (initialCapacity < DEFAULT_CAPACITY) {
-      this.elementData = new Object[DEFAULT_CAPACITY];
-    } else {
-      this.elementData = new Object[initialCapacity];
-    }
+    this.elementData = new Object[initialCapacity];
   }
 }
 
