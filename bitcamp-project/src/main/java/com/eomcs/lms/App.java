@@ -10,7 +10,7 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
-    
+    java.util.ArrayList list;
     BoardHandler boardHandler = new BoardHandler(keyboard);
     LessonHandler lessonHandler = new LessonHandler(keyboard);
     MemberHandler memberHandler = new MemberHandler(keyboard);
