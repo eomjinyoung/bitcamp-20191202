@@ -13,10 +13,10 @@ public class LinkedListTest {
     list.add("fff");
     list.add("ggg");
     
+    list.add(0,"xxx");
+    
     print(list);
     
-    System.out.println(list.get(-1));
-    System.out.println(list.get(7));
   }
   
   static void print(LinkedList list) {

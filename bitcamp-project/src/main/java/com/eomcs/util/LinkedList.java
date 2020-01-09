@@ -34,6 +34,24 @@ public class LinkedList {
     return cursor.value;
   }
   
+  public void add(int index, Object value) {
+    if (index < 0 || index >= size)
+      return;
+    
+    Node newNode = new Node();
+    newNode.value = value;
+    
+    Node cursor = first;
+    for (int i = 0; i < index - 1; i++) {
+      cursor = cursor.next;
+    }
+    
+    newNode.next = cursor.next;
+    cursor.next = newNode;
+    
+    this.size++;
+  }
+  
   static class Node {
     Object value;
     Node next;
