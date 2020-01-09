@@ -65,11 +65,7 @@ public class LessonHandler {
   }
   
   public void updateLesson() {
-    System.out.print("번호? ");
-    int no = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    
-    int index = indexOfLesson(no);
+    int index = indexOfLesson(inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -77,81 +73,50 @@ public class LessonHandler {
     }
     
     Lesson oldLesson = this.lessonList.get(index);
-    
-    boolean changed = false;
-    String inputStr = null;
     Lesson newLesson = new Lesson();
     
     newLesson.setNo(oldLesson.getNo());
     
-    System.out.printf("수업명(%s)? ", oldLesson.getTitle());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setTitle(oldLesson.getTitle());
-    } else {
-      newLesson.setTitle(inputStr);
-      changed = true;
-    }
+    newLesson.setTitle(inputString(
+        String.format("수업명(%s)? ", oldLesson.getTitle()), 
+        oldLesson.getTitle()));
 
-    System.out.print("설명? ");
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setDescription(oldLesson.getDescription());
-    } else {
-      newLesson.setDescription(inputStr);
-      changed = true;
-    }
+    newLesson.setDescription(inputString("설명? ", oldLesson.getTitle()));
     
-    System.out.printf("시작일(%s)? ", oldLesson.getStartDate());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setStartDate(oldLesson.getStartDate());
-    } else {
-      newLesson.setStartDate(Date.valueOf(inputStr));
-      changed = true;
-    }
+    newLesson.setStartDate(inputDate(
+        String.format("시작일(%s)? ", oldLesson.getStartDate()), 
+        oldLesson.getStartDate()));
     
-    System.out.printf("종료일(%s)? ", oldLesson.getEndDate());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setEndDate(oldLesson.getEndDate());
-    } else {
-      newLesson.setEndDate(Date.valueOf(inputStr));
-      changed = true;
-    }
-
-    System.out.printf("총수업시간(%d)? ", oldLesson.getTotalHours());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setTotalHours(oldLesson.getTotalHours());
-    } else {
-      newLesson.setTotalHours(Integer.parseInt(inputStr));
-      changed = true;
-    }
+    newLesson.setEndDate(inputDate(
+        String.format("종료일(%s)? ", oldLesson.getEndDate()), 
+        oldLesson.getEndDate()));
     
-    System.out.printf("일수업시간(%d)? ", oldLesson.getDayHours());
-    inputStr = input.nextLine();
-    if (inputStr.length() == 0) {
-      newLesson.setDayHours(oldLesson.getDayHours());
-    } else {
-      newLesson.setDayHours(Integer.parseInt(inputStr));
-      changed = true;
-    }
+    newLesson.setTotalHours(inputInt(
+        String.format("총수업시간(%d)? ", oldLesson.getTotalHours()), 
+        oldLesson.getTotalHours()));
     
-    if (changed) {
-      this.lessonList.set(index, newLesson);
-      System.out.println("수업을 변경했습니다.");
-    } else {
+    newLesson.setDayHours(inputInt(
+        String.format("일수업시간(%d)? ", oldLesson.getDayHours()), 
+        oldLesson.getDayHours()));
+    
+    /*
+    int oldValue = oldLesson.getDayHours();
+    String label = "일수업시간(" + oldValue + ")? ";
+    int newValue = inputInt(label, oldValue);
+    newLesson.setDayHours(newValue);
+    */
+    
+    if (oldLesson.equals(newLesson)) {
       System.out.println("수업 변경을 취소하였습니다.");
+      return;
     }
+    
+    this.lessonList.set(index, newLesson);
+    System.out.println("수업을 변경했습니다.");
   }
   
   public void deleteLesson() {
-    System.out.print("번호? ");
-    int no = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    
-    int index = indexOfLesson(no);
+    int index = indexOfLesson(inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -177,14 +142,41 @@ public class LessonHandler {
     return input.nextLine();
   }
   
+  private String inputString(String label, String defaultValue) {
+    System.out.print(label);
+    String value = input.nextLine();
+    if (value.length() == 0) {
+      return defaultValue;
+    }
+    return value;
+  }
+  
   private int inputInt(String label) {
     System.out.print(label);
     return Integer.parseInt(input.nextLine());
   }
   
+  private int inputInt(String label, int defaultValue) {
+    System.out.print(label);
+    String value = input.nextLine();
+    if (value.length() == 0) {
+      return defaultValue;
+    }
+    return Integer.parseInt(value);
+  }
+  
   private Date inputDate(String label) {
     System.out.print(label);
     return Date.valueOf(input.nextLine());
+  }
+  
+  private Date inputDate(String label, Date defaultValue) {
+    System.out.print(label);
+    String value = input.nextLine();
+    if (value.length() == 0) {
+      return defaultValue;
+    }
+    return Date.valueOf(value);
   }
   
 }
