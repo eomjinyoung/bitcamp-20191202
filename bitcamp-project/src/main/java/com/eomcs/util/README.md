@@ -6,3 +6,4 @@
 - 4) add(Object) 추가 
 - 5) get(int) 추가 
 - 6) add(int,Object) 추가
+- 7) remove(int) 추가

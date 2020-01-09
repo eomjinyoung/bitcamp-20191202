@@ -57,6 +57,30 @@ public class LinkedList {
     this.size++;
   }
   
+  public Object remove(int index) {
+    if (index < 0 || index >= size)
+      return null;
+    
+    Node cursor = first;
+    for (int i = 0; i < index - 1; i++) {
+      cursor = cursor.next;
+    }
+    
+    Node deletedNode = null;
+    if (index == 0) {
+      deletedNode = first;
+      first = deletedNode.next;
+    } else {
+      deletedNode = cursor.next;
+      cursor.next = deletedNode.next;
+    }
+
+    deletedNode.next = null;
+    size--;
+    
+    return deletedNode.value;
+  }
+  
   static class Node {
     Object value;
     Node next;

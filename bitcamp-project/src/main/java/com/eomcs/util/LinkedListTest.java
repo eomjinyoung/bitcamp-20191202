@@ -13,7 +13,7 @@ public class LinkedListTest {
     list.add("fff");
     list.add("ggg");
     
-    list.add(0,"xxx");
+    list.remove(6);
     
     print(list);
     
