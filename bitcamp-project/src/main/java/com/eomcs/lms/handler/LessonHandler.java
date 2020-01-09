@@ -1,3 +1,5 @@
+// 사용자 입력을 받는 코드를 별도의 메서드로 분리한다.
+//
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
@@ -19,29 +21,13 @@ public class LessonHandler {
   public void addLesson() {
     Lesson lesson = new Lesson();
     
-    System.out.print("번호? ");
-    lesson.setNo(input.nextInt());
-
-    input.nextLine(); 
-
-    System.out.print("수업명? ");
-    lesson.setTitle(input.nextLine());
-
-    System.out.print("설명? ");
-    lesson.setDescription(input.nextLine());
-
-    System.out.print("시작일? ");
-    lesson.setStartDate(Date.valueOf(input.next()));
-
-    System.out.print("종료일? ");
-    lesson.setEndDate(Date.valueOf(input.next()));
-
-    System.out.print("총수업시간? ");
-    lesson.setTotalHours(input.nextInt());
-
-    System.out.print("일수업시간? ");
-    lesson.setDayHours(input.nextInt());
-    input.nextLine(); 
+    lesson.setNo(inputInt("번호? "));
+    lesson.setTitle(inputString("수업명? "));
+    lesson.setDescription(inputString("설명? "));
+    lesson.setStartDate(inputDate("시작일? "));
+    lesson.setEndDate(inputDate("종료일? "));
+    lesson.setTotalHours(inputInt("총수업시간? "));
+    lesson.setDayHours(inputInt("일수업시간? "));
     
     lessonList.add(lesson);
     
@@ -60,11 +46,7 @@ public class LessonHandler {
   }
   
   public void detailLesson() {
-    System.out.print("번호? ");
-    int no = input.nextInt();
-    input.nextLine(); // 숫자 뒤의 남은 공백 제거
-    
-    int index = indexOfLesson(no);
+    int index = indexOfLesson(inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -190,4 +172,23 @@ public class LessonHandler {
     return -1;
   }
   
+  private String inputString(String label) {
+    System.out.print(label);
+    return input.nextLine();
+  }
+  
+  private int inputInt(String label) {
+    System.out.print(label);
+    return Integer.parseInt(input.nextLine());
+  }
+  
+  private Date inputDate(String label) {
+    System.out.print(label);
+    return Date.valueOf(input.nextLine());
+  }
+  
 }
+
+
+
+
