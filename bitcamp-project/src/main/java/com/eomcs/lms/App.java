@@ -11,7 +11,7 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
-    
+    java.util.LinkedList list;
     Prompt prompt = new Prompt(keyboard);
     
     BoardHandler boardHandler = new BoardHandler(prompt);

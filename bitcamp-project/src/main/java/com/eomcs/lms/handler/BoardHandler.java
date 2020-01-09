@@ -83,7 +83,6 @@ public class BoardHandler {
         String.format("내용(%s)? ", oldBoard.getTitle()), 
         oldBoard.getTitle()));
     
-    
     if (newBoard.equals(oldBoard)) {
       System.out.println("게시글 변경을 취소했습니다.");
       return;
