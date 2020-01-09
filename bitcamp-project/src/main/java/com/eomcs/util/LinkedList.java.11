@@ -126,10 +126,6 @@ public class LinkedList<E> {
     return arr;
   }
   
-  public int size() {
-    return this.size;
-  }
-  
   static class Node<T> {
     T value;
     Node<T> next;

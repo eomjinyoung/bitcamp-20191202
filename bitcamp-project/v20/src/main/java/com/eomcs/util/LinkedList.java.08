@@ -1,17 +1,15 @@
 package com.eomcs.util;
 
-import java.lang.reflect.Array;
-
-public class LinkedList<E> {
+public class LinkedList {
   
-  Node<E> first;
+  Node first;
   
-  Node<E> last;
+  Node last;
   
   int size;
   
-  public void add(E value) {
-    Node<E> newNode = new Node<>();
+  public void add(Object value) {
+    Node newNode = new Node();
     newNode.value = value;
     
     if (first == null) {
@@ -24,11 +22,11 @@ public class LinkedList<E> {
     this.size++;
   }
   
-  public E get(int index) {
+  public Object get(int index) {
     if (index < 0 || index >= size)
       return null;
     
-    Node<E> cursor = first;
+    Node cursor = first;
     for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
@@ -36,14 +34,14 @@ public class LinkedList<E> {
     return cursor.value;
   }
   
-  public void add(int index, E value) {
+  public void add(int index, Object value) {
     if (index < 0 || index >= size)
       return;
     
-    Node<E> newNode = new Node<>();
+    Node newNode = new Node();
     newNode.value = value;
     
-    Node<E> cursor = first;
+    Node cursor = first;
     for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
@@ -59,16 +57,16 @@ public class LinkedList<E> {
     this.size++;
   }
   
-  public E remove(int index) {
+  public Object remove(int index) {
     if (index < 0 || index >= size)
       return null;
     
-    Node<E> cursor = first;
+    Node cursor = first;
     for (int i = 0; i < index - 1; i++) {
       cursor = cursor.next;
     }
     
-    Node<E> deletedNode = null;
+    Node deletedNode = null;
     if (index == 0) {
       deletedNode = first;
       first = deletedNode.next;
@@ -83,55 +81,23 @@ public class LinkedList<E> {
     return deletedNode.value;
   }
   
-  public E set(int index, E value) {
+  public Object set(int index, Object value) {
     if (index < 0 || index >= size)
       return null;
     
-    Node<E> cursor = first;
+    Node cursor = first;
     for (int i = 0; i < index; i++) {
       cursor = cursor.next;
     }
     
-    E oldValue = cursor.value;
+    Object oldValue = cursor.value;
     cursor.value = value;
     
     return oldValue;
   }
   
-  public Object[] toArray() {
-    Object[] arr = new Object[size];
-    
-    Node<E> cursor = first;
-    for (int i = 0; i < size; i++) {
-      arr[i] = cursor.value;
-      cursor = cursor.next;
-    }
-    
-    return arr;
-  }
-  
-  @SuppressWarnings("unchecked")
-  public E[] toArray(E[] arr) {
-    
-    if (arr.length < size) {
-      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
-    }
-    
-    Node<E> cursor = first;
-    for (int i = 0; i < size; i++) {
-      arr[i] = cursor.value;
-      cursor = cursor.next;
-    }
-    
-    return arr;
-  }
-  
-  public int size() {
-    return this.size;
-  }
-  
-  static class Node<T> {
-    T value;
-    Node<T> next;
+  static class Node {
+    Object value;
+    Node next;
   }
 }

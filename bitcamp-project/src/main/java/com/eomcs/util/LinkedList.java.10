@@ -110,26 +110,6 @@ public class LinkedList<E> {
     return arr;
   }
   
-  @SuppressWarnings("unchecked")
-  public E[] toArray(E[] arr) {
-    
-    if (arr.length < size) {
-      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
-    }
-    
-    Node<E> cursor = first;
-    for (int i = 0; i < size; i++) {
-      arr[i] = cursor.value;
-      cursor = cursor.next;
-    }
-    
-    return arr;
-  }
-  
-  public int size() {
-    return this.size;
-  }
-  
   static class Node<T> {
     T value;
     Node<T> next;
