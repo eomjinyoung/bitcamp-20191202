@@ -2,32 +2,31 @@
 //
 package com.eomcs.lms.handler;
 
-import java.sql.Date;
-import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.util.ArrayList;
+import com.eomcs.util.Prompt;
 
 public class LessonHandler {
   
   ArrayList<Lesson> lessonList;
   
-  public Scanner input;
+  public Prompt prompt;
   
-  public LessonHandler(Scanner input) {
-    this.input = input;
+  public LessonHandler(Prompt prompt) {
+    this.prompt = prompt;
     this.lessonList = new ArrayList<>();
   }
   
   public void addLesson() {
     Lesson lesson = new Lesson();
     
-    lesson.setNo(inputInt("번호? "));
-    lesson.setTitle(inputString("수업명? "));
-    lesson.setDescription(inputString("설명? "));
-    lesson.setStartDate(inputDate("시작일? "));
-    lesson.setEndDate(inputDate("종료일? "));
-    lesson.setTotalHours(inputInt("총수업시간? "));
-    lesson.setDayHours(inputInt("일수업시간? "));
+    lesson.setNo(prompt.inputInt("번호? "));
+    lesson.setTitle(prompt.inputString("수업명? "));
+    lesson.setDescription(prompt.inputString("설명? "));
+    lesson.setStartDate(prompt.inputDate("시작일? "));
+    lesson.setEndDate(prompt.inputDate("종료일? "));
+    lesson.setTotalHours(prompt.inputInt("총수업시간? "));
+    lesson.setDayHours(prompt.inputInt("일수업시간? "));
     
     lessonList.add(lesson);
     
@@ -46,7 +45,7 @@ public class LessonHandler {
   }
   
   public void detailLesson() {
-    int index = indexOfLesson(inputInt("번호? "));
+    int index = indexOfLesson(prompt.inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -65,7 +64,7 @@ public class LessonHandler {
   }
   
   public void updateLesson() {
-    int index = indexOfLesson(inputInt("번호? "));
+    int index = indexOfLesson(prompt.inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -77,25 +76,25 @@ public class LessonHandler {
     
     newLesson.setNo(oldLesson.getNo());
     
-    newLesson.setTitle(inputString(
+    newLesson.setTitle(prompt.inputString(
         String.format("수업명(%s)? ", oldLesson.getTitle()), 
         oldLesson.getTitle()));
 
-    newLesson.setDescription(inputString("설명? ", oldLesson.getTitle()));
+    newLesson.setDescription(prompt.inputString("설명? ", oldLesson.getTitle()));
     
-    newLesson.setStartDate(inputDate(
+    newLesson.setStartDate(prompt.inputDate(
         String.format("시작일(%s)? ", oldLesson.getStartDate()), 
         oldLesson.getStartDate()));
     
-    newLesson.setEndDate(inputDate(
+    newLesson.setEndDate(prompt.inputDate(
         String.format("종료일(%s)? ", oldLesson.getEndDate()), 
         oldLesson.getEndDate()));
     
-    newLesson.setTotalHours(inputInt(
+    newLesson.setTotalHours(prompt.inputInt(
         String.format("총수업시간(%d)? ", oldLesson.getTotalHours()), 
         oldLesson.getTotalHours()));
     
-    newLesson.setDayHours(inputInt(
+    newLesson.setDayHours(prompt.inputInt(
         String.format("일수업시간(%d)? ", oldLesson.getDayHours()), 
         oldLesson.getDayHours()));
     
@@ -116,7 +115,7 @@ public class LessonHandler {
   }
   
   public void deleteLesson() {
-    int index = indexOfLesson(inputInt("번호? "));
+    int index = indexOfLesson(prompt.inputInt("번호? "));
     
     if (index == -1) {
       System.out.println("해당 번호의 수업이 없습니다.");
@@ -137,47 +136,7 @@ public class LessonHandler {
     return -1;
   }
   
-  private String inputString(String label) {
-    System.out.print(label);
-    return input.nextLine();
-  }
-  
-  private String inputString(String label, String defaultValue) {
-    System.out.print(label);
-    String value = input.nextLine();
-    if (value.length() == 0) {
-      return defaultValue;
-    }
-    return value;
-  }
-  
-  private int inputInt(String label) {
-    System.out.print(label);
-    return Integer.parseInt(input.nextLine());
-  }
-  
-  private int inputInt(String label, int defaultValue) {
-    System.out.print(label);
-    String value = input.nextLine();
-    if (value.length() == 0) {
-      return defaultValue;
-    }
-    return Integer.parseInt(value);
-  }
-  
-  private Date inputDate(String label) {
-    System.out.print(label);
-    return Date.valueOf(input.nextLine());
-  }
-  
-  private Date inputDate(String label, Date defaultValue) {
-    System.out.print(label);
-    String value = input.nextLine();
-    if (value.length() == 0) {
-      return defaultValue;
-    }
-    return Date.valueOf(value);
-  }
+
   
 }
 
