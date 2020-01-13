@@ -95,7 +95,7 @@ public class App {
   }
   
   private static void printCommandHistory() {
-    Stack<String> historyStack = (Stack<String>) commandStack.clone();
+    Stack<String> historyStack = commandStack.clone();
     int count = 0;
     while (!historyStack.empty()) {
       System.out.println(historyStack.pop());
