@@ -1,12 +1,12 @@
 package com.eomcs.util;
 
-public class Queue<E> extends LinkedList<E> implements Cloneable {
+public class Queue extends LinkedList<Object> implements Cloneable {
   
-  public void offer(E value) {
+  public void offer(Object value) {
     this.add(value);
   }
   
-  public E poll() {
+  public Object poll() {
     return this.remove(0);
   }
   
@@ -35,7 +35,7 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
   */
   
   @Override
-  public Queue<E> clone() {
+  public Queue clone() {
     // 'deep copy' 수행
     // => 스택의 경우 배열을 복사하면 되기 때문에,
     //    기존의 'shallow copy'를 수행한 후 배열을 따로 복사하였다.
@@ -44,7 +44,7 @@ public class Queue<E> extends LinkedList<E> implements Cloneable {
     // => 그냥 다음과 같이 새 Queue를 만들고, 
     //    기존 Queue에 저장된 값을 꺼내서 새 Queue에 저장해야 한다.
     //
-    Queue<E> temp = new Queue<E>();
+    Queue temp = new Queue();
     
     for (int i = 0; i < this.size(); i++) {
       temp.offer(this.get(i));
