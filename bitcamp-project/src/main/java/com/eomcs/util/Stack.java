@@ -43,9 +43,13 @@ public class Stack implements Cloneable {
   }
   
   // Object.clone()의 'shallow copy' 이용하여 스택 객체 복사하기
+  // => 객체의 인스턴스 변수를 그대로 복제한다.
+  // => 인스턴스 변수가 가리키는 객체는 복제하지 않는다.
+  // 
   // 문제점?
-  // => 데이터가 실제 저장된 배열은 복제하지 않는다.
+  // => 따라서 인스턴스 변수인 elementData가 가리키는 배열은 복제하지 않는다.
   // => 그래서 배열의 값을 배꾸면 원본 스택에도 영향을 끼친다.
+  //
   /*
   @Override
   public Stack clone() {
