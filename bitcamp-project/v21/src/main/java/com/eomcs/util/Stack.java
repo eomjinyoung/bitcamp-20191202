@@ -2,7 +2,7 @@ package com.eomcs.util;
 
 import java.util.Arrays;
 
-public class Stack implements Cloneable {
+public class Stack<E> implements Cloneable {
   
   private static final int DEFAULT_CAPACITY = 10;
   
@@ -14,7 +14,7 @@ public class Stack implements Cloneable {
     this.size = 0;
   }
   
-  public void push(Object value) {
+  public void push(E value) {
     if (this.size == elementData.length) {
       grow();
     }
@@ -30,10 +30,11 @@ public class Stack implements Cloneable {
     return oldCapacity + (oldCapacity >> 1);
   }
   
-  public Object pop() {
+  @SuppressWarnings("unchecked")
+  public E pop() {
     if (this.empty())
       return null;
-    Object value = this.elementData[--this.size];
+    E value = (E) this.elementData[--this.size];
     this.elementData[this.size] = null;
     return value;
   }
@@ -43,9 +44,13 @@ public class Stack implements Cloneable {
   }
   
   // Object.clone()의 'shallow copy' 이용하여 스택 객체 복사하기
+  // => 객체의 인스턴스 변수를 그대로 복제한다.
+  // => 인스턴스 변수가 가리키는 객체는 복제하지 않는다.
+  // 
   // 문제점?
-  // => 데이터가 실제 저장된 배열은 복제하지 않는다.
+  // => 따라서 인스턴스 변수인 elementData가 가리키는 배열은 복제하지 않는다.
   // => 그래서 배열의 값을 배꾸면 원본 스택에도 영향을 끼친다.
+  //
   /*
   @Override
   public Stack clone() {
@@ -72,11 +77,13 @@ public class Stack implements Cloneable {
   // => 데이터가 들어있는 배열도 그대로 복제한다.
   // => 따라서 배열의 값을 바꾸더라도 원본 객체에 영향을 끼치지 않는다.
   //
+  
+  @SuppressWarnings("unchecked")
   @Override
-  public Stack clone() {
+  public Stack<E> clone() {
     try {
       //1) 'shallow copy'를 통해 이 객체의 인스턴스 변수는 그대로 복제한다. 
-      Stack temp = (Stack) super.clone();
+      Stack<E> temp = (Stack<E>) super.clone();
       
       //2) elementData 배열을 복제한다.
       // => 배열만 복제하고 그 배열에 저장된 객체(ex: 문자열, Member 등)까지는 복제하지 않는다.

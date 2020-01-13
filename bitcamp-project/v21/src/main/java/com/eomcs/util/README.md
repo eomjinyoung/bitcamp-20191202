@@ -8,7 +8,9 @@
 - 6) push() 변경: 배열 크기를 늘리는 코드를 별도의 메서드(grow())로 분리한다.(리팩토링)
 - 7) grow() 변경: 새 배열 크기를 계산하는 코드를 별도의 메서드(newCapacity())로 분리한다.(리팩토링)
 - 8) pop() 추가
-- 9) empty() 추가
-- 10) Object의 clone() 메서드 재정의
+- 9) empty() 추가 
+- 10) Object의 clone() 메서드 재정의 : shallow copy 
+- 11) Object의 clone() 메서드 변경 : deep copy
+- 12) 제네릭 적용
 
 
