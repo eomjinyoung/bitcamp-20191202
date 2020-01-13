@@ -5,6 +5,7 @@ import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
 
 public class App {
@@ -12,6 +13,7 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   
   static Stack<String> commandStack = new Stack<>();
+  static Queue commandQueue = new Queue();
   
   public static void main(String[] args) {
     
@@ -31,6 +33,8 @@ public class App {
         continue;
       
       commandStack.push(command);
+      
+      commandQueue.offer(command);
       
       switch (command) {
         case "/lesson/add":
@@ -81,6 +85,9 @@ public class App {
         case "history":
           printCommandHistory();
           break;
+        case "history2":
+          printCommandHistory2();
+          break;
         default:
           if (!command.equalsIgnoreCase("quit")) {
             System.out.println("실행할 수 없는 명령입니다.");
@@ -94,6 +101,11 @@ public class App {
     keyboard.close();
   }
   
+  private static void printCommandHistory2() {
+    System.out.println("명령 목록 출력!");
+    
+  }
+
   private static void printCommandHistory() {
     Stack<String> historyStack = (Stack<String>) commandStack.clone();
     int count = 0;
@@ -110,6 +122,7 @@ public class App {
       }
     }
   }
+  
 }
 
 
