@@ -102,7 +102,20 @@ public class App {
   }
   
   private static void printCommandHistory2() {
-    System.out.println("명령 목록 출력!");
+    Queue historyQueue = commandQueue.clone();
+    int count = 0;
+    
+    while (historyQueue.size() > 0) {
+      System.out.println(historyQueue.poll());
+      
+      if ((++count % 5) == 0) {
+        System.out.print(":");
+        String str = keyboard.nextLine();
+        if (str.equalsIgnoreCase("q")) {
+          break;
+        }
+      }
+    }
     
   }
 
