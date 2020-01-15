@@ -1,39 +1,34 @@
-// 게시글 번호로 객체를 찾는 코드를 관리하기 쉽게 별도의 메서드로 분리한다.
-// => indexOfBoard(int) 메서드 추가
-//
+// listBoard() 메서드 변경
+// => toArray()의 리턴 값을 사용하는 대신 iterator()의 리턴 값을 사용하여 목록 출력. 
 package com.eomcs.lms.handler;
 
 import java.sql.Date;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.Iterator;
 import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
   
-  // 목록을 다루는 객체를 지정할 때,
-  // => 특정 클래스(예: AbstractList, LinkedList, ArrayList)를 지정하는 대신에,
-  // => 사용 규칙(예: List)을 지정함으로써 
-  // 더 다양한 타입의 객체로 교체할 수 있게 만든다.
-  // => List 사용 규칙을 구현한 객체라면 어떤 클래스의 객체든지 사용할 수 있다.
-  // 결국 유지보수를 더 유연하게 하기 위함이다.
   List<Board> boardList;
   
   Prompt prompt;
   
   public BoardHandler(Prompt prompt, List<Board> list) {
-    // list 파라미터는 List 인터페이스를 구현한 객체를 받는다.
     this.prompt = prompt;
     this.boardList = list;
   }
   
   public void listBoard() {
-    // BoardList의 보관된 값을 받을 배열을 준비한다. 
-    Board[] arr = new Board[this.boardList.size()];
-
-    // toArray()에게 빈 배열을 넘겨서 복사 받는다.
-    this.boardList.toArray(arr);
+    // BoardList 에게 값을 꺼내는 일을 해줄 Iterator 객체을 달라고 한다.
+    Iterator<Board> iterator = boardList.iterator();
     
-    for (Board b : arr) {
+    // Iterator 객체에게 목록에서 꺼낼 값이 있는지 물어본다. 
+    while (iterator.hasNext()) {
+      
+      // 값이 있다고 한다면, 그 값을 꺼내 달라고 요청한다.
+      Board b = iterator.next();
+      
       System.out.printf("%d, %s, %s, %d\n", 
           b.getNo(), b.getTitle(), b.getDate(), b.getViewCount());
     }
