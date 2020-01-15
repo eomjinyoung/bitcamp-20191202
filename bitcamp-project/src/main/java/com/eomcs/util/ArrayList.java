@@ -117,6 +117,34 @@ public class ArrayList<E> extends AbstractList<E> {
     int oldSize = this.elementData.length;
     return oldSize + (oldSize >> 1);
   }
+  
+  @Override
+  public Iterator<E> iterator() {
+    
+    // ArrayList 객체에서 Iterator 규칙에 따라 값을 꺼내주는 클래스를 정의
+    class IteratorImpl<T> implements Iterator<T> {
+      
+      ArrayList<T> list;
+      int cursor;
+      
+      public IteratorImpl(ArrayList<T> list) {
+        this.list = list;
+      }
+      
+      @Override
+      public boolean hasNext() {
+        return cursor < list.size();
+      }
+      
+      @Override
+      public T next() {
+        return list.get(cursor++);
+      }
+    }
+    
+    // 위에서 정의한 Iterator 구현체를 준비하여 리턴한다.
+    return new IteratorImpl<>(this);
+  }
 }
 
 

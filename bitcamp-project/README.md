@@ -1,22 +1,27 @@
-# 23_3 - 인터페이스를 활용하여 객체 사용 규칙 정의하기
+# 24 - `Iterator` 디자인 패턴의 활용
 
 ## 학습 목표
 
-- 인터페이스의 용도와 이점을 이해한다.
-- 객체 간의 사용 규칙을 정의할 때 인터페이스를 활용할 수 있다.
+- `Iterator` 디자인 패턴의 용도를 이해하고 활용할 수 있다.
+- 자료구조와 상관없이 일관된 방법으로 데이터를 조회할 수 있다.
 
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/util/List.java 추가
-- src/main/java/com/eomcs/util/AbstractList.java 변경
+- src/main/java/com/eomcs/util/Iterator.java 추가
+- src/main/java/com/eomcs/util/Stack.java 변경
+- src/main/java/com/eomcs/util/Queue.java 변경
+- src/main/java/com/eomcs/lms/App.java 변경
 
 ## 실습
 
-### 훈련1. 추상 클래스에서 추상 메서드를 추출하여 인터페이스를 정의하라.
+### 훈련1. Stack 이나 Queue 에서 값을 꺼내는 방법을 통일하라.
 
-- List.java
-    - AbstractList 추상 클래스에 있는 추상 메서드를 추출하여 따로 메서드 사용 규칙을 정의한다.
-- AbstractList.java
-    - 추상 메서드를 List 인터페이스로 옮긴다.
-    - List 규칙을 따른다.
+- Iterator.java
+    - 인터페이스로 값을 꺼내는 규칙을 정의한다.
+- Stack.java
+    - `Iterator` 인터페이스의 구현체를 리턴하는 iterator() 를 정의한다.
+- Queue.java
+    - `Iterator` 인터페이스의 구현체를 리턴하는 iterator() 를 정의한다.
+- App.java
+    - `history`, `history2` 명령을 처리할 때 Stack, Queue 객체에서 직접 값을 꺼내지 않고 Iterator 구현체를 통해서 꺼낸다.
