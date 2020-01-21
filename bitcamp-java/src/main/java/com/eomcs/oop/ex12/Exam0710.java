@@ -13,7 +13,7 @@ public class Exam0710 {
   public static void main(String[] args) {
 
     // 인터페이스에 정의된 메서드가
-    // 파라미터가 없고, 리턴 타입이 객체일 때
+    // 생성자의 형식과 일치하다면
     // 메서드 레퍼런스로 생성자를 지정할 수 있다.
     //
     ListFactory f1 = ArrayList::new;
