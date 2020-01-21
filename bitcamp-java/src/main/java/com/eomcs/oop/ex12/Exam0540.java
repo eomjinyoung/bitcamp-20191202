@@ -2,7 +2,7 @@
 package com.eomcs.oop.ex12;
 
 
-public class Exam0512 {
+public class Exam0540 {
 
   static class MyCalculator {
     public static int plus(int a, int b) {
@@ -50,6 +50,14 @@ public class Exam0512 {
     int compute(Integer a, Integer b);
   }
 
+  static interface Calculator8 {
+    int compute(int a);
+  }
+
+  static interface Calculator9 {
+    int compute(int a, int b, int c);
+  }
+
   public static void main(String[] args) {
 
     // 파라미터 타입: byte ===> int
@@ -72,6 +80,12 @@ public class Exam0512 {
 
     // 파라미터 타입: Integer ===> int
     Calculator7 c7 = MyCalculator::plus; // OK
+
+    // 파라미터 타입: int, int ===> int
+    // Calculator8 c8 = MyCalculator::plus; // 컴파일 오류!
+
+    // 파라미터 타입: int, int ===> int
+    // Calculator9 c9 = MyCalculator::plus; // 컴파일 오류!
 
     // 메서드 레퍼런스를 지정할 때 파라미터 타입 규칙:
     // => 인터페이스 규칙에 따라 받은 값을

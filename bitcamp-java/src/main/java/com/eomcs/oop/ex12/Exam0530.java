@@ -2,7 +2,7 @@
 package com.eomcs.oop.ex12;
 
 
-public class Exam0511 {
+public class Exam0530 {
 
   static class MyCalculator {
     public static int plus(int a, int b) {
