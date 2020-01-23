@@ -11,6 +11,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
@@ -44,9 +45,9 @@ public class App {
   static Deque<String> commandStack = new ArrayDeque<>();
   static Queue<String> commandQueue = new LinkedList<>();
 
-  static ArrayList<Lesson> lessonList = new ArrayList<>();
-  static LinkedList<Member> memberList = new LinkedList<>();
-  static LinkedList<Board> boardList = new LinkedList<>();
+  static List<Lesson> lessonList = new ArrayList<>();
+  static List<Member> memberList = new LinkedList<>();
+  static List<Board> boardList = new LinkedList<>();
 
   public static void main(String[] args) {
 
@@ -150,33 +151,17 @@ public class App {
 
   private static void loadLessonData() {
     // 데이터가 보관된 파일을 정보를 준비한다.
-    File file = new File("./lesson.csv");
+    File file = new File("./lesson.json");
 
     FileReader in = null;
-    Scanner dataScan = null;
 
     try {
-      // 파일을 읽을 때 사용할 도구를 준비한다.
       in = new FileReader(file);
-
-      // .csv 파일에서 한 줄 단위로 문자열을 읽는 기능이 필요한데,
-      // FileReader에는 그런 기능이 없다.
-      // 그래서 FileReader를 그대로 사용할 수 없고,
-      // 이 객체에 다른 도구를 연결하여 사용할 것이다.
-      //
-      dataScan = new Scanner(in);
-      int count = 0;
-
-      while (true) {
-        try {
-          lessonList.add(Lesson.valueOf(dataScan.nextLine()));
-          count++;
-
-        } catch (Exception e) {
-          break;
-        }
+      Lesson[] lessons = new Gson().fromJson(in, Lesson[].class);
+      for (Lesson lesson : lessons) {
+        lessonList.add(lesson);
       }
-      System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", count);
+      System.out.printf("총 %d 개의 수업 데이터를 로딩했습니다.\n", lessonList.size());
 
     } catch (FileNotFoundException e) {
       System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
@@ -185,11 +170,6 @@ public class App {
       // 이것이 예외처리를 하는 이유이다!!!
     } finally {
       // 자원이 서로 연결된 경우에는 다른 자원을 이용하는 객체부터 닫는다.
-      try {
-        dataScan.close();
-      } catch (Exception e) {
-        // Scanner 객체 닫다가 오류가 발생하더라도 무시한다.
-      }
       try {
         in.close();
       } catch (Exception e) {
@@ -201,20 +181,15 @@ public class App {
 
   private static void saveLessonData() {
     // 데이터가 보관된 파일을 정보를 준비한다.
-    File file = new File("./lesson.csv");
+    File file = new File("./lesson.json");
 
     FileWriter out = null;
 
     try {
       // 파일에 데이터를 저장할 때 사용할 도구를 준비한다.
       out = new FileWriter(file);
-      int count = 0;
-
-      for (Lesson lesson : lessonList) {
-        out.write(lesson.toCsvString() + "\n");
-        count++;
-      }
-      System.out.printf("총 %d 개의 수업 데이터를 저장했습니다.\n", count);
+      out.write(new Gson().toJson(lessonList));
+      System.out.printf("총 %d 개의 수업 데이터를 저장했습니다.\n", lessonList.size());
 
     } catch (IOException e) {
       System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
@@ -229,34 +204,21 @@ public class App {
   }
 
   private static void loadMemberData() {
-    File file = new File("./member.csv");
+    File file = new File("./member.json");
 
     FileReader in = null;
-    Scanner dataScan = null;
 
     try {
       in = new FileReader(file);
-      dataScan = new Scanner(in);
-      int count = 0;
-
-      while (true) {
-        try {
-          memberList.add(Member.valueOf(dataScan.nextLine()));
-          count++;
-
-        } catch (Exception e) {
-          break;
-        }
+      Member[] members = new Gson().fromJson(in, Member[].class);
+      for (Member member : members) {
+        memberList.add(member);
       }
-      System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", count);
+      System.out.printf("총 %d 개의 회원 데이터를 로딩했습니다.\n", memberList.size());
 
     } catch (FileNotFoundException e) {
       System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
     } finally {
-      try {
-        dataScan.close();
-      } catch (Exception e) {
-      }
       try {
         in.close();
       } catch (Exception e) {
@@ -265,19 +227,14 @@ public class App {
   }
 
   private static void saveMemberData() {
-    File file = new File("./member.csv");
+    File file = new File("./member.json");
 
     FileWriter out = null;
 
     try {
       out = new FileWriter(file);
-      int count = 0;
-
-      for (Member member : memberList) {
-        out.write(member.toCsvString() + "\n");
-        count++;
-      }
-      System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", count);
+      out.write(new Gson().toJson(memberList));
+      System.out.printf("총 %d 개의 회원 데이터를 저장했습니다.\n", memberList.size());
 
     } catch (IOException e) {
       System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
