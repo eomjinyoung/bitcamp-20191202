@@ -35,7 +35,6 @@ import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
 import com.eomcs.util.Prompt;
-import com.google.gson.Gson;
 
 public class App {
 
@@ -291,36 +290,34 @@ public class App {
   }
 
   private static void loadBoardData() {
-    File file = new File("./board.json");
+    File file = new File("./board.csv");
 
     FileReader in = null;
+    Scanner dataScan = null;
 
     try {
       in = new FileReader(file);
+      dataScan = new Scanner(in);
+      int count = 0;
 
-      StringBuffer strbuf = new StringBuffer();
-      char[] cbuf = new char[1024];
-      int len = 0;
       while (true) {
-        len = in.read(cbuf); // 파일에서 읽어온 문자 개수를 리턴한다.
-        if (len == -1) {
+        try {
+          boardList.add(Board.valueOf(dataScan.nextLine()));
+          count++;
+
+        } catch (Exception e) {
           break;
         }
-        // 파일에서 데이터를 정상적으로 읽었다면,
-        // StringBuffer에 저장한다.
-        strbuf.append(cbuf, 0, len);
       }
+      System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", count);
 
-      // 파일에서 읽은 JSON 데이터의 문자열을 가지고 객체를 만든다.
-      Gson gson = new Gson();
-      boardList = gson.fromJson(strbuf.toString(), LinkedList.class);
-
-      System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
-
-    } catch (Exception e) {
+    } catch (FileNotFoundException e) {
       System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
-
     } finally {
+      try {
+        dataScan.close();
+      } catch (Exception e) {
+      }
       try {
         in.close();
       } catch (Exception e) {
@@ -329,18 +326,19 @@ public class App {
   }
 
   private static void saveBoardData() {
-    File file = new File("./board.json");
+    File file = new File("./board.csv");
 
     FileWriter out = null;
 
     try {
       out = new FileWriter(file);
+      int count = 0;
 
-      Gson gson = new Gson();
-      String jsonData = gson.toJson(boardList);
-      out.write(jsonData);
-
-      System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", boardList.size());
+      for (Board board : boardList) {
+        out.write(board.toCsvString() + "\n");
+        count++;
+      }
+      System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", count);
 
     } catch (IOException e) {
       System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
