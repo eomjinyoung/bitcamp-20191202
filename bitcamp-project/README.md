@@ -45,11 +45,14 @@
   - saveMemberData()를 변경한다.
   - loadMemberData()를 변경한다.
   
-  ### 훈련 4: 수업 데이터를 저장하고 읽을 때 JSON 형식을 사용하라.
+### 훈련 4: 수업 데이터를 저장하고 읽을 때 JSON 형식을 사용하라.
 
 - App.java 
   - saveLessonData()를 변경한다.
   - loadLesssonData()를 변경한다.
 
+### 훈련 5: Arrays 의 메서드를 활용하여 배열을 List 객체로 만들어라.
 
+- App.java
+  - 해당 부분의 코드를 변경한다.
 
