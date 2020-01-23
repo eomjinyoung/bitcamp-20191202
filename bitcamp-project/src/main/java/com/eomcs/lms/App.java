@@ -298,23 +298,10 @@ public class App {
     try {
       in = new FileReader(file);
 
-      StringBuffer strbuf = new StringBuffer();
-      char[] cbuf = new char[1024];
-      int len = 0;
-      while (true) {
-        len = in.read(cbuf); // 파일에서 읽어온 문자 개수를 리턴한다.
-        if (len == -1) {
-          break;
-        }
-        // 파일에서 데이터를 정상적으로 읽었다면,
-        // StringBuffer에 저장한다.
-        strbuf.append(cbuf, 0, len);
+      Board[] boards = new Gson().fromJson(in, Board[].class);
+      for (Board board : boards) {
+        boardList.add(board);
       }
-
-      // 파일에서 읽은 JSON 데이터의 문자열을 가지고 객체를 만든다.
-      Gson gson = new Gson();
-      boardList = gson.fromJson(strbuf.toString(), LinkedList.class);
-
       System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
 
     } catch (Exception e) {
@@ -335,11 +322,7 @@ public class App {
 
     try {
       out = new FileWriter(file);
-
-      Gson gson = new Gson();
-      String jsonData = gson.toJson(boardList);
-      out.write(jsonData);
-
+      out.write(new Gson().toJson(boardList));
       System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", boardList.size());
 
     } catch (IOException e) {
