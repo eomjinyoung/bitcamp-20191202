@@ -1,30 +1,26 @@
-# 31 - `Observer` 디자인 패턴의 활용
+# 31_2 - 애플리케이션을 시작하거나 종료할 때 작업할 옵저버를 추가한다.
 
 ## 학습목표
 
-- 특정 상태에서 수행되는 코드를 캡슐화하여 분리할 수 있다.
-- `Observer` 디자인 패턴의 용도와 이점을 이해한다.
+- 옵저버 디자인 패턴에 따라 옵저버를 정의할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/context/ApplicationContextListener.java 추가
-- src/main/java/com/eomcs/lms/App.java 변경
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 추가
+- src/main/java/com/eomcs/lms/App.java 변경
 
 ## 실습  
 
-### 훈련 1: App 클래스의 스태틱 필드와 메서드를 인스턴스 멤버로 전환한다.
+### 훈련 1: 애플리케이션을 시작하거나 종료할 때 데이터를 로딩하고 저장할 옵저버를 만든다.
 
-- App.java (App.java.01)
-  - 스태틱 필드와 스태틱 메서드를 인스턴스 필드와 인스턴스 메서드로 전환한다.
-  - 보통 실무에서는 클래스의 일반적인 구조로 인스턴스 필드와 메서드를 사용한다.
+- DataLoaderListener.java 추가
+  - ApplicationContextListener를 구현한다.
+  
 
-### 훈련 2: 애플리케이션이 시작하거나 종료될 때 호출될 옵저버의 규칙을 정의한다.
+### 훈련 2: DataLoaderListener 옵저버를 App 객체에 등록한다.
 
-- ApplicationContextListener.java (ApplicationContextListener.java.01)
-    - Observer가 갖춰야 할 규칙을 정의한다.
-    - 애플리케이션이 시작할 때 자동으로 호출할 메서드의 규칙을 정의한다.
-    - 애플리케이션을 종료하기 전에 자동으로 호출할 메서드의 규칙을 정의한다.
+- App.java 변경
+    - DataLoaderListener 객체를 생성한 후 App 객체에 등록한다.
 
 
 ### 훈련 3: App 객체에 옵저버를 등록하고 제거하고 실행시키는 기능을 추가한다.
