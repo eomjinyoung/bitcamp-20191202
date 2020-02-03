@@ -22,7 +22,7 @@
 
 ### 훈련 2: 애플리케이션이 시작하거나 종료될 때 호출될 옵저버의 규칙을 정의한다.
 
-- ApplicationContextListener.java (ApplicationContextListener.java.01)
+- ApplicationContextListener.java
     - Observer가 갖춰야 할 규칙을 정의한다.
     - 애플리케이션이 시작할 때 자동으로 호출할 메서드의 규칙을 정의한다.
     - 애플리케이션을 종료하기 전에 자동으로 호출할 메서드의 규칙을 정의한다.
