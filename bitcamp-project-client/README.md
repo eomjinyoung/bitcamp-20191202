@@ -1,23 +1,23 @@
-# 32_1 - 자바 프로젝트 만들기
+# 32_2 - 간단한 메시지를 서버에 전송하고 응답을 받기
 
 ## 학습목표
 
-- gradle을 이용하여 자바 프로젝트를 만들 수 있다.
-- eclipse로 임포트 할 수 있다.
+- 클라이언트를 서버와 통신 연결할 수 있다.
+- 소켓을 통해 데이터를 입출력 할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/ClientApp.java 추가
+- src/main/java/com/eomcs/lms/ClientApp.java 변경
 
 ## 실습  
 
-### 훈련 1: 프로젝트 폴더를 생성하라.
+### 훈련 1: 서버와 연결하라.
 
-- 'bitcamp-study/bitcamp-project-client' 디렉토리를 생성한다.
+- ClientApp.java 변경
 
-### 훈련 2: 프로젝트 폴더에 자바 프로젝트로 만들라.
+### 훈련 2: 서버에 요청 메시지를 전송하고 응답 메시지를 수신하라.
 
-- '$ gradle init' 실행
+- ClientApp.java 변경
 
 ### 훈련 3: 이클립스 IDE로 임포트 하라.
 
