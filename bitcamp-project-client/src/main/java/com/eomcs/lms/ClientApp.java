@@ -2,7 +2,7 @@
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
-import java.io.PrintStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -36,7 +36,7 @@ public class ClientApp {
     }
 
     try (Socket socket = new Socket(serverAddr, port);
-        PrintStream out = new PrintStream(socket.getOutputStream());
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
       System.out.println("서버와 연결을 되었음!");
@@ -53,7 +53,7 @@ public class ClientApp {
     keyboard.close();
   }
 
-  private void processCommand(PrintStream out, ObjectInputStream in) {
+  private void processCommand(ObjectOutputStream out, ObjectInputStream in) {
 
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();

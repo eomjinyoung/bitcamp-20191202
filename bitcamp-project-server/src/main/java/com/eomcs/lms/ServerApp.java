@@ -1,15 +1,17 @@
 // LMS 서버
 package com.eomcs.lms;
 
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import com.eomcs.lms.context.ApplicationContextListener;
+import com.eomcs.lms.domain.Board;
 
 public class ServerApp {
 
@@ -38,7 +40,6 @@ public class ServerApp {
   }
   // 옵저버 관련코드 끝!
 
-  @SuppressWarnings("unchecked")
   public void service() {
 
     notifyApplicationInitialized();
@@ -68,25 +69,32 @@ public class ServerApp {
   } // service()
 
 
+  @SuppressWarnings("unchecked")
   void processRequest(Socket clientSocket) {
     try (Socket socket = clientSocket;
-        Scanner in = new Scanner(socket.getInputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
 
       System.out.println("통신을 위한 입출력 스트림을 준비하였음!");
 
-      String message = in.nextLine();
+      String request = in.readUTF();
       System.out.println("클라이언트가 보낸 메시지를 수신하였음!");
 
-      if (message.equals("/board/list")) {
+      List<Board> boards = (List<Board>) context.get("boardList");
+
+      if (request.equals("/board/list")) {
         out.writeUTF("OK");
-        out.writeObject(context.get("boardList"));
+        out.writeObject(boards);
+
+      } else if (request.equals("/board/add")) {
+        Board board = (Board) in.readObject();
+        boards.add(board);
 
       } else {
         out.writeUTF("FAIL");
         out.writeUTF("요청한 명령을 처리할 수 없습니다.");
       }
-
+      out.flush();
       System.out.println("클라이언트로 메시지를 전송하였음!");
 
     } catch (Exception e) {
