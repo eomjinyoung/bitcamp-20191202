@@ -8,14 +8,20 @@ import java.sql.Date;
 // - serialize 데이터를 구분하기 위해 버전 번호를 명시하라.
 //
 public class Board implements Serializable {
-  
+
   private static final long serialVersionUID = 20200131L;
-  
+
   private int no;
   private String title;
   private Date date;
   private int viewCount;
   private String writer;
+
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", title=" + title + ", date=" + date + ", viewCount=" + viewCount
+        + ", writer=" + writer + "]";
+  }
 
   // CSV 포맷:
   // - 번호,제목,등록일,조회수,작성자
