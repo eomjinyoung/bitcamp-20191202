@@ -118,6 +118,31 @@ public class ServerApp {
             out.writeUTF("FAIL");
             out.writeUTF(e.getMessage());
           }
+        } else if (request.equals("/board/detail")) {
+          try {
+            int no = in.readInt();
+
+            Board board = null;
+            for (Board b : boards) {
+              if (b.getNo() == no) {
+                board = b;
+                break;
+              }
+            }
+
+            if (board != null) {
+              out.writeUTF("OK");
+              out.writeObject(board);
+
+            } else {
+              out.writeUTF("FAIL");
+              out.writeUTF("해당 번호의 게시물이 없습니다.");
+            }
+
+          } catch (Exception e) {
+            out.writeUTF("FAIL");
+            out.writeUTF(e.getMessage());
+          }
         } else {
           out.writeUTF("FAIL");
           out.writeUTF("요청한 명령을 처리할 수 없습니다.");

@@ -37,4 +37,11 @@
 - BoardAddCommand.java 변경
   - 서버의 입출력 도구를 받을 수 있도록 생성자를 변경한다.
   - 데이터를 읽고 쓸 때 서버에 요청하도록 execute()를 변경한다.
+
+### 훈련 6: BoardDetailCommand 가 작업할 때 서버와 통신하도록 처리하라.
+
+- BoardDetailCommand.java 변경
+  - 서버의 입출력 도구를 받을 수 있도록 생성자를 변경한다.
+  - 데이터를 읽고 쓸 때 서버에 요청하도록 execute()를 변경한다.
+  
   

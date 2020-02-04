@@ -18,6 +18,7 @@
   - 클라이언트 연결을 준비한다.
   
 ### 훈련 2: 클라이언트의 게시물 목록 요청(/board/list)을 처리하라.
+
 - ServerApp.java 변경
   - processRequest() 메서드 변경
 - ServerAppTest.java 추가
@@ -26,5 +27,11 @@
   - 통신 테스트 할 때 게시물 필드 정보를 확인할 수 있도록 toString()을 오버라이딩 한다.
 
 ### 훈련 3: 클라이언트의 게시물 등록 요청(/board/add)을 처리하라.
+
+- ServerApp.java 변경
+  - processRequest() 메서드 변경
+
+### 훈련 4: 클라리언트의 게시물 조회 요청(/board/detail)을 처리하라.
+
 - ServerApp.java 변경
   - processRequest() 메서드 변경
