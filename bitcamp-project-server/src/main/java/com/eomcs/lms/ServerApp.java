@@ -109,10 +109,23 @@ public class ServerApp {
         } else if (request.equals("/board/add")) {
           try {
             Board board = (Board) in.readObject();
-            boards.add(board);
-            System.out.println("게시물을 저장하였습니다.");
 
-            out.writeUTF("OK");
+            int i = 0;
+            for (; i < boards.size(); i++) {
+              if (boards.get(i).getNo() == board.getNo()) {
+                break;
+              }
+            }
+
+            if (i == boards.size()) { // 같은 번호의 게시물이 없다면,
+              boards.add(board); // 새 게시물을 등록한다.
+              out.writeUTF("OK");
+
+            } else {
+              out.writeUTF("FAIL");
+              out.writeUTF("같은 번호의 게시물이 있습니다.");
+            }
+
 
           } catch (Exception e) {
             out.writeUTF("FAIL");
@@ -143,6 +156,55 @@ public class ServerApp {
             out.writeUTF("FAIL");
             out.writeUTF(e.getMessage());
           }
+        } else if (request.equals("/board/update")) {
+          try {
+            Board board = (Board) in.readObject();
+
+            int index = -1;
+            for (int i = 0; i < boards.size(); i++) {
+              if (boards.get(i).getNo() == board.getNo()) {
+                index = i;
+                break;
+              }
+            }
+
+            if (index != -1) {
+              boards.set(index, board);
+              out.writeUTF("OK");
+            } else {
+              out.writeUTF("FAIL");
+              out.writeUTF("해당 번호의 게시물이 없습니다.");
+            }
+
+          } catch (Exception e) {
+            out.writeUTF("FAIL");
+            out.writeUTF(e.getMessage());
+          }
+        } else if (request.equals("/board/delete")) {
+          try {
+            int no = in.readInt();
+
+            int index = -1;
+            for (int i = 0; i < boards.size(); i++) {
+              if (boards.get(i).getNo() == no) {
+                index = i;
+                break;
+              }
+            }
+
+            if (index != -1) { // 삭제하려는 번호의 게시물을 찾았다면
+              boards.remove(index);
+              out.writeUTF("OK");
+
+            } else {
+              out.writeUTF("FAIL");
+              out.writeUTF("해당 번호의 게시물이 없습니다.");
+            }
+          } catch (Exception e) {
+            out.writeUTF("FAIL");
+            out.writeUTF(e.getMessage());
+          }
+
         } else {
           out.writeUTF("FAIL");
           out.writeUTF("요청한 명령을 처리할 수 없습니다.");

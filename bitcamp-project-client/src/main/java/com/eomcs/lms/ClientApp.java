@@ -12,8 +12,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import com.eomcs.lms.handler.BoardAddCommand;
+import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
+import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
 import com.eomcs.util.Prompt;
 
@@ -64,6 +66,8 @@ public class ClientApp {
     commandMap.put("/board/list", new BoardListCommand(out, in));
     commandMap.put("/board/add", new BoardAddCommand(out, in, prompt));
     commandMap.put("/board/detail", new BoardDetailCommand(out, in, prompt));
+    commandMap.put("/board/update", new BoardUpdateCommand(out, in, prompt));
+    commandMap.put("/board/delete", new BoardDeleteCommand(out, in, prompt));
 
     try {
       while (true) {

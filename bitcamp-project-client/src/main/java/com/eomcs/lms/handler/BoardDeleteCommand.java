@@ -1,44 +1,44 @@
 package com.eomcs.lms.handler;
 
-import java.util.List;
-import com.eomcs.lms.domain.Board;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import com.eomcs.util.Prompt;
 
 // "/board/delete" 명령 처리
 public class BoardDeleteCommand implements Command {
 
-  List<Board> boardList;
+  ObjectOutputStream out;
+  ObjectInputStream in;
 
   Prompt prompt;
 
-  public BoardDeleteCommand(Prompt prompt, List<Board> list) {
+  public BoardDeleteCommand(ObjectOutputStream out, ObjectInputStream in, Prompt prompt) {
+    this.out = out;
+    this.in = in;
     this.prompt = prompt;
-    this.boardList = list;
   }
 
   @Override
   public void execute() {
-    int index = indexOfBoard(prompt.inputInt("번호? "));
+    try {
+      int no = prompt.inputInt("번호? ");
 
-    if (index == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
-      return;
-    }
+      out.writeUTF("/board/delete");
+      out.writeInt(no);
+      out.flush();
 
-    this.boardList.remove(index);
+      String response = in.readUTF();
 
-    System.out.println("게시글을 삭제했습니다.");
-  }
-
-  private int indexOfBoard(int no) {
-    for (int i = 0; i < this.boardList.size(); i++) {
-      if (this.boardList.get(i).getNo() == no) {
-        return i;
+      if (response.equals("FAIL")) {
+        System.out.println(in.readUTF());
+        return;
       }
-    }
-    return -1;
-  }
+      System.out.println("게시글을 삭제했습니다.");
 
+    } catch (Exception e) {
+      System.out.println("명령 실행 중 오류 발생!");
+    }
+  }
 }
 
 
