@@ -77,24 +77,41 @@ public class ServerApp {
 
       System.out.println("통신을 위한 입출력 스트림을 준비하였음!");
 
-      String request = in.readUTF();
-      System.out.println("클라이언트가 보낸 메시지를 수신하였음!");
+      while (true) {
+        String request = in.readUTF();
+        System.out.println("클라이언트가 보낸 메시지를 수신하였음!");
 
-      List<Board> boards = (List<Board>) context.get("boardList");
+        if (request.equals("quit")) {
+          out.writeUTF("OK");
+          out.flush();
+          break;
+        }
 
-      if (request.equals("/board/list")) {
-        out.writeUTF("OK");
-        out.writeObject(boards);
+        List<Board> boards = (List<Board>) context.get("boardList");
 
-      } else if (request.equals("/board/add")) {
-        Board board = (Board) in.readObject();
-        boards.add(board);
+        if (request.equals("/board/list")) {
+          out.writeUTF("OK");
+          out.writeObject(boards);
 
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("요청한 명령을 처리할 수 없습니다.");
+        } else if (request.equals("/board/add")) {
+          try {
+            Board board = (Board) in.readObject();
+            boards.add(board);
+            System.out.println("게시물을 저장하였습니다.");
+
+            out.writeUTF("OK");
+
+          } catch (Exception e) {
+            out.writeUTF("FAIL");
+            out.writeUTF(e.getMessage());
+          }
+        } else {
+          out.writeUTF("FAIL");
+          out.writeUTF("요청한 명령을 처리할 수 없습니다.");
+        }
+        out.flush();
       }
-      out.flush();
+
       System.out.println("클라이언트로 메시지를 전송하였음!");
 
     } catch (Exception e) {

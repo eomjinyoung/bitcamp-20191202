@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.Command;
 import com.eomcs.util.Prompt;
@@ -60,41 +61,50 @@ public class ClientApp {
 
     HashMap<String, Command> commandMap = new HashMap<>();
     commandMap.put("/board/list", new BoardListCommand(out, in));
-    String command;
+    commandMap.put("/board/add", new BoardAddCommand(out, in, prompt));
 
-    while (true) {
-      command = prompt.inputString("\n명령> ");
 
-      if (command.length() == 0)
-        continue;
+    try {
+      while (true) {
+        String command;
+        command = prompt.inputString("\n명령> ");
 
-      if (command.equals("quit")) {
-        System.out.println("안녕!");
-        break;
-      } else if (command.equals("history")) {
-        printCommandHistory(commandStack.iterator());
-        continue;
-      } else if (command.equals("history2")) {
-        printCommandHistory(commandQueue.iterator());
-        continue;
-      }
+        if (command.length() == 0)
+          continue;
 
-      commandStack.push(command);
-
-      commandQueue.offer(command);
-
-      Command commandHandler = commandMap.get(command);
-
-      if (commandHandler != null) {
-        try {
-          commandHandler.execute();
-        } catch (Exception e) {
-          e.printStackTrace();
-          System.out.printf("명령어 실행 중 오류 발생: %s\n", e.getMessage());
+        if (command.equals("quit")) {
+          out.writeUTF("quit");
+          out.flush();
+          System.out.println("서버: " + in.readUTF());
+          System.out.println("안녕!");
+          break;
+        } else if (command.equals("history")) {
+          printCommandHistory(commandStack.iterator());
+          continue;
+        } else if (command.equals("history2")) {
+          printCommandHistory(commandQueue.iterator());
+          continue;
         }
-      } else {
-        System.out.println("실행할 수 없는 명령입니다.");
+
+        commandStack.push(command);
+
+        commandQueue.offer(command);
+
+        Command commandHandler = commandMap.get(command);
+
+        if (commandHandler != null) {
+          try {
+            commandHandler.execute();
+          } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("명령어 실행 중 오류 발생: %s\n", e.getMessage());
+          }
+        } else {
+          System.out.println("실행할 수 없는 명령입니다.");
+        }
       }
+    } catch (Exception e) {
+      System.out.println("프로그램 실행 중 오류 발생!");
     }
 
     keyboard.close();
