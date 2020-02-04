@@ -84,6 +84,7 @@ public class ServerApp {
 
       } else {
         out.writeUTF("FAIL");
+        out.writeUTF("요청한 명령을 처리할 수 없습니다.");
       }
 
       System.out.println("클라이언트로 메시지를 전송하였음!");

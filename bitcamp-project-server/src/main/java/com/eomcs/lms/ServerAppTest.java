@@ -48,6 +48,8 @@ public class ServerAppTest {
         for (Board b : list) {
           System.out.println(b);
         }
+      } else {
+        System.out.println(in.readUTF());
       }
 
       System.out.println("서버와 연결을 끊었음!");
