@@ -55,7 +55,9 @@ public class ServerApp {
         Socket socket = serverSocket.accept();
         System.out.println("클라이언트와 연결되었음!");
 
-        processRequest(socket);
+        if (processRequest(socket) == 9) {
+          break;
+        }
 
         System.out.println("--------------------------------------");
       }
@@ -70,7 +72,7 @@ public class ServerApp {
 
 
   @SuppressWarnings("unchecked")
-  void processRequest(Socket clientSocket) {
+  int processRequest(Socket clientSocket) {
     try (Socket socket = clientSocket;
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
@@ -87,10 +89,21 @@ public class ServerApp {
           break;
         }
 
+        if (request.equals("/server/stop")) {
+          out.writeUTF("OK");
+          out.flush();
+          return 9;
+        }
+
         List<Board> boards = (List<Board>) context.get("boardList");
 
         if (request.equals("/board/list")) {
           out.writeUTF("OK");
+
+          out.reset();
+          // => 기존에 출력했던 List<Board> 객체의 직렬화 데이터를 무시하고
+          // 새로 직렬화를 수행한다.
+
           out.writeObject(boards);
 
         } else if (request.equals("/board/add")) {
@@ -114,9 +127,12 @@ public class ServerApp {
 
       System.out.println("클라이언트로 메시지를 전송하였음!");
 
+      return 0;
+
     } catch (Exception e) {
       System.out.println("예외 발생:");
       e.printStackTrace();
+      return -1;
     }
   }
 

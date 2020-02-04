@@ -72,8 +72,8 @@ public class ClientApp {
         if (command.length() == 0)
           continue;
 
-        if (command.equals("quit")) {
-          out.writeUTF("quit");
+        if (command.equals("quit") || command.equals("/server/stop")) {
+          out.writeUTF(command);
           out.flush();
           System.out.println("서버: " + in.readUTF());
           System.out.println("안녕!");
