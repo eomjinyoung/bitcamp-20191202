@@ -15,7 +15,11 @@ import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.servlet.BoardAddServlet;
+import com.eomcs.lms.servlet.BoardDeleteServlet;
+import com.eomcs.lms.servlet.BoardDetailServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
+import com.eomcs.lms.servlet.BoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 
 public class ServerApp {
@@ -67,6 +71,10 @@ public class ServerApp {
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boards));
+    servletMap.put("/board/add", new BoardAddServlet(boards));
+    servletMap.put("/board/detail", new BoardDetailServlet(boards));
+    servletMap.put("/board/update", new BoardUpdateServlet(boards));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boards));
 
     try (
         // 서버쪽 연결 준비
@@ -380,112 +388,6 @@ public class ServerApp {
     out.writeUTF("OK");
     out.reset();
     out.writeObject(members);
-  }
-
-  private void deleteBoard(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      int index = -1;
-      for (int i = 0; i < boards.size(); i++) {
-        if (boards.get(i).getNo() == no) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) { // 삭제하려는 번호의 게시물을 찾았다면
-        boards.remove(index);
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 게시물이 없습니다.");
-      }
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void updateBoard(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Board board = (Board) in.readObject();
-
-      int index = -1;
-      for (int i = 0; i < boards.size(); i++) {
-        if (boards.get(i).getNo() == board.getNo()) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) {
-        boards.set(index, board);
-        out.writeUTF("OK");
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 게시물이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void detailBoard(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      Board board = null;
-      for (Board b : boards) {
-        if (b.getNo() == no) {
-          board = b;
-          break;
-        }
-      }
-
-      if (board != null) {
-        out.writeUTF("OK");
-        out.writeObject(board);
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 게시물이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void addBoard(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Board board = (Board) in.readObject();
-
-      int i = 0;
-      for (; i < boards.size(); i++) {
-        if (boards.get(i).getNo() == board.getNo()) {
-          break;
-        }
-      }
-
-      if (i == boards.size()) { // 같은 번호의 게시물이 없다면,
-        boards.add(board); // 새 게시물을 등록한다.
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("같은 번호의 게시물이 있습니다.");
-      }
-
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
   }
 
   public static void main(String[] args) {
