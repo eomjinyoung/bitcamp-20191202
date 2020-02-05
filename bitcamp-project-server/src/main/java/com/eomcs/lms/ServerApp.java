@@ -20,6 +20,16 @@ import com.eomcs.lms.servlet.BoardDeleteServlet;
 import com.eomcs.lms.servlet.BoardDetailServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
 import com.eomcs.lms.servlet.BoardUpdateServlet;
+import com.eomcs.lms.servlet.LessonAddServlet;
+import com.eomcs.lms.servlet.LessonDeleteServlet;
+import com.eomcs.lms.servlet.LessonDetailServlet;
+import com.eomcs.lms.servlet.LessonListServlet;
+import com.eomcs.lms.servlet.LessonUpdateServlet;
+import com.eomcs.lms.servlet.MemberAddServlet;
+import com.eomcs.lms.servlet.MemberDeleteServlet;
+import com.eomcs.lms.servlet.MemberDetailServlet;
+import com.eomcs.lms.servlet.MemberListServlet;
+import com.eomcs.lms.servlet.MemberUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 
 public class ServerApp {
@@ -75,6 +85,18 @@ public class ServerApp {
     servletMap.put("/board/detail", new BoardDetailServlet(boards));
     servletMap.put("/board/update", new BoardUpdateServlet(boards));
     servletMap.put("/board/delete", new BoardDeleteServlet(boards));
+
+    servletMap.put("/lesson/list", new LessonListServlet(lessons));
+    servletMap.put("/lesson/add", new LessonAddServlet(lessons));
+    servletMap.put("/lesson/detail", new LessonDetailServlet(lessons));
+    servletMap.put("/lesson/update", new LessonUpdateServlet(lessons));
+    servletMap.put("/lesson/delete", new LessonDeleteServlet(lessons));
+
+    servletMap.put("/member/list", new MemberListServlet(members));
+    servletMap.put("/member/add", new MemberAddServlet(members));
+    servletMap.put("/member/detail", new MemberDetailServlet(members));
+    servletMap.put("/member/update", new MemberUpdateServlet(members));
+    servletMap.put("/member/delete", new MemberDeleteServlet(members));
 
     try (
         // 서버쪽 연결 준비
@@ -164,230 +186,6 @@ public class ServerApp {
   private void quit(ObjectOutputStream out) throws IOException {
     out.writeUTF("OK");
     out.flush();
-  }
-
-  private void deleteLesson(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      int index = -1;
-      for (int i = 0; i < lessons.size(); i++) {
-        if (lessons.get(i).getNo() == no) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) {
-        lessons.remove(index);
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 수업이 없습니다.");
-      }
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void updateLesson(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Lesson lesson = (Lesson) in.readObject();
-
-      int index = -1;
-      for (int i = 0; i < lessons.size(); i++) {
-        if (lessons.get(i).getNo() == lesson.getNo()) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) {
-        lessons.set(index, lesson);
-        out.writeUTF("OK");
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 수업이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void detailLesson(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      Lesson lesson = null;
-      for (Lesson l : lessons) {
-        if (l.getNo() == no) {
-          lesson = l;
-          break;
-        }
-      }
-
-      if (lesson != null) {
-        out.writeUTF("OK");
-        out.writeObject(lesson);
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 수업이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void addLesson(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Lesson lesson = (Lesson) in.readObject();
-
-      int i = 0;
-      for (; i < lessons.size(); i++) {
-        if (lessons.get(i).getNo() == lesson.getNo()) {
-          break;
-        }
-      }
-
-      if (i == lessons.size()) {
-        lessons.add(lesson);
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("같은 번호의 수업이 있습니다.");
-      }
-
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void listLesson(ObjectOutputStream out) throws IOException {
-    out.writeUTF("OK");
-    out.reset();
-    out.writeObject(lessons);
-  }
-
-  private void deleteMember(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      int index = -1;
-      for (int i = 0; i < members.size(); i++) {
-        if (members.get(i).getNo() == no) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) {
-        members.remove(index);
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 회원이 없습니다.");
-      }
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void updateMember(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Member member = (Member) in.readObject();
-
-      int index = -1;
-      for (int i = 0; i < members.size(); i++) {
-        if (members.get(i).getNo() == member.getNo()) {
-          index = i;
-          break;
-        }
-      }
-
-      if (index != -1) {
-        members.set(index, member);
-        out.writeUTF("OK");
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 회원이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void detailMember(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      int no = in.readInt();
-
-      Member member = null;
-      for (Member m : members) {
-        if (m.getNo() == no) {
-          member = m;
-          break;
-        }
-      }
-
-      if (member != null) {
-        out.writeUTF("OK");
-        out.writeObject(member);
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("해당 번호의 회원이 없습니다.");
-      }
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void addMember(ObjectInputStream in, ObjectOutputStream out) throws IOException {
-    try {
-      Member member = (Member) in.readObject();
-
-      int i = 0;
-      for (; i < members.size(); i++) {
-        if (members.get(i).getNo() == member.getNo()) {
-          break;
-        }
-      }
-
-      if (i == members.size()) {
-        members.add(member);
-        out.writeUTF("OK");
-
-      } else {
-        out.writeUTF("FAIL");
-        out.writeUTF("같은 번호의 회원이 있습니다.");
-      }
-
-
-    } catch (Exception e) {
-      out.writeUTF("FAIL");
-      out.writeUTF(e.getMessage());
-    }
-  }
-
-  private void listMember(ObjectOutputStream out) throws IOException {
-    out.writeUTF("OK");
-    out.reset();
-    out.writeObject(members);
   }
 
   public static void main(String[] args) {
