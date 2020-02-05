@@ -2,28 +2,22 @@ package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import com.eomcs.lms.dao.MemberFileDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberDetailServlet implements Servlet {
 
-  List<Member> members;
+  MemberFileDao memberDao;
 
-  public MemberDetailServlet(List<Member> members) {
-    this.members = members;
+  public MemberDetailServlet(MemberFileDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
   public void service(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
 
-    Member member = null;
-    for (Member m : members) {
-      if (m.getNo() == no) {
-        member = m;
-        break;
-      }
-    }
+    Member member = memberDao.findByNo(no);
 
     if (member != null) {
       out.writeUTF("OK");

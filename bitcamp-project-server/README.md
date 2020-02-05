@@ -39,3 +39,29 @@
   - 생성자에서 List 객체를 받는 대신에 BoardFileDao 객체를 받는다.
   - 데이터를 저장하고, 조회하고, 변경하고, 삭제할 때 BoardFileDao 객체를 통해 처리한다.
   
+  
+### 훈련 3: 수업 데이터를 처리하는 DAO 클래스를 정의하고 적용하라.
+
+- com.eomcs.lms.LessonFileDao 클래스를 정의한다.
+- com.eomcs.lms.DataLoaderListener 를 변경한다.
+  - 수업 데이터를 로딩하고 저장하는 기존 코드를 제거한다.
+  - 대신에 LessonFileDao 객체를 생성한다.
+- com.eomcs.lms.ServerApp 을 변경한다.
+  - Map에서 LessonFileDao를 꺼내 관련 커맨드 객체에 주입한다.
+- LessonXxxServlet 을 변경한다.
+  - 생성자에서 List 객체를 받는 대신에 LessonFileDao 객체를 받는다.
+  - 데이터를 저장하고, 조회하고, 변경하고, 삭제할 때 LessonFileDao 객체를 통해 처리한다.
+
+### 훈련 4: 회원 데이터를 처리하는 DAO 클래스를 정의하고 적용하라.
+
+- com.eomcs.lms.MemberFileDao 클래스를 정의한다.
+- com.eomcs.lms.DataLoaderListener 를 변경한다.
+  - 회원 데이터를 로딩하고 저장하는 기존 코드를 제거한다.
+  - 대신에 MemberFileDao 객체를 생성한다.
+- com.eomcs.lms.ServerApp 을 변경한다.
+  - Map에서 MemberFileDao를 꺼내 관련 커맨드 객체에 주입한다.
+- MemberXxxServlet 을 변경한다.
+  - 생성자에서 List 객체를 받는 대신에 MemberFileDao 객체를 받는다.
+  - 데이터를 저장하고, 조회하고, 변경하고, 삭제할 때 MemberFileDao 객체를 통해 처리한다.
+  
+  
