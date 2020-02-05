@@ -15,6 +15,8 @@ import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.servlet.BoardListServlet;
+import com.eomcs.lms.servlet.Servlet;
 
 public class ServerApp {
 
@@ -22,9 +24,15 @@ public class ServerApp {
   Set<ApplicationContextListener> listeners = new HashSet<>();
   Map<String, Object> context = new HashMap<>();
 
+  // 커맨드(예: Servlet 구현체) 디자인 패턴과 관련된 코드
+  Map<String, Servlet> servletMap = new HashMap<>();
+
+
   List<Board> boards;
   List<Member> members;
   List<Lesson> lessons;
+
+
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -56,6 +64,9 @@ public class ServerApp {
     boards = (List<Board>) context.get("boardList");
     members = (List<Member>) context.get("memberList");
     lessons = (List<Lesson>) context.get("lessonList");
+
+    // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
+    servletMap.put("/board/list", new BoardListServlet(boards));
 
     try (
         // 서버쪽 연결 준비
@@ -103,56 +114,32 @@ public class ServerApp {
           case "/server/stop":
             quit(out);
             return 9; // 서버를 종료한다.
-          case "/board/list":
-            listBoard(out);
-            break;
-          case "/board/add":
-            addBoard(in, out);
-            break;
-          case "/board/detail":
-            detailBoard(in, out);
-            break;
-          case "/board/update":
-            updateBoard(in, out);
-            break;
-          case "/board/delete":
-            deleteBoard(in, out);
-            break;
-          case "/member/list":
-            listMember(out);
-            break;
-          case "/member/add":
-            addMember(in, out);
-            break;
-          case "/member/detail":
-            detailMember(in, out);
-            break;
-          case "/member/update":
-            updateMember(in, out);
-            break;
-          case "/member/delete":
-            deleteMember(in, out);
-            break;
-          case "/lesson/list":
-            listLesson(out);
-            break;
-          case "/lesson/add":
-            addLesson(in, out);
-            break;
-          case "/lesson/detail":
-            detailLesson(in, out);
-            break;
-          case "/lesson/update":
-            updateLesson(in, out);
-            break;
-          case "/lesson/delete":
-            deleteLesson(in, out);
-            break;
-          default:
-            notFound(out);
         }
+
+        // 클라이언트의 요청을 처리할 객체를 찾는다.
+        Servlet servlet = servletMap.get(request);
+
+        if (servlet != null) {
+          // 클라이언트 요청을 처리할 객체를 찾았으면 작업을 실행시킨다.
+          try {
+            servlet.service(in, out);
+
+          } catch (Exception e) {
+            // 요청한 작업을 수행하다가 오류 발생할 경우 그 이유를 간단히 응답한다.
+            out.writeUTF("FAIL");
+            out.writeUTF(e.getMessage());
+
+            // 서버쪽 화면에는 더 자세하게 오류 내용을 출력한다.
+            System.out.println("클라이언트 요청 처리 중 오류 발생:");
+            e.printStackTrace();
+          }
+        } else { // 없다면? 간단한 아내 메시지를 응답한다.
+          notFound(out);
+        }
+
         out.flush();
         System.out.println("클라이언트에게 응답하였음!");
+        System.out.println("------------------------------------");
       }
     } catch (Exception e) {
       System.out.println("예외 발생:");
@@ -499,12 +486,6 @@ public class ServerApp {
       out.writeUTF("FAIL");
       out.writeUTF(e.getMessage());
     }
-  }
-
-  private void listBoard(ObjectOutputStream out) throws IOException {
-    out.writeUTF("OK");
-    out.reset();
-    out.writeObject(boards);
   }
 
   public static void main(String[] args) {
