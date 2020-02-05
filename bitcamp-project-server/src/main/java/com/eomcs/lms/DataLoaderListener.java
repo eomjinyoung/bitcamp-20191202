@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.BoardFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 
@@ -23,7 +23,6 @@ public class DataLoaderListener implements ApplicationContextListener {
 
   List<Lesson> lessonList = new ArrayList<>();
   List<Member> memberList = new ArrayList<>();
-  List<Board> boardList = new ArrayList<>();
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
@@ -31,13 +30,14 @@ public class DataLoaderListener implements ApplicationContextListener {
 
     // 애플리케이션이 시작되면 이 메서드가 호출될 것이고,
     // 이 메서드에서는 애플리케이션에서 사용할 데이터를 로딩하는 일을 한다.
-    loadBoardData();
     loadLessonData();
     loadMemberData();
 
-    // 데이터가 저장되어 있는 List 객체를 이 메서드를 호출한 쪽(App)에서
-    // 사용할 수 있도록 Map 객체에 담아둔다.
-    context.put("boardList", boardList);
+    // 애플리케이션의 데이터를 처리할 객체를 준비한다.
+    BoardFileDao boardDao = new BoardFileDao("./board.ser2");
+
+    // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
+    context.put("boardDao", boardDao);
     context.put("lessonList", lessonList);
     context.put("memberList", memberList);
   }
@@ -48,7 +48,6 @@ public class DataLoaderListener implements ApplicationContextListener {
 
     // 애플리케이션이 종료되면 이 메서드가 호출될 것이고,
     // 이 메서드에서는 애플리케이션이 작업한 데이터를 저장하는 일을 한다.
-    saveBoardData();
     saveLessonData();
     saveMemberData();
 
@@ -108,31 +107,6 @@ public class DataLoaderListener implements ApplicationContextListener {
     }
   }
 
-  @SuppressWarnings("unchecked")
-  private void loadBoardData() {
-    File file = new File("./board.ser2");
 
-    try (ObjectInputStream in =
-        new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-      boardList = (List<Board>) in.readObject();
-      System.out.printf("총 %d 개의 게시물 데이터를 로딩했습니다.\n", boardList.size());
 
-    } catch (Exception e) {
-      System.out.println("파일 읽기 중 오류 발생! - " + e.getMessage());
-    }
-  }
-
-  private void saveBoardData() {
-    File file = new File("./board.ser2");
-
-    try (ObjectOutputStream out =
-        new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-      out.writeObject(boardList);
-      System.out.printf("총 %d 개의 게시물 데이터를 저장했습니다.\n", boardList.size());
-
-    } catch (IOException e) {
-      System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
-
-    }
-  }
 }

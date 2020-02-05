@@ -2,21 +2,21 @@ package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.BoardFileDao;
 
 public class BoardListServlet implements Servlet {
 
-  List<Board> boards;
+  BoardFileDao boardDao;
 
-  public BoardListServlet(List<Board> boards) {
-    this.boards = boards;
+  public BoardListServlet(BoardFileDao boardDao) {
+    this.boardDao = boardDao;
   }
+
 
   @Override
   public void service(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.reset();
-    out.writeObject(boards);
+    out.writeObject(boardDao.findAll());
   }
 }

@@ -2,31 +2,22 @@ package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.BoardFileDao;
 
 public class BoardDeleteServlet implements Servlet {
 
-  List<Board> boards;
+  BoardFileDao boardDao;
 
-  public BoardDeleteServlet(List<Board> boards) {
-    this.boards = boards;
+  public BoardDeleteServlet(BoardFileDao boardDao) {
+    this.boardDao = boardDao;
   }
+
 
   @Override
   public void service(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     int no = in.readInt();
 
-    int index = -1;
-    for (int i = 0; i < boards.size(); i++) {
-      if (boards.get(i).getNo() == no) {
-        index = i;
-        break;
-      }
-    }
-
-    if (index != -1) { // 삭제하려는 번호의 게시물을 찾았다면
-      boards.remove(index);
+    if (boardDao.delete(no) > 0) { // 삭제했다면,
       out.writeUTF("OK");
 
     } else {

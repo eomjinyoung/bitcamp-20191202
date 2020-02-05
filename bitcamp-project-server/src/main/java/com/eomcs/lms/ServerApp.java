@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.dao.BoardFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.servlet.BoardAddServlet;
@@ -41,12 +41,8 @@ public class ServerApp {
   // 커맨드(예: Servlet 구현체) 디자인 패턴과 관련된 코드
   Map<String, Servlet> servletMap = new HashMap<>();
 
-
-  List<Board> boards;
   List<Member> members;
   List<Lesson> lessons;
-
-
 
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
@@ -74,17 +70,18 @@ public class ServerApp {
 
     notifyApplicationInitialized();
 
-    // DataLoaderListener가 준비한 데이터를 꺼내 인스턴스 필드에 저장한다.
-    boards = (List<Board>) context.get("boardList");
+    // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
+    BoardFileDao boardDao = (BoardFileDao) context.get("boardDao");
+
     members = (List<Member>) context.get("memberList");
     lessons = (List<Lesson>) context.get("lessonList");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
-    servletMap.put("/board/list", new BoardListServlet(boards));
-    servletMap.put("/board/add", new BoardAddServlet(boards));
-    servletMap.put("/board/detail", new BoardDetailServlet(boards));
-    servletMap.put("/board/update", new BoardUpdateServlet(boards));
-    servletMap.put("/board/delete", new BoardDeleteServlet(boards));
+    servletMap.put("/board/list", new BoardListServlet(boardDao));
+    servletMap.put("/board/add", new BoardAddServlet(boardDao));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
 
     servletMap.put("/lesson/list", new LessonListServlet(lessons));
     servletMap.put("/lesson/add", new LessonAddServlet(lessons));

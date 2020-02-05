@@ -28,3 +28,14 @@
 - com.eomcs.lms.dao 패키지를 생성한다.
 - com.eomcs.lms.BoardFileDao 클래스를 정의한다.
 
+### 훈련 2: BoardFileDao 객체를 적용하라.
+
+- com.eomcs.lms.DataLoaderListener 를 변경한다.
+  - 게시물 데이터를 로딩하고 저장하는 기존 코드를 제거한다.
+  - 대신에 BoardFileDao 객체를 생성한다.
+- com.eomcs.lms.ServerApp 을 변경한다.
+  - Map에서 BoardFileDao를 꺼내 관련 커맨드 객체에 주입한다.
+- BoardXxxServlet 을 변경한다.
+  - 생성자에서 List 객체를 받는 대신에 BoardFileDao 객체를 받는다.
+  - 데이터를 저장하고, 조회하고, 변경하고, 삭제할 때 BoardFileDao 객체를 통해 처리한다.
+  
