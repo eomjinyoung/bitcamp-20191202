@@ -11,21 +11,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.dao.LessonObjectFileDao;
-import com.eomcs.lms.dao.MemberObjectFileDao;
 import com.eomcs.lms.dao.json.BoardJsonFileDao;
+import com.eomcs.lms.dao.json.LessonJsonFileDao;
+import com.eomcs.lms.dao.json.MemberJsonFileDao;
 import com.eomcs.lms.servlet.BoardAddServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
 import com.eomcs.lms.servlet.LessonAddServlet;
-import com.eomcs.lms.servlet.LessonDeleteServlet;
-import com.eomcs.lms.servlet.LessonDetailServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
-import com.eomcs.lms.servlet.LessonUpdateServlet;
 import com.eomcs.lms.servlet.MemberAddServlet;
-import com.eomcs.lms.servlet.MemberDeleteServlet;
-import com.eomcs.lms.servlet.MemberDetailServlet;
 import com.eomcs.lms.servlet.MemberListServlet;
-import com.eomcs.lms.servlet.MemberUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 
 public class ServerApp {
@@ -64,8 +58,8 @@ public class ServerApp {
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
     BoardJsonFileDao boardDao = (BoardJsonFileDao) context.get("boardDao");
-    LessonObjectFileDao lessonDao = (LessonObjectFileDao) context.get("lessonDao");
-    MemberObjectFileDao memberDao = (MemberObjectFileDao) context.get("memberDao");
+    LessonJsonFileDao lessonDao = (LessonJsonFileDao) context.get("lessonDao");
+    MemberJsonFileDao memberDao = (MemberJsonFileDao) context.get("memberDao");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardDao));
@@ -76,15 +70,15 @@ public class ServerApp {
 
     servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
     servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));
-    servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
-    servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
-    servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
+    // servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
+    // servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
+    // servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
 
     servletMap.put("/member/list", new MemberListServlet(memberDao));
     servletMap.put("/member/add", new MemberAddServlet(memberDao));
-    servletMap.put("/member/detail", new MemberDetailServlet(memberDao));
-    servletMap.put("/member/update", new MemberUpdateServlet(memberDao));
-    servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
+    // servletMap.put("/member/detail", new MemberDetailServlet(memberDao));
+    // servletMap.put("/member/update", new MemberUpdateServlet(memberDao));
+    // servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
 
     try (
         // 서버쪽 연결 준비
