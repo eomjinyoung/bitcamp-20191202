@@ -14,8 +14,6 @@ import com.eomcs.lms.domain.Member;
 //
 public class DataLoaderListener implements ApplicationContextListener {
 
-  List<Member> memberList = new ArrayList<>();
-
   @Override
   public void contextInitialized(Map<String, Object> context) {
     System.out.println("데이터를 로딩합니다.");
