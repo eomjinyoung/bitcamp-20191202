@@ -11,11 +11,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import com.eomcs.lms.context.ApplicationContextListener;
+import com.eomcs.lms.dao.BoardObjectFileDao;
 import com.eomcs.lms.dao.LessonObjectFileDao;
 import com.eomcs.lms.dao.MemberObjectFileDao;
-import com.eomcs.lms.dao.json.BoardJsonFileDao;
 import com.eomcs.lms.servlet.BoardAddServlet;
+import com.eomcs.lms.servlet.BoardDeleteServlet;
+import com.eomcs.lms.servlet.BoardDetailServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
+import com.eomcs.lms.servlet.BoardUpdateServlet;
 import com.eomcs.lms.servlet.LessonAddServlet;
 import com.eomcs.lms.servlet.LessonDeleteServlet;
 import com.eomcs.lms.servlet.LessonDetailServlet;
@@ -63,16 +66,16 @@ public class ServerApp {
     notifyApplicationInitialized();
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
-    BoardJsonFileDao boardDao = (BoardJsonFileDao) context.get("boardDao");
+    BoardObjectFileDao boardDao = (BoardObjectFileDao) context.get("boardDao");
     LessonObjectFileDao lessonDao = (LessonObjectFileDao) context.get("lessonDao");
     MemberObjectFileDao memberDao = (MemberObjectFileDao) context.get("memberDao");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardDao));
     servletMap.put("/board/add", new BoardAddServlet(boardDao));
-    // servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
-    // servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
-    // servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
 
     servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
     servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));
