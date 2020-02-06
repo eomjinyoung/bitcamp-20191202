@@ -3,13 +3,14 @@ package com.eomcs.lms.dao;
 import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonObjectFileDao extends AbstractObjectFileDao<Lesson> {
+public class LessonObjectFileDao extends AbstractObjectFileDao<Lesson> implements LessonDao {
 
   public LessonObjectFileDao(String filename) {
     super(filename);
   }
 
   // 서블릿 객체들이 데이터를 다룰 때 사용할 메서드를 정의한다.
+  @Override
   public int insert(Lesson lesson) throws Exception {
 
     if (indexOf(lesson.getNo()) > -1) { // 같은 번호의 수업이 있다면,
@@ -21,10 +22,12 @@ public class LessonObjectFileDao extends AbstractObjectFileDao<Lesson> {
     return 1;
   }
 
+  @Override
   public List<Lesson> findAll() throws Exception {
     return list;
   }
 
+  @Override
   public Lesson findByNo(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {
@@ -33,6 +36,7 @@ public class LessonObjectFileDao extends AbstractObjectFileDao<Lesson> {
     return list.get(index);
   }
 
+  @Override
   public int update(Lesson lesson) throws Exception {
     int index = indexOf(lesson.getNo());
 
@@ -45,6 +49,7 @@ public class LessonObjectFileDao extends AbstractObjectFileDao<Lesson> {
     return 1;
   }
 
+  @Override
   public int delete(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {

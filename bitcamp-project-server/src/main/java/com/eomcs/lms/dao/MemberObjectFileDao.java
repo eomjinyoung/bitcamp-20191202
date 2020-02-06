@@ -3,13 +3,14 @@ package com.eomcs.lms.dao;
 import java.util.List;
 import com.eomcs.lms.domain.Member;
 
-public class MemberObjectFileDao extends AbstractObjectFileDao<Member> {
+public class MemberObjectFileDao extends AbstractObjectFileDao<Member> implements MemberDao {
 
   public MemberObjectFileDao(String filename) {
     super(filename);
   }
 
   // 서블릿 객체들이 데이터를 다룰 때 사용할 메서드를 정의한다.
+  @Override
   public int insert(Member member) throws Exception {
 
     if (indexOf(member.getNo()) > -1) { // 같은 번호의 회원이 있다면,
@@ -21,10 +22,12 @@ public class MemberObjectFileDao extends AbstractObjectFileDao<Member> {
     return 1;
   }
 
+  @Override
   public List<Member> findAll() throws Exception {
     return list;
   }
 
+  @Override
   public Member findByNo(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {
@@ -33,6 +36,7 @@ public class MemberObjectFileDao extends AbstractObjectFileDao<Member> {
     return list.get(index);
   }
 
+  @Override
   public int update(Member member) throws Exception {
     int index = indexOf(member.getNo());
 
@@ -45,6 +49,7 @@ public class MemberObjectFileDao extends AbstractObjectFileDao<Member> {
     return 1;
   }
 
+  @Override
   public int delete(int no) throws Exception {
     int index = indexOf(no);
     if (index == -1) {

@@ -1,9 +1,10 @@
 package com.eomcs.lms.dao.json;
 
 import java.util.List;
+import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonJsonFileDao extends AbstractJsonFileDao<Lesson> {
+public class LessonJsonFileDao extends AbstractJsonFileDao<Lesson> implements LessonDao {
 
   public LessonJsonFileDao(String filename) {
     super(filename);

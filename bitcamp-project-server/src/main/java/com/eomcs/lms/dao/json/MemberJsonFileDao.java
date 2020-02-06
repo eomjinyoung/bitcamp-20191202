@@ -1,9 +1,10 @@
 package com.eomcs.lms.dao.json;
 
 import java.util.List;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberJsonFileDao extends AbstractJsonFileDao<Member> {
+public class MemberJsonFileDao extends AbstractJsonFileDao<Member> implements MemberDao {
 
   public MemberJsonFileDao(String filename) {
     super(filename);
