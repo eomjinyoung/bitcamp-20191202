@@ -1,19 +1,15 @@
 package com.eomcs.lms.handler;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.util.Prompt;
 
 public class MemberDeleteCommand implements Command {
 
-  ObjectOutputStream out;
-  ObjectInputStream in;
-
   Prompt prompt;
+  MemberDao memberDao;
 
-  public MemberDeleteCommand(ObjectOutputStream out, ObjectInputStream in, Prompt prompt) {
-    this.out = out;
-    this.in = in;
+  public MemberDeleteCommand(MemberDao memberDao, Prompt prompt) {
+    this.memberDao = memberDao;
     this.prompt = prompt;
   }
 
@@ -21,21 +17,11 @@ public class MemberDeleteCommand implements Command {
   public void execute() {
     try {
       int no = prompt.inputInt("번호? ");
-
-      out.writeUTF("/member/delete");
-      out.writeInt(no);
-      out.flush();
-
-      String response = in.readUTF();
-
-      if (response.equals("FAIL")) {
-        System.out.println(in.readUTF());
-        return;
-      }
+      memberDao.delete(no);
       System.out.println("회원을 삭제했습니다.");
 
     } catch (Exception e) {
-      System.out.println("명령 실행 중 오류 발생!");
+      System.out.println("삭제 실패!");
     }
   }
 }
