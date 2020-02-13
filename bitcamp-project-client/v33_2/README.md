@@ -1,4 +1,4 @@
-# 33_3 - 리팩토링: 서버 연결 부분을 캡슐화하기
+# 33_2 - 리팩토링: 요청할 때 마다 프록시와 커맨드를 생성하는 부분을 개선한다.
 
 ## 학습목표
 
@@ -6,8 +6,6 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao/proxy/Worker.java 추가
-- src/main/java/com/eomcs/lms/dao/proxy/DaoProxyHelper.java 추가
 - src/main/java/com/eomcs/lms/dao/proxy/XxxDaoProxy.java 변경
 - src/main/java/com/eomcs/lms/ClientApp.java 변경
 

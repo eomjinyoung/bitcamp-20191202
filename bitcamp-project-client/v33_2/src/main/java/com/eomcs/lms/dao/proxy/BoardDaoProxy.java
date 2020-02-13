@@ -4,29 +4,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import com.eomcs.lms.dao.LessonDao;
-import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.domain.Board;
 
 // 프록시 객체는 항상 작업 객체와 동일한 인터페이스를 구현해야 한다.
 // => 마치 자신이 작업 객체인양 보이기 위함이다.
-// => LessonDao 작업 객체를 대행할 프록시를 정의한다.
 //
-public class LessonDaoProxy implements LessonDao {
+public class BoardDaoProxy implements BoardDao {
 
-  DaoProxyHelper daoProxyHelper;
+  String host;
+  int port;
 
-  public LessonDaoProxy(DaoProxyHelper daoProxyHelper) {
-    this.daoProxyHelper = daoProxyHelper;
+  public BoardDaoProxy(String host, int port) {
+    this.host = host;
+    this.port = port;
   }
 
   @Override
-  public int insert(Lesson lesson) throws Exception {
+  public int insert(Board board) throws Exception {
     try (Socket socket = new Socket(host, port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF("/lesson/add");
-      out.writeObject(lesson);
+      out.writeUTF("/board/add");
+      out.writeObject(board);
       out.flush();
 
       String response = in.readUTF();
@@ -40,28 +41,27 @@ public class LessonDaoProxy implements LessonDao {
 
   @SuppressWarnings("unchecked")
   @Override
-  public List<Lesson> findAll() throws Exception {
+  public List<Board> findAll() throws Exception {
     try (Socket socket = new Socket(host, port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-      out.writeUTF("/lesson/list");
+      out.writeUTF("/board/list");
       out.flush();
       String response = in.readUTF();
       if (response.equals("FAIL")) {
         throw new Exception(in.readUTF());
       }
-      return (List<Lesson>) in.readObject();
+      return (List<Board>) in.readObject();
     }
   }
 
   @Override
-  public Lesson findByNo(int no) throws Exception {
+  public Board findByNo(int no) throws Exception {
     try (Socket socket = new Socket(host, port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-      out.writeUTF("/lesson/detail");
+      out.writeUTF("/board/detail");
       out.writeInt(no);
       out.flush();
 
@@ -69,18 +69,17 @@ public class LessonDaoProxy implements LessonDao {
       if (response.equals("FAIL")) {
         throw new Exception(in.readUTF());
       }
-      return (Lesson) in.readObject();
+      return (Board) in.readObject();
     }
   }
 
   @Override
-  public int update(Lesson lesson) throws Exception {
+  public int update(Board board) throws Exception {
     try (Socket socket = new Socket(host, port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-      out.writeUTF("/lesson/update");
-      out.writeObject(lesson);
+      out.writeUTF("/board/update");
+      out.writeObject(board);
       out.flush();
 
       String response = in.readUTF();
@@ -96,8 +95,7 @@ public class LessonDaoProxy implements LessonDao {
     try (Socket socket = new Socket(host, port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-      out.writeUTF("/lesson/delete");
+      out.writeUTF("/board/delete");
       out.writeInt(no);
       out.flush();
 

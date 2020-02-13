@@ -12,7 +12,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import com.eomcs.lms.dao.proxy.BoardDaoProxy;
-import com.eomcs.lms.dao.proxy.DaoProxyHelper;
 import com.eomcs.lms.dao.proxy.LessonDaoProxy;
 import com.eomcs.lms.dao.proxy.MemberDaoProxy;
 import com.eomcs.lms.handler.BoardAddCommand;
@@ -64,11 +63,8 @@ public class ClientApp {
       return;
     }
 
-    // DAO 프록시의 서버 연결을 도와줄 도우미 객체 준비
-    DaoProxyHelper daoProxyHelper = new DaoProxyHelper(host, port);
-
     // DAO 프록시 객체 준비
-    BoardDaoProxy boardDao = new BoardDaoProxy(daoProxyHelper);
+    BoardDaoProxy boardDao = new BoardDaoProxy(host, port);
     LessonDaoProxy lessonDao = new LessonDaoProxy(host, port);
     MemberDaoProxy memberDao = new MemberDaoProxy(host, port);
 

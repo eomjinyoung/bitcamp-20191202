@@ -13,10 +13,12 @@ import com.eomcs.lms.domain.Lesson;
 //
 public class LessonDaoProxy implements LessonDao {
 
-  DaoProxyHelper daoProxyHelper;
+  String host;
+  int port;
 
-  public LessonDaoProxy(DaoProxyHelper daoProxyHelper) {
-    this.daoProxyHelper = daoProxyHelper;
+  public LessonDaoProxy(String host, int port) {
+    this.host = host;
+    this.port = port;
   }
 
   @Override
