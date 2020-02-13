@@ -69,8 +69,8 @@ public class ClientApp {
 
     // DAO 프록시 객체 준비
     BoardDaoProxy boardDao = new BoardDaoProxy(daoProxyHelper);
-    LessonDaoProxy lessonDao = new LessonDaoProxy(host, port);
-    MemberDaoProxy memberDao = new MemberDaoProxy(host, port);
+    LessonDaoProxy lessonDao = new LessonDaoProxy(daoProxyHelper);
+    MemberDaoProxy memberDao = new MemberDaoProxy(daoProxyHelper);
 
     // 사용자 명령을 처리할 Command 객체 준비
     commandMap.put("/board/list", new BoardListCommand(boardDao));
