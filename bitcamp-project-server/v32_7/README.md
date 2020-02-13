@@ -19,6 +19,10 @@
 - src/main/java/com/eomcs/lms/dao/BoardObjectFileDao.java 추가
 - src/main/java/com/eomcs/lms/dao/LessonObjectFileDao.java 추가
 - src/main/java/com/eomcs/lms/dao/MemberObjectFileDao.java 추가
+- src/main/java/com/eomcs/lms/servlet/BoardXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
