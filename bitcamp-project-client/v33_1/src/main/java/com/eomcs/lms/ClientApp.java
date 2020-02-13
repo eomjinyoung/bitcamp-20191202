@@ -43,8 +43,6 @@ public class ClientApp {
   String host;
   int port;
 
-  HashMap<String, Command> commandMap = new HashMap<>();
-
   public ClientApp() {
     // 생성자?
     // => 객체가 작업할 때 사용할 자원들을 준비하는 일을 한다.
@@ -52,7 +50,9 @@ public class ClientApp {
     // 사용자가 입력한 명령어를 보관할 객체 준비
     commandStack = new ArrayDeque<>();
     commandQueue = new LinkedList<>();
+  }
 
+  public void service() {
     try {
       host = prompt.inputString("서버? ");
       port = prompt.inputInt("포트? ");
@@ -62,49 +62,6 @@ public class ClientApp {
       keyboard.close();
       return;
     }
-
-    // DAO 프록시 객체 준비
-    BoardDaoProxy boardDao = new BoardDaoProxy(host, port);
-    LessonDaoProxy lessonDao = new LessonDaoProxy(host, port);
-    MemberDaoProxy memberDao = new MemberDaoProxy(host, port);
-
-    // 사용자 명령을 처리할 Command 객체 준비
-    commandMap.put("/board/list", new BoardListCommand(boardDao));
-    commandMap.put("/board/add", new BoardAddCommand(boardDao, prompt));
-    commandMap.put("/board/detail", new BoardDetailCommand(boardDao, prompt));
-    commandMap.put("/board/update", new BoardUpdateCommand(boardDao, prompt));
-    commandMap.put("/board/delete", new BoardDeleteCommand(boardDao, prompt));
-
-    commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
-    commandMap.put("/lesson/add", new LessonAddCommand(lessonDao, prompt));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao, prompt));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao, prompt));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao, prompt));
-
-    commandMap.put("/member/list", new MemberListCommand(memberDao));
-    commandMap.put("/member/add", new MemberAddCommand(memberDao, prompt));
-    commandMap.put("/member/detail", new MemberDetailCommand(memberDao, prompt));
-    commandMap.put("/member/update", new MemberUpdateCommand(memberDao, prompt));
-    commandMap.put("/member/delete", new MemberDeleteCommand(memberDao, prompt));
-
-    commandMap.put("/server/stop", () -> {
-      try {
-        try (Socket socket = new Socket(host, port);
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-          out.writeUTF("/server/stop");
-          out.flush();
-          System.out.println("서버: " + in.readUTF());
-          System.out.println("안녕!");
-        }
-      } catch (Exception e) {
-        //
-      }
-    });
-  }
-
-  public void service() {
 
     while (true) {
       String command;
@@ -127,17 +84,69 @@ public class ClientApp {
       commandQueue.offer(command);
 
       processCommand(command);
+
     }
+
     keyboard.close();
   }
 
   private void processCommand(String command) {
-    Command commandHandler = commandMap.get(command);
-    if (commandHandler == null) {
-      System.out.println("실행할 수 없는 명령입니다.");
-      return;
+    try (Socket socket = new Socket(host, port);
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+
+      System.out.println("서버와 연결을 되었음!");
+
+      // DAO 프록시 객체 준비
+      BoardDaoProxy boardDao = new BoardDaoProxy(in, out);
+      LessonDaoProxy lessonDao = new LessonDaoProxy(in, out);
+      MemberDaoProxy memberDao = new MemberDaoProxy(in, out);
+
+      // 사용자 명령을 처리할 Command 객체 준비
+      HashMap<String, Command> commandMap = new HashMap<>();
+      commandMap.put("/board/list", new BoardListCommand(boardDao));
+      commandMap.put("/board/add", new BoardAddCommand(boardDao, prompt));
+      commandMap.put("/board/detail", new BoardDetailCommand(boardDao, prompt));
+      commandMap.put("/board/update", new BoardUpdateCommand(boardDao, prompt));
+      commandMap.put("/board/delete", new BoardDeleteCommand(boardDao, prompt));
+
+      commandMap.put("/member/list", new MemberListCommand(memberDao));
+      commandMap.put("/member/add", new MemberAddCommand(memberDao, prompt));
+      commandMap.put("/member/detail", new MemberDetailCommand(memberDao, prompt));
+      commandMap.put("/member/update", new MemberUpdateCommand(memberDao, prompt));
+      commandMap.put("/member/delete", new MemberDeleteCommand(memberDao, prompt));
+
+      commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
+      commandMap.put("/lesson/add", new LessonAddCommand(lessonDao, prompt));
+      commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao, prompt));
+      commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao, prompt));
+      commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao, prompt));
+
+      commandMap.put("/server/stop", () -> {
+        try {
+          out.writeUTF(command);
+          out.flush();
+          System.out.println("서버: " + in.readUTF());
+          System.out.println("안녕!");
+        } catch (Exception e) {
+          //
+        }
+      });
+
+      Command commandHandler = commandMap.get(command);
+      if (commandHandler == null) {
+        System.out.println("실행할 수 없는 명령입니다.");
+        return;
+      }
+      commandHandler.execute();
+
+    } catch (Exception e) {
+      System.out.printf("명령어 실행 중 오류 발생: %s\n", e.getMessage());
+      e.printStackTrace();
     }
-    commandHandler.execute();
+
+    System.out.println("서버와 연결을 끊었음!");
+
   }
 
   private void printCommandHistory(Iterator<String> iterator) {

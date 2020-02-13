@@ -1,17 +1,17 @@
-# 33 - 서버의 `Stateless` 통신 방식에 맞춰 클라이언트 변경하기
+# 33_2 - 리팩토링: 요청할 때 마다 프록시와 커맨드를 생성하는 부분을 개선한다.
 
 ## 학습목표
 
-- `Stateful`을 `Stateless` 통신 방식으로 바꿀 수 있다.
-- `Stateless` 통신 방식의 특징과 장단점 이해한다.
+- 리팩토리의 목적을 이해한다.
 
 ## 실습 소스 및 결과
 
+- src/main/java/com/eomcs/lms/dao/proxy/XxxDaoProxy.java 변경
 - src/main/java/com/eomcs/lms/ClientApp.java 변경
 
 ## 실습  
 
-### 훈련 1: `Stateful` 통신 방식을 `Stateless` 통신 방식으로 바꿔라.
+### 훈련 1: 프록시 클래스 생성 부분을 변경하라.
 
-- com.eomcs.lms.ClientApp 변경한다.
-  - 한 번 연결에 요청/응답을 한 번만 수행한다.
+- com.eomcs.lms.dao.proxy.XxxDaoProxy 변경한다.
+  - 요청할 때 서버에 연결한다.
