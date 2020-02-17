@@ -43,9 +43,6 @@ public class ClientApp {
   Deque<String> commandStack;
   Queue<String> commandQueue;
 
-  String host;
-  int port;
-
   HashMap<String, Command> commandMap = new HashMap<>();
 
   public ClientApp() {
@@ -79,22 +76,6 @@ public class ClientApp {
     commandMap.put("/member/detail", new MemberDetailCommand(memberDao, prompt));
     commandMap.put("/member/update", new MemberUpdateCommand(memberDao, prompt));
     commandMap.put("/member/delete", new MemberDeleteCommand(memberDao, prompt));
-
-    commandMap.put("/server/stop", () -> {
-      try {
-        try (Socket socket = new Socket(host, port);
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-          out.writeUTF("/server/stop");
-          out.flush();
-          System.out.println("서버: " + in.readUTF());
-          System.out.println("안녕!");
-        }
-      } catch (Exception e) {
-        //
-      }
-    });
   }
 
   public void service() {
