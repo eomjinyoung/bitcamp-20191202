@@ -30,7 +30,6 @@ public class MemberUpdateCommand implements Command {
       Member newMember = new Member();
 
       newMember.setNo(oldMember.getNo());
-      newMember.setRegisteredDate(oldMember.getRegisteredDate());
 
       newMember.setName(
           prompt.inputString(String.format("이름(%s)? ", oldMember.getName()), oldMember.getName()));
@@ -46,11 +45,6 @@ public class MemberUpdateCommand implements Command {
 
       newMember.setTel(
           prompt.inputString(String.format("전화(%s)? ", oldMember.getTel()), oldMember.getTel()));
-
-      if (oldMember.equals(newMember)) {
-        System.out.println("회원 변경을 취소하였습니다.");
-        return;
-      }
 
       memberDao.update(newMember);
       System.out.println("회원을 변경했습니다.");

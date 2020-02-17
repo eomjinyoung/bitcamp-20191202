@@ -14,6 +14,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
+import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.proxy.DaoProxyHelper;
 import com.eomcs.lms.dao.proxy.LessonDaoProxy;
 import com.eomcs.lms.handler.BoardAddCommand;
