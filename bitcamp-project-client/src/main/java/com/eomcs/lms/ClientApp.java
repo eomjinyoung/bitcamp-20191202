@@ -12,10 +12,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.proxy.DaoProxyHelper;
 import com.eomcs.lms.dao.proxy.LessonDaoProxy;
-import com.eomcs.lms.dao.proxy.MemberDaoProxy;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -55,26 +55,17 @@ public class ClientApp {
     commandStack = new ArrayDeque<>();
     commandQueue = new LinkedList<>();
 
-    try {
-      host = prompt.inputString("서버? ");
-      port = prompt.inputInt("포트? ");
-
-    } catch (Exception e) {
-      System.out.println("서버 주소 또는 포트 번호가 유효하지 않습니다!");
-      keyboard.close();
-      return;
-    }
-
     // DAO 프록시의 서버 연결을 도와줄 도우미 객체 준비
     DaoProxyHelper daoProxyHelper = new DaoProxyHelper(host, port);
 
     // DAO 프록시 객체 준비
     // BoardDaoProxy boardDao = new BoardDaoProxy(daoProxyHelper);
     LessonDaoProxy lessonDao = new LessonDaoProxy(daoProxyHelper);
-    MemberDaoProxy memberDao = new MemberDaoProxy(daoProxyHelper);
+    // MemberDaoProxy memberDao = new MemberDaoProxy(daoProxyHelper);
 
     // MariaDB와 연동하여 데이터를 처리하는 DAO 객체 준비
     BoardDao boardDao = new BoardDaoImpl();
+    MemberDao memberDao = new MemberDaoImpl();
 
     // 사용자 명령을 처리할 Command 객체 준비
     commandMap.put("/board/list", new BoardListCommand(boardDao));

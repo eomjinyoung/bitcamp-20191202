@@ -1,6 +1,5 @@
 package com.eomcs.lms.handler;
 
-import java.sql.Date;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.util.Prompt;
@@ -30,14 +29,11 @@ public class BoardUpdateCommand implements Command {
       }
 
       Board newBoard = new Board();
-
       newBoard.setNo(oldBoard.getNo());
-      newBoard.setViewCount(oldBoard.getViewCount());
-      newBoard.setDate(new Date(System.currentTimeMillis()));
       newBoard.setTitle(
           prompt.inputString(String.format("내용(%s)? ", oldBoard.getTitle()), oldBoard.getTitle()));
 
-      if (newBoard.equals(oldBoard)) {
+      if (newBoard.getTitle().equals(oldBoard.getTitle())) {
         System.out.println("게시글 변경을 취소했습니다.");
         return;
       }
