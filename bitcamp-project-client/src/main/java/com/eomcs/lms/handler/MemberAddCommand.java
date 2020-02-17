@@ -30,6 +30,7 @@ public class MemberAddCommand implements Command {
 
     } catch (Exception e) {
       System.out.println("등록 실패!");
+      e.printStackTrace();
     }
   }
 }
