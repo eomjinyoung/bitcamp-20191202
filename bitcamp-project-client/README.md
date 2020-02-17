@@ -147,7 +147,10 @@ $ gradle eclipse
 이클립스 워크스페이스의 프로젝트를 갱신하기
 > 이클립스에서도 프로젝트에 `Refresh`를 수행해야 라이브러리가 적용된다.
 
-### 과제: 수업 데이터를 데이터베이스를 사용하여 관리하라.
+### 훈련4: MariaDB에게 제공하는 Proxy를 사용하여 작업을 수행할 DAO를 정의한다.
+
+- com.eomcs.lms.dao.mariadb.BoardDaoImpl 추가한다.
+
 
 - Lesson.java
     - DB의 `LESSON` 테이블에서 수업을 생성한 `회원 번호`가 필수 컬럼이다.
