@@ -17,7 +17,7 @@ create table test1 (
 
 /* PK 컬럼 지정 */
 alter table test1
-  add constraint primary key (no);
+  add constraint test1_pk primary key (no);
 
 /* 자동 증가 컬럼 지정 */
 alter table test1

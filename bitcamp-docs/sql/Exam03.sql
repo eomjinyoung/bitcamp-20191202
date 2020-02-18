@@ -88,6 +88,16 @@ select no, name, class, working
 from test1
 where working='Y' and class='java100';
 
+/* 주의!
+ * where 절을 통해 결과 데이터를 먼저 선택(selection)한 다음 
+ * 결과 데이터에서 가져올 컬럼을 선택(projection)한다.
+ * 따라서 실행 순서는:
+ * from ==> where ==> select 
+ */
+select no, name
+from test1
+where working='Y' and class='java100';
+
 /* 재직자가 아닌 사람만 조회하라!*/
 select no, name, class, working
 from test1
