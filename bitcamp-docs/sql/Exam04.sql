@@ -7,7 +7,7 @@ create table test1(
   no int not null primary key auto_increment,
   title varchar(255) not null,
   content text,
-  rdt datetime not null
+  rdt datetime not null default now()
 );
 
 /* 첨부 파일 테이블 */
@@ -20,16 +20,16 @@ create table test2(
 
 게시판 데이터 입력:
 ```
-insert into test1(title,rdt) values('aaa', now());
-insert into test1(title,rdt) values('bbb', now());
-insert into test1(title,rdt) values('ccc', now());
-insert into test1(title,rdt) values('ddd', now());
-insert into test1(title,rdt) values('eee', now());
-insert into test1(title,rdt) values('fff', now());
-insert into test1(title,rdt) values('ggg', now());
-insert into test1(title,rdt) values('hhh', now());
-insert into test1(title,rdt) values('iii', now());
-insert into test1(title,rdt) values('jjj', now());
+insert into test1(title) values('aaa');
+insert into test1(title) values('bbb');
+insert into test1(title) values('ccc');
+insert into test1(title) values('ddd');
+insert into test1(title) values('eee');
+insert into test1(title) values('fff');
+insert into test1(title) values('ggg');
+insert into test1(title) values('hhh');
+insert into test1(title) values('iii');
+insert into test1(title) values('jjj');
 ```
 
 첨부파일 데이터 입력:
@@ -44,16 +44,26 @@ insert into test2(filepath, bno) values('c:/download/f.gif', 10);
 
 ## FK 제약 조건이 없을 때
 - 첨부파일 데이터를 입력할 때 존재하지 않는 게시물 번호가 들어 갈 수 있다.
-- 그러면 첨부파일 데이터를 무효한 데이타 된다.
+- 그러면 첨부파일 데이터는 무효한 데이타 된다.
 ```
 insert into test2(filepath, bno) values('c:/download/x.gif', 100);
 ```
 
-- 첨부 파일이 있는 게시물이 삭제될 수 있다.
-- 마찬가지로 게시물이 존재하지 않는 첨부파일 데이터이기 때문에 무효한 데이터가 된다.
+- 첨부 파일이 있는 게시물을 삭제할 수 있다.
+- 마찬가지로 해당 게시물을 참조하는 첨부파일 데이터는 무효한 데이터가 된다.
 ```
 delete from test1 where no=1;
 ```
+
+이런 문제가 발생한 이유?
+- 다른 테이블의 데이터를 참조하는 경우, 참조 데이터의 존재 유무를 검사하지 않기 때문이다.
+- 테이블의 데이터를 삭제할 때 다른 테이블이 참조하는지 여부를 검사하지 않기 때문이다.
+
+해결책?
+- 다른 데이터를 참조하는 경우 해당 데이터의 존재 유무를 검사하도록 강제한다.
+- 다른 테이터에 의해 참조되는지 여부를 검사하도록 강제한다.
+- 이것을 가능하게 하는 문법이 "외부키(Foreign Key)" 이다.
+
 
 ## FK(foreign key) 제약 조건 설정
 - 다른 테이블의 데이터와 연관된 데이터를 저장할 때 무효한 데이터가 입력되지 않도록 하는 문법이다.
