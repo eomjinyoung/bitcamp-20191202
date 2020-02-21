@@ -38,7 +38,7 @@ public class BoardDaoImpl implements BoardDao {
 
         // MariaDB의 lms_board 테이블에 있는 데이터를 가져올 도구를 준비
         ResultSet rs = stmt.executeQuery( //
-            "select board_id, conts, cdt, vw_cnt from lms_board")) {
+            "select board_id, conts, cdt, vw_cnt from lms_board order by board_id desc")) {
 
       ArrayList<Board> list = new ArrayList<>();
 

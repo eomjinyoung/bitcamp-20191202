@@ -17,6 +17,8 @@ import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.servlet.BoardAddServlet;
+import com.eomcs.lms.servlet.BoardDetailServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
 import com.eomcs.lms.servlet.MemberListServlet;
@@ -66,8 +68,8 @@ public class ServerApp {
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardDao));
-    // servletMap.put("/board/add", new BoardAddServlet(boardDao));
-    // servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
+    servletMap.put("/board/add", new BoardAddServlet(boardDao));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
     // servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
     // servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
     //
