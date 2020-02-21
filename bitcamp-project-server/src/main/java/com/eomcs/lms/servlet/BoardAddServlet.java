@@ -18,7 +18,9 @@ public class BoardAddServlet implements Servlet {
 
     Board board = new Board();
 
-    out.println("제목? \n!{}!");
+    out.println("제목? ");
+    out.println("!{}!");
+    out.flush();
     board.setTitle(in.nextLine());
 
     if (boardDao.insert(board) > 0) {

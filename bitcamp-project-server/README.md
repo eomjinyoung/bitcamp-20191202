@@ -52,3 +52,12 @@
   - '통신 규칙1'에 따라 응답한다.
 - com.eomcs.lms.ServerApp 변경
   - '/board/add' 명령을 처리할 서블릿을 맵에 추가한다.
+
+### 훈련4: '통신 규칙2'에 따라 게시글을 변경할 수 있도록 BoardUpdateServlet을 변경하라. 
+
+- com.eomcs.lms.servlet.BoardUpdateServlet 변경
+  - Servlet 인터페이스에 추가한 service(Scanner in, PrintStream out)을 구현한다.
+  - '통신 규칙2'에 따라 클라이언트에게 게시글 변경을 요구한다.
+  - '통신 규칙1'에 따라 응답한다.
+- com.eomcs.lms.ServerApp 변경
+  - '/board/update' 명령을 처리할 서블릿을 맵에 추가한다.

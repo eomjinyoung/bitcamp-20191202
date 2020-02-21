@@ -16,7 +16,9 @@ public class BoardDetailServlet implements Servlet {
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-    out.println("번호? \n!{}!");
+    out.println("번호? ");
+    out.println("!{}!");
+    out.flush();
     int no = Integer.parseInt(in.nextLine());
 
     Board board = boardDao.findByNo(no);

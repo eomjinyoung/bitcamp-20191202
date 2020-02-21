@@ -20,6 +20,7 @@ import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.servlet.BoardAddServlet;
 import com.eomcs.lms.servlet.BoardDetailServlet;
 import com.eomcs.lms.servlet.BoardListServlet;
+import com.eomcs.lms.servlet.BoardUpdateServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
 import com.eomcs.lms.servlet.MemberListServlet;
 import com.eomcs.lms.servlet.Servlet;
@@ -70,7 +71,7 @@ public class ServerApp {
     servletMap.put("/board/list", new BoardListServlet(boardDao));
     servletMap.put("/board/add", new BoardAddServlet(boardDao));
     servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
-    // servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
     // servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
     //
     servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
