@@ -88,7 +88,7 @@ public class ClientApp {
       // System.out.printf("=> %s:%d\n", host, port); // => localhost:9999
 
       servletPath = url.substring(index);
-      System.out.printf("=> %s\n", servletPath); // => /board/list
+      // System.out.printf("=> %s\n", servletPath); // => /board/list
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
