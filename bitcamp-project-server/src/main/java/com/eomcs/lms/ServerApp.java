@@ -31,6 +31,7 @@ import com.eomcs.lms.servlet.MemberAddServlet;
 import com.eomcs.lms.servlet.MemberDeleteServlet;
 import com.eomcs.lms.servlet.MemberDetailServlet;
 import com.eomcs.lms.servlet.MemberListServlet;
+import com.eomcs.lms.servlet.MemberSearchServlet;
 import com.eomcs.lms.servlet.MemberUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 
@@ -94,6 +95,7 @@ public class ServerApp {
     servletMap.put("/member/detail", new MemberDetailServlet(memberDao));
     servletMap.put("/member/update", new MemberUpdateServlet(memberDao));
     servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
+    servletMap.put("/member/search", new MemberSearchServlet(memberDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
