@@ -20,11 +20,30 @@
   - 사진 게시물의 CRUD 관련 메서드 호출 규칙을 정의한다.
 - com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl 추가
   - PhotoBoardDao 인터페이스를 구현한다.
+- com.eomcs.lms.DataLoaderListener 변경
+  - PhotoBoardDao 객체를 생성한다.
 
-### 훈련1: `수업 사진 게시판`을 만들라.
+### 훈련1: '/photoboard/list' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardListServlet 추가
     - 사진 게시물의 목록을 출력한다.
+- com.eomcs.lms.ServerApp 변경
+    - `PhotoBoardListServlet` 객체를 생성하여 커맨드 맵에 보관한다.
+
+`ClientApp` 실행 예:
+```
+명령> /photoboard/list
+수업번호? 1
+수업명: xxxxx
+----------------------------------------------------
+  1, 수업 오리엔테이션           , 2018-11-14, 0
+  2, 1차 과제 발표            , 2018-11-14, 0
+  3, null                , 2018-11-14, 0
+  4, 과제 발표회              , 2018-11-14, 0
+```
+    
+    
+    
 - com.eomcs.lms.servlet.PhotoBoardDetailServlet 추가
     - 특정 사진 게시물의 상세 정보를 출력한다.
 - com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
@@ -35,8 +54,6 @@
     - 사진 게시물을 삭제한다. 
 - com.eomcs.lms.DataLoaderListener 변경
     - `PhotoBoardDao` 객체를 생성하여 맵 객체에 보관한다.
-- com.eomcs.lms.ServerApp 변경
-    - 사진 게시물 관련 `Servlet` 객체를 생성하여 커맨드 맵에 보관한다.
 
 
   
