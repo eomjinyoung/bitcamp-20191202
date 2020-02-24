@@ -93,7 +93,7 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   public int delete(int no) throws Exception {
     try (Statement stmt = con.createStatement()) {
       int result = stmt.executeUpdate( //
-          "delete from lms_photoBoard" //
+          "delete from lms_photo" //
               + " where photo_id=" + no);
       return result;
     }
