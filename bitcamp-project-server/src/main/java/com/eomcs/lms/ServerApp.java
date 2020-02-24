@@ -33,6 +33,7 @@ import com.eomcs.lms.servlet.MemberDetailServlet;
 import com.eomcs.lms.servlet.MemberListServlet;
 import com.eomcs.lms.servlet.MemberSearchServlet;
 import com.eomcs.lms.servlet.MemberUpdateServlet;
+import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
 import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.Servlet;
 
@@ -104,6 +105,8 @@ public class ServerApp {
 
     servletMap.put("/photoboard/list", new PhotoBoardListServlet( //
         photoBoardDao, lessonDao));
+    servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
+        photoBoardDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 

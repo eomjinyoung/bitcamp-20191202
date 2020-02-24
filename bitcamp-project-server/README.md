@@ -42,10 +42,59 @@
   4, 과제 발표회              , 2018-11-14, 0
 ```
     
-    
-    
+### 훈련2: '/photoboard/detail' 명령을 처리하라.
+
+- com.eomcs.lms.domain.PhotoBoard 변경
+  - 수업 정보를 담을 Lesson 타입의 인스턴스 필드를 추가한다.
+- com.eomcs.lms.dao.mariadb.PhotoBoardDaoImp 변경
+  - findByNo(사진게시글번호) 메서드 변경한다.
+  - 사진 게시글의 상세정보를 가져올 때 lms_photo와 lms_lesson을 조인한다.
+  - lms_photo 데이터는 PhotoBoard에 저장하고, lms_lesson 데이터는 Lesson에 저장한다. 
 - com.eomcs.lms.servlet.PhotoBoardDetailServlet 추가
-    - 특정 사진 게시물의 상세 정보를 출력한다.
+    - 사진 게시물의 상세정보를 출력한다.
+- com.eomcs.lms.ServerApp 변경
+    - `PhotoBoardDetailServlet` 객체를 생성하여 커맨드 맵에 보관한다.
+
+`ClientApp` 실행 예:
+```
+명령> /photoboard/detail
+번호?
+6
+제목: test1
+작성일: 2018-11-14
+조회수: 0
+수업명: xxxx
+
+명령> /photoboard/detail
+번호?
+5
+해당 번호의 사진 게시글이 없습니다.
+```
+
+### 훈련3: '/photoboard/add' 명령을 처리하라.
+
+- com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
+    - 사진 게시물을 입력한다.
+- com.eomcs.lms.ServerApp 변경
+    - `PhotoBoardAddServlet` 객체를 생성하여 커맨드 맵에 보관한다.
+
+`ClientApp` 실행 예:
+```
+명령> /photoboard/add
+제목?
+test1
+수업 번호?
+2
+사진을 저장했습니다.
+
+명령> /photoboard/add
+제목?
+test1
+수업 번호?
+200
+수업 번호가 유효하지 않습니다.
+```
+
 - com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
     - 사진 게시물을 등록한다.
 - com.eomcs.lms.servlet.PhotoBoardUpdateServlet 추가

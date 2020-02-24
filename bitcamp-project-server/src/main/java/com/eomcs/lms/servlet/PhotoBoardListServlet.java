@@ -41,7 +41,7 @@ public class PhotoBoardListServlet implements Servlet {
     out.println("----------------------------------------------------------");
 
     // 4) 해당 수업의 사진 게시글을 가져온다.
-    List<PhotoBoard> photoBoards = photoBoardDao.findByLessonNo(lessonNo);
+    List<PhotoBoard> photoBoards = photoBoardDao.findAllByLessonNo(lessonNo);
 
     // 5) 클라이언트에게 게시글을 출력한다.
     for (PhotoBoard photoBoard : photoBoards) {
