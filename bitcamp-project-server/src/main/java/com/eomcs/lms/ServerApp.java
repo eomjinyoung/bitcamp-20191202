@@ -117,7 +117,7 @@ public class ServerApp {
     servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
         photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
-        photoBoardDao));
+        photoBoardDao, photoFileDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 

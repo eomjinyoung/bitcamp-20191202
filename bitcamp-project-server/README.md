@@ -125,6 +125,8 @@ a3.gif
 
 ### 훈련5: '/photoboard/update' 명령을 처리하라.
 
+사진 게시글을 변경할 때 첨부 파일도 변경한다.
+
 - com.eomcs.lms.dao.PhotoFileDao 인터페이스 변경
   - 사진 파일을 삭제하는 메서드를 추가한다.
   - deleteAll(int boardNo)
@@ -166,45 +168,27 @@ pp3.jpeg
 사진을 변경했습니다.
 ```
 
-### 훈련4: '/photoboard/update' 명령을 처리하라.
+### 훈련6: '/photoboard/delete' 명령을 처리하라.
 
-- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 추가
-    - 사진 게시물을 변경한다. 
+사진 게시글을 삭제할 때 첨부 파일도 삭제한다.
+
+- com.eomcs.lms.servlet.PhotoBoardDeleteServlet 변경
+  - 첨부 파일 삭제를 할 때 사용할 PhotoFileDao 객체를 주입 받는다.
+  - 사진 게시글을 삭제하기 전에 첨부 파일을 먼저 삭제한다.
+  - 그런 후 사진 게시글을 삭제한다. 
 - com.eomcs.lms.ServerApp 변경
-    - `PhotoBoardUpdateServlet` 객체를 생성하여 커맨드 맵에 보관한다.
-
-`ClientApp` 실행 예:
-```
-명령> /photoboard/update
-번호?
-6
-제목(test1)?
-test1...xx
-사진을 변경했습니다.
-
-명령> /photoboard/update
-번호?
-600
-해당 번호의 사진 게시글이 없습니다.
-```
-
-### 훈련5: '/photoboard/delete' 명령을 처리하라.
-
-- com.eomcs.lms.servlet.PhotoBoardDeleteServlet 추가
-    - 사진 게시물을 삭제한다. 
-- com.eomcs.lms.ServerApp 변경
-    - `PhotoBoardDeleteServlet` 객체를 생성하여 커맨드 맵에 보관한다.
-
+  - `PhotoBoardDeleteServlet` 객체에 PhotoFileDao 객체를 주입한다. 
+  
 `ClientApp` 실행 예:
 ```
 명령> /photoboard/delete
 번호?
-6
+99
+해당 사진 게시글을 찾을 수 없습니다.
+
+명령> /photoboard/delete
+번호?
+7
 사진 게시글을 삭제했습니다.
-
-명령> /photoboard/delete
-번호?
-600
-해당 번호의 사진 게시글이 없습니다.
 ```
 
