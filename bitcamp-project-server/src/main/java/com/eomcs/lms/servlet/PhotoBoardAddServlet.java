@@ -1,20 +1,28 @@
 package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
+import com.eomcs.lms.domain.PhotoFile;
 
 public class PhotoBoardAddServlet implements Servlet {
 
   PhotoBoardDao photoBoardDao;
   LessonDao lessonDao;
+  PhotoFileDao photoFileDao;
 
-  public PhotoBoardAddServlet(PhotoBoardDao photoBoardDao, LessonDao lessonDao) {
+  public PhotoBoardAddServlet( //
+      PhotoBoardDao photoBoardDao, //
+      LessonDao lessonDao, //
+      PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.lessonDao = lessonDao;
+    this.photoFileDao = photoFileDao;
   }
 
   @Override
@@ -46,11 +54,35 @@ public class PhotoBoardAddServlet implements Servlet {
       // 첨부 파일을 입력 받는다.
       out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
       out.println("파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.");
-      out.println("사진 파일? ");
-      out.println("!{}!");
-      out.flush();
-      String filepath = in.nextLine();
 
+      ArrayList<PhotoFile> photoFiles = new ArrayList<>();
+
+      while (true) {
+        out.println("사진 파일? ");
+        out.println("!{}!");
+        out.flush();
+        String filepath = in.nextLine();
+
+        if (filepath.length() == 0) {
+          if (photoFiles.size() > 0) {
+            break;
+          } else {
+            out.println("최소 한 개의 사진 파일을 등록해야 합니다.");
+            continue;
+          }
+        }
+
+        PhotoFile photoFile = new PhotoFile();
+        photoFile.setFilepath(filepath);
+        photoFile.setBoardNo(photoBoard.getNo());
+
+        photoFiles.add(photoFile);
+      }
+
+      // ArrayList에 들어 있는 PhotoFile 데이터를 lms_photo_file 테이블에 저장한다.
+      for (PhotoFile photoFile : photoFiles) {
+        photoFileDao.insert(photoFile);
+      }
       out.println("새 사진 게시글을 등록했습니다.");
 
     } else {

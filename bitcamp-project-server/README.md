@@ -36,6 +36,9 @@
 
 사진 게시글을 입력할 때 사진 파일을 첨부할 수 있게 변경한다.
 
+- com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl 변경
+  - insert() 메서드를 변경한다.
+  - insert 한 후에 자동 증가 PK 값을 리턴 받는다.
 - com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
   - LessonDao 객체를 주입 받아 수업 번호의 유효성을 검사한다.
   - 사진 게시글을 입력 받을 때 첨부 파일도 입력 받는다.
