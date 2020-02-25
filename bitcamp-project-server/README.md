@@ -43,7 +43,7 @@
   - LessonDao 객체를 주입 받아 수업 번호의 유효성을 검사한다.
   - 사진 게시글을 입력 받을 때 첨부 파일도 입력 받는다.
 - com.eomcs.lms.ServerApp 변경
-  - `PhotoBoardListServlet` 객체를 생성하여 커맨드 맵에 보관한다.
+  - `PhotoBoardAddServlet` 객체에 LessonDao와 PhotoFileDao 객체를 주입한다. 
 
 `ClientApp` 실행 예:
 ```
@@ -67,36 +67,35 @@ a3.gif
 
 사진을 저장했습니다.
 ```
-
-
     
-### 훈련2: '/photoboard/detail' 명령을 처리하라.
+### 훈련3: '/photoboard/detail' 명령을 처리하라.
 
-- com.eomcs.lms.domain.PhotoBoard 변경
-  - 수업 정보를 담을 Lesson 타입의 인스턴스 필드를 추가한다.
-- com.eomcs.lms.dao.mariadb.PhotoBoardDaoImp 변경
-  - findByNo(사진게시글번호) 메서드 변경한다.
-  - 사진 게시글의 상세정보를 가져올 때 lms_photo와 lms_lesson을 조인한다.
-  - lms_photo 데이터는 PhotoBoard에 저장하고, lms_lesson 데이터는 Lesson에 저장한다. 
-- com.eomcs.lms.servlet.PhotoBoardDetailServlet 추가
-    - 사진 게시물의 상세정보를 출력한다.
+사진 게시글을 출력할 때 첨부 파일 목록도 함께 출력한다.
+
+- com.eomcs.lms.dao.PhotoFileDao 인터페이스 변경
+  - 사진 파일 목록을 리턴하는 메서드를 추가한다.
+  - findAll(int boardNo)
+- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 추가
+  - PhotoFileDao 인터페이스에 추가된 메서드를 구현한다.
+- com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
+  - PhotoFileDao 의존 객체를 주입받는다.
+  - 사진 게시글 다음에 첨부파일 목록을 출력한다.
 - com.eomcs.lms.ServerApp 변경
-    - `PhotoBoardDetailServlet` 객체를 생성하여 커맨드 맵에 보관한다.
-
+  - `PhotoBoardDetailServlet` 객체에 PhotoFileDao 객체를 주입한다. 
+  
 `ClientApp` 실행 예:
 ```
 명령> /photoboard/detail
 번호?
-6
-제목: test1
+7
+제목: 최종 발표
 작성일: 2018-11-14
 조회수: 0
-수업명: xxxx
-
-명령> /photoboard/detail
-번호?
-5
-해당 번호의 사진 게시글이 없습니다.
+수업: 2
+사진 파일:
+> ppt1.jpeg
+> pp2.jpeg
+> pp3.jpeg
 ```
 
 ### 훈련3: '/photoboard/add' 명령을 처리하라.
