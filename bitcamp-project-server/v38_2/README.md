@@ -8,14 +8,14 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/domain/PhotoBoard.java 추가
-- src/main/java/com/eomcs/dao/PhotoBoardDao.java 추가
-- src/main/java/com/eomcs/dao/mariadb/PhotoBoardDaoImpl.java 추가
-- src/main/java/com/eomcs/servlet/PhotoBoardListServlet.java 추가
-- src/main/java/com/eomcs/servlet/PhotoBoardDetailServlet.java 추가
-- src/main/java/com/eomcs/servlet/PhotoBoardAddServlet.java 추가
-- src/main/java/com/eomcs/servlet/PhotoBoardUpdateServlet.java 추가
-- src/main/java/com/eomcs/servlet/PhotoBoardDeleteServlet.java 추가
+- src/main/java/com/eomcs/domain/PhotoFile.java 추가 
+- src/main/java/com/eomcs/dao/PhotoFileDao.java 추가
+- src/main/java/com/eomcs/dao/mariadb/PhotoFileDaoImpl.java 추가
+- src/main/java/com/eomcs/dao/mariadb/PhotoBoardDaoImpl.java 변경
+- src/main/java/com/eomcs/servlet/PhotoBoardDetailServlet.java 변경
+- src/main/java/com/eomcs/servlet/PhotoBoardAddServlet.java 변경
+- src/main/java/com/eomcs/servlet/PhotoBoardUpdateServlet.java 변경
+- src/main/java/com/eomcs/servlet/PhotoBoardDeleteServlet.java 변경
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
 
