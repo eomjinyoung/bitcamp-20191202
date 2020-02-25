@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Prompt;
 
 public class MemberUpdateServlet implements Servlet {
 
@@ -15,11 +16,7 @@ public class MemberUpdateServlet implements Servlet {
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-
-    out.println("번호? ");
-    out.println("!{}!");
-    out.flush();
-    int no = Integer.parseInt(in.nextLine());
+    int no = Prompt.getInt(in, out, "번호? ");
 
     Member old = memberDao.findByNo(no);
     if (old == null) {
@@ -30,31 +27,19 @@ public class MemberUpdateServlet implements Servlet {
     Member member = new Member();
 
     member.setNo(no);
-
-    out.printf("이름(%s)? \n", old.getName());
-    out.println("!{}!");
-    out.flush();
-    member.setName(in.nextLine());
-
-    out.printf("이메일(%s)? \n", old.getEmail());
-    out.println("!{}!");
-    out.flush();
-    member.setEmail(in.nextLine());
-
-    out.println("암호? \n");
-    out.println("!{}!");
-    out.flush();
-    member.setPassword(in.nextLine());
-
-    out.printf("사진(%s)? \n", old.getPhoto());
-    out.println("!{}!");
-    out.flush();
-    member.setPhoto(in.nextLine());
-
-    out.printf("전화(%s)? \n", old.getTel());
-    out.println("!{}!");
-    out.flush();
-    member.setTel(in.nextLine());
+    member.setName(Prompt.getString(in, out, //
+        String.format("이름(%s)? \n", old.getName()), //
+        old.getName()));
+    member.setEmail(Prompt.getString(in, out, //
+        String.format("이메일(%s)? \n", old.getEmail()), //
+        old.getEmail()));
+    member.setPassword(Prompt.getString(in, out, "암호? "));
+    member.setPhoto(Prompt.getString(in, out, //
+        String.format("사진(%s)? \n", old.getPhoto()), //
+        old.getPhoto()));
+    member.setTel(Prompt.getString(in, out, //
+        String.format("전화(%s)? \n", old.getTel()), //
+        old.getTel()));
 
     if (memberDao.update(member) > 0) {
       out.println("회원을 변경했습니다.");

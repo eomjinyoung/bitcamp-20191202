@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.Prompt;
 
 public class BoardUpdateServlet implements Servlet {
 
@@ -17,10 +18,7 @@ public class BoardUpdateServlet implements Servlet {
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
-    out.println("번호? ");
-    out.println("!{}!");
-    out.flush();
-    int no = Integer.parseInt(in.nextLine());
+    int no = Prompt.getInt(in, out, "번호? ");
 
     Board old = boardDao.findByNo(no);
     if (old == null) {
@@ -28,12 +26,14 @@ public class BoardUpdateServlet implements Servlet {
       return;
     }
 
-    out.printf("제목(%s)? \n", old.getTitle());
-    out.println("!{}!");
-    out.flush();
-
     Board board = new Board();
-    board.setTitle(in.nextLine());
+
+    board.setTitle(Prompt.getString(//
+        in, //
+        out, //
+        String.format("제목(%s)? \n", old.getTitle()), //
+        old.getTitle()));
+
     board.setNo(no);
 
     if (boardDao.update(board) > 0) { // 변경했다면,

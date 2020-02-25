@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.Prompt;
 
 public class BoardAddServlet implements Servlet {
 
@@ -18,10 +19,7 @@ public class BoardAddServlet implements Servlet {
 
     Board board = new Board();
 
-    out.println("제목? ");
-    out.println("!{}!");
-    out.flush();
-    board.setTitle(in.nextLine());
+    board.setTitle(Prompt.getString(in, out, "제목? "));
 
     if (boardDao.insert(board) > 0) {
       out.println("새 게시글을 등록했습니다.");

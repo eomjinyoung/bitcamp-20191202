@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
+import com.eomcs.util.Prompt;
 
 public class PhotoBoardDeleteServlet implements Servlet {
 
@@ -21,14 +22,7 @@ public class PhotoBoardDeleteServlet implements Servlet {
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
-    out.println("번호? ");
-    out.println("!{}!");
-    out.flush();
-
-    int no = Integer.parseInt(in.nextLine());
-
-    // 사진 게시글을 삭제하기 전에 먼저 자식 테이블에 있는
-    // 첨부 파일 데이터를 삭제한다.
+    int no = Prompt.getInt(in, out, "번호? ");
     photoFileDao.deleteAll(no);
 
     if (photoBoardDao.delete(no) > 0) {

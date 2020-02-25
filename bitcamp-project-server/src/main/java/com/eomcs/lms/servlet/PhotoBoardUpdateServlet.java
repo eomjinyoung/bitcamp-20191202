@@ -8,6 +8,7 @@ import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.util.Prompt;
 
 public class PhotoBoardUpdateServlet implements Servlet {
 
@@ -24,10 +25,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
 
-    out.println("번호? ");
-    out.println("!{}!");
-    out.flush();
-    int no = Integer.parseInt(in.nextLine());
+    int no = Prompt.getInt(in, out, "번호? ");
 
     PhotoBoard old = photoBoardDao.findByNo(no);
     if (old == null) {
@@ -35,12 +33,10 @@ public class PhotoBoardUpdateServlet implements Servlet {
       return;
     }
 
-    out.printf("제목(%s)? \n", old.getTitle());
-    out.println("!{}!");
-    out.flush();
-
     PhotoBoard photoBoard = new PhotoBoard();
-    photoBoard.setTitle(in.nextLine());
+    photoBoard.setTitle(Prompt.getString(in, out, //
+        String.format("제목(%s)? \n", old.getTitle()), //
+        old.getTitle()));
     photoBoard.setNo(no);
 
     if (photoBoardDao.update(photoBoard) > 0) { // 변경했다면,
@@ -54,10 +50,9 @@ public class PhotoBoardUpdateServlet implements Servlet {
       out.println();
       out.println("사진은 일부만 변경할 수 없습니다.");
       out.println("전체를 새로 등록해야 합니다.");
-      out.println("사진을 변경하시겠습니까?(y/N) ");
-      out.println("!{}!");
-      out.flush();
-      String response = in.nextLine();
+
+      String response = Prompt.getString(in, out, //
+          "사진을 변경하시겠습니까?(y/N) ");
 
       if (response.equalsIgnoreCase("y")) {
 
@@ -71,10 +66,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
         ArrayList<PhotoFile> photoFiles = new ArrayList<>();
 
         while (true) {
-          out.println("사진 파일? ");
-          out.println("!{}!");
-          out.flush();
-          String filepath = in.nextLine();
+          String filepath = Prompt.getString(in, out, "사진 파일? ");
 
           if (filepath.length() == 0) {
             if (photoFiles.size() > 0) {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Prompt;
 
 public class MemberSearchServlet implements Servlet {
 
@@ -16,11 +17,7 @@ public class MemberSearchServlet implements Servlet {
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
-    out.println("검색어? ");
-    out.println("!{}!");
-    out.flush();
-
-    String keyword = in.nextLine();
+    String keyword = Prompt.getString(in, out, "검색어? ");
 
     List<Member> members = memberDao.findByKeyword(keyword);
     for (Member m : members) {
