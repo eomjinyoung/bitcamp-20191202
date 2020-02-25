@@ -32,7 +32,7 @@
 - com.eomcs.lms.DataLoaderListener 변경
   - PhotoBoardDao 객체를 생성한다.
 
-### 훈련1: '/photoboard/list' 명령을 처리하라.
+### 훈련2: '/photoboard/list' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardListServlet 추가
     - 사진 게시물의 목록을 출력한다.
@@ -51,7 +51,7 @@
   4, 과제 발표회              , 2018-11-14, 0
 ```
     
-### 훈련2: '/photoboard/detail' 명령을 처리하라.
+### 훈련3: '/photoboard/detail' 명령을 처리하라.
 
 - com.eomcs.lms.domain.PhotoBoard 변경
   - 수업 정보를 담을 Lesson 타입의 인스턴스 필드를 추가한다.
@@ -80,7 +80,7 @@
 해당 번호의 사진 게시글이 없습니다.
 ```
 
-### 훈련3: '/photoboard/add' 명령을 처리하라.
+### 훈련4: '/photoboard/add' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
     - 사진 게시물을 입력한다.
@@ -104,7 +104,7 @@ test1
 수업 번호가 유효하지 않습니다.
 ```
 
-### 훈련4: '/photoboard/update' 명령을 처리하라.
+### 훈련5: '/photoboard/update' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardUpdateServlet 추가
     - 사진 게시물을 변경한다. 
@@ -126,7 +126,7 @@ test1...xx
 해당 번호의 사진 게시글이 없습니다.
 ```
 
-### 훈련5: '/photoboard/delete' 명령을 처리하라.
+### 훈련6: '/photoboard/delete' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardDeleteServlet 추가
     - 사진 게시물을 삭제한다. 
