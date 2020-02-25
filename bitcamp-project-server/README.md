@@ -75,7 +75,7 @@ a3.gif
 - com.eomcs.lms.dao.PhotoFileDao 인터페이스 변경
   - 사진 파일 목록을 리턴하는 메서드를 추가한다.
   - findAll(int boardNo)
-- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 추가
+- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 변경
   - PhotoFileDao 인터페이스에 추가된 메서드를 구현한다.
 - com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
   - PhotoFileDao 의존 객체를 주입받는다.
@@ -98,7 +98,7 @@ a3.gif
 > pp3.jpeg
 ```
 
-### 훈련4: PhotoFile 객체의 생성자를 추가하라.
+### 훈련4: PhotoFile 객체의 생성자 및 셋터의 활용
 
 - 인스턴스의 초기 값을 설정할 수 있는 생성자를 추가한다.
 
@@ -123,28 +123,47 @@ a3.gif
   - PhotoFile 객체를 만들 때 셋터 메서드로 값을 설정한다.
   
 
-### 훈련3: '/photoboard/add' 명령을 처리하라.
+### 훈련5: '/photoboard/update' 명령을 처리하라.
 
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
-    - 사진 게시물을 입력한다.
+- com.eomcs.lms.dao.PhotoFileDao 인터페이스 변경
+  - 사진 파일을 삭제하는 메서드를 추가한다.
+  - deleteAll(int boardNo)
+- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 변경
+  - PhotoFileDao 인터페이스에 추가된 메서드를 구현한다.
+- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 변경
+  - 사진 게시글의 첨부파일을 변경한다.
 - com.eomcs.lms.ServerApp 변경
-    - `PhotoBoardAddServlet` 객체를 생성하여 커맨드 맵에 보관한다.
+  - `PhotoBoardUpdateServlet` 객체에 PhotoFileDao 객체를 주입한다. 
 
 `ClientApp` 실행 예:
 ```
-명령> /photoboard/add
-제목?
-test1
-수업 번호?
-2
-사진을 저장했습니다.
+명령> /photoboard/update
+번호?
+7
+제목(okok2)?
+최종 발표
+사진 파일:
+> aaa1.jpeg
+> aaa2.jpeg
 
-명령> /photoboard/add
-제목?
-test1
-수업 번호?
-200
-수업 번호가 유효하지 않습니다.
+사진은 일부만 변경할 수 없습니다.
+전체를 새로 등록해야 합니다.
+사진을 변경하시겠습니까?(y/N)
+y
+최소 한 개의 사진 파일을 등록해야 합니다.
+파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.
+사진 파일?
+
+최소 한 개의 사진 파일을 등록해야 합니다.
+사진 파일?
+ppt1.jpeg
+사진 파일?
+pp2.jpeg
+사진 파일?
+pp3.jpeg
+사진 파일?
+
+사진을 변경했습니다.
 ```
 
 ### 훈련4: '/photoboard/update' 명령을 처리하라.

@@ -115,7 +115,7 @@ public class ServerApp {
     servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
         photoBoardDao, lessonDao, photoFileDao));
     servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
-        photoBoardDao));
+        photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
         photoBoardDao));
 
