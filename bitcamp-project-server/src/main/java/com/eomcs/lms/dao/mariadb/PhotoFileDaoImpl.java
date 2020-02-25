@@ -40,11 +40,17 @@ public class PhotoFileDaoImpl implements PhotoFileDao {
 
       ArrayList<PhotoFile> list = new ArrayList<>();
       while (rs.next()) {
-        PhotoFile photoFile = new PhotoFile();
-        photoFile.setNo(rs.getInt("photo_file_id"));
-        photoFile.setBoardNo(rs.getInt("photo_id"));
-        photoFile.setFilepath(rs.getString("file_path"));
-        list.add(photoFile);
+        // 1) 생성자를 통해 인스턴스 필드의 값을 설정하기
+        // list.add(new PhotoFile(//
+        // rs.getInt("photo_file_id"), //
+        // rs.getString("file_path"), //
+        // rs.getInt("photo_id")));
+
+        // 2) 셋터를 통해 체인 방식으로 인스턴스 필드의 값을 설정하기
+        list.add(new PhotoFile() //
+            .setNo(rs.getInt("photo_file_id")) //
+            .setFilepath(rs.getString("file_path")) //
+            .setBoardNo(rs.getInt("photo_id")));
       }
       return list;
     }

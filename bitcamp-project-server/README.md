@@ -98,6 +98,31 @@ a3.gif
 > pp3.jpeg
 ```
 
+### 훈련4: PhotoFile 객체의 생성자를 추가하라.
+
+- 인스턴스의 초기 값을 설정할 수 있는 생성자를 추가한다.
+
+생성자를 통해 인스턴스의 초기 값을 설정하기 I:
+- com.eomcs.lms.domain.PhotoFile 변경
+  - PhotoFile(filepath, boardNO) 생성자 추가한다.
+- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
+  - PhotoFile(filepath, boardNo) 생성자를 사용한다.
+
+생성자를 통해 인스턴스의 초기 값을 설정하기 II:
+- com.eomcs.lms.domain.PhotoFile 변경
+  - PhotoFile(int no, filepath, boardNO) 생성자 추가한다.
+- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 변경
+  - PhotoFile(no, filepath, boardNo) 생성자를 사용한다.
+
+셋터 메서드를 통해 인스턴스의 초기 값을 설정하기:
+- com.eomcs.lms.domain.PhotoFile 변경
+  - 셋터 메서드가 인스턴스 주소를 리턴하게 변경한다.
+- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
+  - PhotoFile 객체를 만들 때 셋터 메서드로 값을 설정한다.
+- com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl 변경
+  - PhotoFile 객체를 만들 때 셋터 메서드로 값을 설정한다.
+  
+
 ### 훈련3: '/photoboard/add' 명령을 처리하라.
 
 - com.eomcs.lms.servlet.PhotoBoardAddServlet 추가
