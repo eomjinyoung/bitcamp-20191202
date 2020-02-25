@@ -15,7 +15,9 @@ import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 //
 public class DataLoaderListener implements ApplicationContextListener {
 
-  Connection con;
+  // 다른 클래스에서 커넥션 객체를 사용할 수 있도록 공개한다.
+  // => Servlet 클래스에서 트랜잭션을 다루기 위해 이 커넥션 객체를 사용한다.
+  public static Connection con;
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
