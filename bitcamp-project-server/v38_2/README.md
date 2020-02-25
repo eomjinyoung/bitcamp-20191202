@@ -191,11 +191,4 @@ pp3.jpeg
 7
 사진 게시글을 삭제했습니다.
 ```
-
-### 훈련7: 코드 리팩토링
-
-- com.eomcs.util.Prompt 추가
-  - 클라이언트에게 입력값을 요구하는 부분을 별도의 클래스로 분리 한다.
-  
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
   
