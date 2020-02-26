@@ -56,8 +56,9 @@
 
 - com.eomcs.util.ConnectionFactory 변경
   - Thread에 보관된 Connection 객체를 제거하는 메서드를 추가한다.
-  - removeConnection();
+  - removeConnection()
 - com.eomcs.lms.DataLoaderListener 변경
   - ServerApp에서 ConnectionFactory를 사용할 수 있도록 맵에 보관하여 리턴한다.
 - com.eomcs.lms.ServerApp 변경
-  - 클라이언트 요청을 처리한 후에 Thread에서 Connection을 제거한다.
+  - 클라이언트 요청을 처리한 후에 
+    ConnectionFactory를 통해 Thread에서 Connection을 제거한다.
