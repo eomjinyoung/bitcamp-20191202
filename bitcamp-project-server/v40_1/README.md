@@ -19,7 +19,7 @@
 
 - src/main/java/com/eomcs/util/ConnectionFactory.java 추가
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
-- src/main/java/com/eomcs/lms/dao/mariadb/XxxDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
 
