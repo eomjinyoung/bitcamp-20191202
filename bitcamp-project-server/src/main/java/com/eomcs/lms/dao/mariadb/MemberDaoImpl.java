@@ -1,6 +1,7 @@
 package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,15 +11,20 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberDaoImpl implements MemberDao {
 
-  Connection con;
+  String jdbcUrl;
+  String username;
+  String password;
 
-  public MemberDaoImpl(Connection con) {
-    this.con = con;
+  public MemberDaoImpl(String jdbcUrl, String username, String password) {
+    this.jdbcUrl = jdbcUrl;
+    this.username = username;
+    this.password = password;
   }
 
   @Override
   public int insert(Member member) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate("insert into lms_member(name, email, pwd, tel, photo) "
           + "values('" + member.getName() + "', '" + member.getEmail() + "', '"
@@ -30,7 +36,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findAll() throws Exception {
-    try (Statement stmt = con.createStatement();
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select member_id, name, email, tel, cdt from lms_member")) {
 
@@ -54,7 +61,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public Member findByNo(int no) throws Exception {
-    try (Statement stmt = con.createStatement();
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select member_id, name, email, pwd, tel, photo" + " from lms_member"
                 + " where member_id=" + no)) {
@@ -77,7 +85,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int update(Member member) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement()) {
 
       int result =
           stmt.executeUpdate("update lms_member set name= '" + member.getName() + "', email='"
@@ -90,7 +99,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Statement stmt = con.createStatement()) {
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate("delete from lms_member where member_id=" + no);
 
@@ -100,7 +110,8 @@ public class MemberDaoImpl implements MemberDao {
 
   @Override
   public List<Member> findByKeyword(String keyword) throws Exception {
-    try (Statement stmt = con.createStatement();
+    try (Connection con = DriverManager.getConnection(jdbcUrl, username, password);
+        Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select member_id, name, email, tel, cdt" //
                 + " from lms_member" //
