@@ -35,4 +35,14 @@ public class ConnectionFactory {
 
     return con;
   }
+
+  public void removeConnection() {
+    // 스레드에 보관된 Connection 객체를 제거한다.
+    // => 다음 문장을 실행하는 스레드에서 제거한다.
+    // => 어느 스레드인지 구분하니까 걱정하지 말라!
+    Connection con = connectionLocal.get();
+    if (con != null) {
+      connectionLocal.remove();
+    }
+  }
 }

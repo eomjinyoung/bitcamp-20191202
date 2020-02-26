@@ -26,6 +26,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       // Connection 팩토리 준비
       ConnectionFactory conFactory = new ConnectionFactory(//
           jdbcUrl, username, password);
+      context.put("connectionFactory", conFactory);
 
       // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
       context.put("boardDao", new BoardDaoImpl(conFactory));
