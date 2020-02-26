@@ -14,12 +14,13 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao/mariadb/XxxDaoImpl.java 변경
+- src/main/java/com/eomcs/util/ConnectionFactory.java 추가
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/XxxDaoImpl.java 변경
 
 ## 실습  
 
-### 훈련1: 각 메서드를 호출할 때 DBMS와 연결하라.
+### 훈련1: 커넥션을 생성할 때 팩토리 메서드를 사용하라.
 
 - com.eomcs.util.ConnectionFactory 추가
   - Connection 객체를 생성하는 메서드를 추가한다.
