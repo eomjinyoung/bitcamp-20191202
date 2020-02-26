@@ -1,16 +1,19 @@
-# 39_2 - Connection 개별화하기: 커넥션 객체 생성에 Factory Method 패턴 적용하기
-
+# 40 - Connection을 스레드에 보관하기: ThreadLocal을 사용하여 스레드에 값 보관하기
 
 ## 학습목표
 
-- Factory Method 디자인 패턴의 원리와 사용 목적을 이해한다.
-- Factory Method 설계 기법에 따라 구현할 수 있다.
+- ThreadLocal의 동작 원리를 이해한다.
+- ThreadLocal을 사용하여 각 스레드에 값을 저장할 수 있다.
 
-### Factory Method 디자인 패턴
+### Connection을 Thread에 보관하는 이유?
 
-- 객체 생성 과정이 복잡할 경우에 사용하는 설계 기법이다.
-- new 연산자를 이용하여 직접 객체를 생성하는 대신에 메서드를 통해 리턴 받는다.
-
+- 여러 개의 데이터 변경(insert/update/delete) 작업을 한 단위로 묶으려면 
+  같은 Connection을 사용해야 한다.
+- 왜? commit()/rollback()은 커넥션 객체에 대해 실행하기 때문이다.
+- 즉 트랜잭션은 각 커넥션 별로 관리된다. 
+- 그래서 스레드가 실행하는 데이터 변경 작업을 한 단위로 묶으려면 
+  그 스레드가 수행하는 데이터 변경 작업은 같은 커넥션으로 실행해야 한다.
+- DAO의 메서드가 실행될 때 사용하는 커넥션은 스레드에서 꺼낸다.
 
 ## 실습 소스 및 결과
 
@@ -20,31 +23,12 @@
 
 ## 실습  
 
-### 훈련1: 커넥션을 생성할 때 팩토리 메서드를 사용하라.
+### 훈련1: 커넥션 팩토리에서 생성한 Connection 객체를 스레드에 보관하라.
 
-Connection 객체는 DriverManager를 통해 생성하지만, 
-생성 방법이 바뀔 수 있다.
-문제는 Connection 객체 생성 방법이 바뀌면, 
-DAO 구현체를 모두 변경해야 한다.
-이런 문제를 해결하기 위해 커넥션 객체 생성을 별도의 클래스에 맡긴다.
-그리고 메서드를 통해 커넥션 객체를 얻는다.
-
-- com.eomcs.util.ConnectionFactory 추가
-  - Connection 객체를 생성하는 메서드를 추가한다.
-- com.eomcs.lms.DataLoaderListener 변경
-  - ConnectionFactory 객체를 준비한다.
-  - DAO 구현체에 ConnectionFactory 객체를 주입한다.
-- com.eomcs.lms.dao.mariadb.XxxDaoImpl 변경
-  - 생성자에서 ConnectionFactory 객체를 받는다.
-  - 직접 Connection 객체를 생성하는 대신에 
-  ConnectionFactory 객체를 통해 Connection 얻는다.
-
-
-### 메서드 마다 커넥션을 구분하는 방식의 문제점
-
-- 메서드 마다 별도의 커넥션을 사용한다.
-- 따라서 PhotoBoardDao의 insert()와 PhotoFileDao의 insert()를 
-  한 단위 작업으로 묶을 수 없다.
-- 즉 사진 게시글 입력과 첨부 파일 입력을 한 단위의 작업으로 다룰 수 없다.
-- 트랜잭션을 구현할 수 없다. 
+- com.eomcs.util.ConnectionFactory 변경
+  - getConnection() 변경
+    - 스레드에 보관된 Connection 객체가 없다면, 새로 생성하여 리턴한다.
+    - 새로 생성한 Connection 객체는 스레드에 보관한다.
+    - 스레드에 보관된 Connection 객체가 있다면 그 객체를 꺼내 리턴한다.
+  
   

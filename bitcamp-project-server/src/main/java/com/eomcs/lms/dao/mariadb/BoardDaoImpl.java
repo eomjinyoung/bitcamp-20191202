@@ -19,6 +19,13 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int insert(Board board) throws Exception {
+
+    Connection c1 = conFactory.getConnection();
+    Connection c2 = conFactory.getConnection();
+    Connection c3 = conFactory.getConnection();
+    System.out.println(c1 == c2);
+    System.out.println(c1 == c3);
+
     try (Connection con = conFactory.getConnection(); //
         Statement stmt = con.createStatement()) {
 
