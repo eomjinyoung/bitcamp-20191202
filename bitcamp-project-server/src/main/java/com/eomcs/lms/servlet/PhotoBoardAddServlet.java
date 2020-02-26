@@ -1,6 +1,7 @@
 package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,18 +11,22 @@ import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.util.ConnectionFactory;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardAddServlet implements Servlet {
 
+  ConnectionFactory conFactory;
   PhotoBoardDao photoBoardDao;
   LessonDao lessonDao;
   PhotoFileDao photoFileDao;
 
   public PhotoBoardAddServlet( //
+      ConnectionFactory conFactory, //
       PhotoBoardDao photoBoardDao, //
       LessonDao lessonDao, //
       PhotoFileDao photoFileDao) {
+    this.conFactory = conFactory;
     this.photoBoardDao = photoBoardDao;
     this.lessonDao = lessonDao;
     this.photoFileDao = photoFileDao;
@@ -43,6 +48,15 @@ public class PhotoBoardAddServlet implements Servlet {
 
     photoBoard.setLesson(lesson);
 
+    // 트랜잭션 시작
+    Connection con = conFactory.getConnection();
+    // => ConnectionFactory는 스레드에 보관된 Connection 객체를 찾을 것이다.
+    // => 있으면 스레드에 보관된 Connection 객체를 리턴해 줄 것이고,
+    // => 없으면 새로 만들어 리턴해 줄 것이다.
+    // => 물론 새로 만든 Connection 객체는 스레드에도 보관될 것이다.
+
+    con.setAutoCommit(false);
+
     try {
       if (photoBoardDao.insert(photoBoard) == 0) {
         throw new Exception("사진 게시글 등록에 실패했습니다.");
@@ -52,11 +66,15 @@ public class PhotoBoardAddServlet implements Servlet {
         photoFile.setBoardNo(photoBoard.getNo());
         photoFileDao.insert(photoFile);
       }
+      con.commit();
       out.println("새 사진 게시글을 등록했습니다.");
 
     } catch (Exception e) {
+      con.rollback();
       out.println(e.getMessage());
 
+    } finally {
+      con.setAutoCommit(true);
     }
   }
 
