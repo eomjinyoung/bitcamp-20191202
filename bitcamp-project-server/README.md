@@ -33,7 +33,7 @@ SQL 삽입 공격을 막을 수 있다.
 user3@test.com
 암호?
 aaa') or (email='user3@test.com' and 'a'='a
-'user3'님 환영합니다.
+사용자의 정보가 유효하지 않습니다.
 
 ```
 

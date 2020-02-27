@@ -70,7 +70,33 @@ aaa') or (email='user3@test.com' and 'a'='a
 
 ```
 
+분명히 잘못된 암호를 넣었는데도 불구하고 로그인에 성공했다. 
+이것이 SQL 삽입 공격이다. 
 
+`MemberDao.findByEmailAndPassword(String email, String password)`의 
+코드를 살펴보면 다음과 같이 사용자 입력한 값을 가지고 SQL문을 만들어 실행한다.
+
+```
+ResultSet rs = stmt.executeQuery(
+            "select member_id, name, email, pwd, tel, photo"
+                + " from lms_member"
+                + " where email='" + email
+                + "' and pwd=password('" + password + "')")
+```
+
+즉 다음과 같이 사용자가 입력한 값이 SQL 문장 안에 그대로 삽입된다.
+
+```
+select member_id, name, email, pwd, tel, photo
+from lms_member
+where email='user3@test.com' 
+and pwd=password('aaa') or (email='user3@test.com' and 'a'='a')
+```
+
+사용자 암호 값 속에 포함된 
+`aaa') or (email='user3@test.com' and 'a'='a` 문구 때문에 
+암호에 상관없이 `where` 절 조건은 무조건 참이 된다. 
+암호가 다르더라도 조건문에 포함된 사용자 이메일로 로그인에 성공하는 것이다. 
 
 
 
