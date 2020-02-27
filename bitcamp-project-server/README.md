@@ -12,10 +12,7 @@ SQL 삽입 공격을 막을 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/MemberDaoImpl.java 변경
-- src/main/java/com/eomcs/lms/servlet/LoginServlet.java 추가
-- src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
 
