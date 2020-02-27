@@ -1,4 +1,4 @@
-# 41 - Connection Pool 도입하기
+# 41_1 - Connection Pool 도입하기
 
 ## 학습목표
 
