@@ -22,6 +22,10 @@ public interface MemberDao {
   default List<Member> findByKeyword(String keyword) throws Exception {
     return null;
   }
+
+  default Member findByEmailAndPassword(String email, String password) throws Exception {
+    return null;
+  }
 }
 
 

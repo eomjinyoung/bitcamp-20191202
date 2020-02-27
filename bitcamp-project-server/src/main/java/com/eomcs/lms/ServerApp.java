@@ -28,6 +28,7 @@ import com.eomcs.lms.servlet.LessonDeleteServlet;
 import com.eomcs.lms.servlet.LessonDetailServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
 import com.eomcs.lms.servlet.LessonUpdateServlet;
+import com.eomcs.lms.servlet.LoginServlet;
 import com.eomcs.lms.servlet.MemberAddServlet;
 import com.eomcs.lms.servlet.MemberDeleteServlet;
 import com.eomcs.lms.servlet.MemberDetailServlet;
@@ -127,6 +128,8 @@ public class ServerApp {
         txManager, photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
         txManager, photoBoardDao, photoFileDao));
+
+    servletMap.put("/auth/login", new LoginServlet(memberDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
