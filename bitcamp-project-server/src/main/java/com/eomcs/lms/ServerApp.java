@@ -40,9 +40,9 @@ import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
 import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
+import com.eomcs.sql.DataSource;
 import com.eomcs.sql.ConnectionProxy;
 import com.eomcs.sql.PlatformTransactionManager;
-import com.eomcs.util.ConnectionFactory;
 
 public class ServerApp {
 
@@ -85,7 +85,7 @@ public class ServerApp {
     notifyApplicationInitialized();
 
     // ConnectionFactory 꺼낸다.
-    ConnectionFactory conFactory = (ConnectionFactory) context.get(//
+    DataSource conFactory = (DataSource) context.get(//
         "connectionFactory");
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.

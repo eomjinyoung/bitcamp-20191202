@@ -7,8 +7,8 @@ import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
+import com.eomcs.sql.DataSource;
 import com.eomcs.sql.PlatformTransactionManager;
-import com.eomcs.util.ConnectionFactory;
 
 // 애플리케이션이 시작되거나 종료될 때
 // 데이터를 로딩하고 저장하는 일을 한다.
@@ -25,7 +25,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       String password = "1111";
 
       // Connection 팩토리 준비
-      ConnectionFactory conFactory = new ConnectionFactory(//
+      DataSource conFactory = new DataSource(//
           jdbcUrl, username, password);
       context.put("connectionFactory", conFactory);
 

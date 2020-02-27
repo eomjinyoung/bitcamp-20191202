@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
-import com.eomcs.util.ConnectionFactory;
+import com.eomcs.sql.DataSource;
 
 public class BoardDaoImpl implements BoardDao {
 
-  ConnectionFactory conFactory;
+  DataSource dataSource;
 
-  public BoardDaoImpl(ConnectionFactory conFactory) {
-    this.conFactory = conFactory;
+  public BoardDaoImpl(DataSource dataSource) {
+    this.dataSource = dataSource;
   }
 
   @Override
   public int insert(Board board) throws Exception {
 
-    try (Connection con = conFactory.getConnection(); //
+    try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate("insert into lms_board(conts) values('" //
@@ -32,7 +32,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() throws Exception {
-    try (Connection con = conFactory.getConnection();
+    try (Connection con = dataSource.getConnection();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select board_id, conts, cdt, vw_cnt from lms_board order by board_id desc")) {
@@ -56,7 +56,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public Board findByNo(int no) throws Exception {
-    try (Connection con = conFactory.getConnection(); //
+    try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
             "select board_id, conts, cdt, vw_cnt from lms_board where board_id=" + no)) {
@@ -77,7 +77,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int update(Board board) throws Exception {
-    try (Connection con = conFactory.getConnection(); //
+    try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate("update lms_board set conts = '" + //
@@ -89,7 +89,7 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int delete(int no) throws Exception {
-    try (Connection con = conFactory.getConnection(); //
+    try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement()) {
 
       int result = stmt.executeUpdate("delete from lms_board where board_id=" + no);
