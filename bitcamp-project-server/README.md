@@ -1,4 +1,4 @@
-# 42 - SQL 삽입 공격과 자바 시큐어 코딩: 사용자 로그인 기능 추가
+# 42_1 - SQL 삽입 공격과 자바 시큐어 코딩: 사용자 로그인 기능 추가
 
 DB 프로그래밍의 핵심은 JDBC API를 사용하여 SQL문을 실행하는 것이다. 
 SQL 문은 보통 사용자가 입력한 값을 가지고 작성하는데, 
@@ -16,11 +16,9 @@ SQL을 잘 아는 사용자가 입력 값에 SQL 문법을 포함시켜서
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/sql/ConnectionFactory.java 삭제
-- src/main/java/com/eomcs/sql/DataSource.java 추가
-- src/main/java/com/eomcs/sql/PlatformTransactionManager.java 변경
-- src/main/java/com/eomcs/lms/dao/mariadb/XxxDaoImpl.java 변경
-- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/MemberDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/servlet/LoginServlet.java 추가
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
@@ -58,3 +56,22 @@ user1@test.com
 2222
 사용자가 정보가 유효하지 않습니다.
 ```
+
+### 훈련2: SQL 삽입 공격을 통해 유효하지 않은 사용자 정보로 로그인 해 보라.
+
+'ClientApp' 실행 예:
+```
+명령> /auth/login
+이메일?
+user3@test.com
+암호?
+aaa') or (email='user3@test.com' and 'a'='a
+'user3'님 환영합니다.
+
+```
+
+
+
+
+
+
