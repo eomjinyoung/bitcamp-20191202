@@ -27,11 +27,16 @@ SQL을 잘 아는 사용자가 입력 값에 SQL 문법을 포함시켜서
 
 ### 훈련1: 사용자 로그인 기능을 만들라.
 
+- lms_member 테이블의 암호 초기화
+  - 테스트하기 위해 모든 회원의 암호를 '1111'로 초기화 한다.
+  - update lms_member set pwd=password('1111') 실행
 - com.eomcs.lms.dao.MemberDao 변경
   - 이메일과 암호를 가지고 사용자를 조회하는 메서드를 추가한다.
   - Member findByEmailAndPassword(String email, String password)
 - com.eomcs.lms.dao.mariadb.MemberDaoImpl 변경
   - MemberDao에 추가한 메서드를 구현한다.
+  - insert(), update()의 SQL 문에서 암호를 입력하거나 변경할 때 
+    password() SQL 함수로 인코딩하도록 SQL 문을 변경한다.
 - com.eomcs.lms.servlet.LoginServlet 추가
   - 사용자로부터 이메일과 암호를 입력받아 인증을 수행한다.
 - com.eomcs.lms.ServerApp 변경
