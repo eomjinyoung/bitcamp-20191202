@@ -46,34 +46,17 @@
 - com.eomcs.lms.dao.mariadb.XxxDaoImpl 변경
   - ConnectionFactory 대신 DataSource를 사용하도록 변경한다.
   
-    
-  
-### 훈련2: PhotoBoardAddServlet에 트랜잭션 관리자를 적용하라.
-
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
-  - PlatformTransactionManager를 주입 받는다.
-  - 트랜잭션 관리자를 통해 트랜잭션을 제어한다.
-  
-### 훈련3: PhotoBoardUpdateServlet에 트랜잭션 관리자를 적용하라.
-
-- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 변경
-  - PlatformTransactionManager를 주입 받는다.
-  - 트랜잭션 관리자를 통해 트랜잭션을 제어한다.
-  
-### 훈련4: PhotoBoardDeleteServlet에 트랜잭션 관리자를 적용하라.
-
-- com.eomcs.lms.servlet.PhotoBoardDeleteServlet 변경
-  - PlatformTransactionManager를 주입 받는다.
-  - 트랜잭션 관리자를 통해 트랜잭션을 제어한다.
-
-### 훈련5: DataLoaderListener에서 트랜잭션 관리자를 준비하라.
+### 훈련4: DataSource를 DAO에 주입하라.
 
 - com.eomcs.lms.DataLoaderListener 변경
-  - PlatformTransactionManager 객체를 준비한다.
-
-### 훈련6: 트랜잭션 관리자를 서블릿에 주입하라.
+  - ConnectionFactory 대신 DataSource 객체를 생성한다.
+  - DAO에 DataSource를 주입한다.
+  - 애플리케이션이 종료될 때 모든 DB 커넥션을 닫는다.
+  
+### 훈련5: 클라이언트 요청을 처리한 후 Connection을 닫지 말고 반납하라.
 
 - com.eomcs.lms.ServerApp 변경
-  - 맵에서 PlatformTransactionManager 객체를 꺼내 서블릿 객체에 주입한다.
+  - 클라이언트에게 응답한 후 스레드에서 커넥션 객체를 제거한다.
+  - 제거된 커넥션 객체는 재사용하기 위해 닫지 않는다.
   
 ### 훈련7: /photoboard/add, /photoboard/update, /photoboard/delete을 테스트 해 보라.

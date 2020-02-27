@@ -50,6 +50,8 @@ public class DataSource {
     // 물론 리턴하기 전에 스레드에 Connection 객체를 보관한다.
     connectionLocal.set(con);
 
+    System.out.printf("DataSource: 현재 보관중인 객체 %d개\n", conList.size());
+
     return con;
   }
 
@@ -63,6 +65,7 @@ public class DataSource {
       // Connection 객체는 다시 사용할 수 있게 반납한다.
       conList.add(con);
     }
+    System.out.printf("DataSource: 현재 보관중인 객체 %d개\n", conList.size());
     return con;
   }
 
