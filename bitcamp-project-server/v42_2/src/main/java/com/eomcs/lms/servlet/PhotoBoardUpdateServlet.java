@@ -9,11 +9,13 @@ import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.sql.TransactionTemplate;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardUpdateServlet implements Servlet {
 
-  PlatformTransactionManager txManager;
+  // 트랜잭션 관리자를 이용하여 작업을 실행시켜줄 도우미 객체
+  TransactionTemplate transactionTemplate;
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
 
@@ -21,7 +23,11 @@ public class PhotoBoardUpdateServlet implements Servlet {
       PlatformTransactionManager txManager, //
       PhotoBoardDao photoBoardDao, //
       PhotoFileDao photoFileDao) {
-    this.txManager = txManager;
+
+    // 우리가 직접 트랜잭션 관리자를 사용하지 않고,
+    // 도우미 객체를 이용하여 트랜잭션 작업을 처리할 것이다.
+    this.transactionTemplate = new TransactionTemplate(txManager);
+
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }
@@ -43,15 +49,11 @@ public class PhotoBoardUpdateServlet implements Servlet {
         old.getTitle()));
     photoBoard.setNo(no);
 
-    txManager.beginTransaction();
-
-    try {
+    transactionTemplate.execute(() -> {
       if (photoBoardDao.update(photoBoard) == 0) {
         throw new Exception("사진 게시글 변경에 실패했습니다.");
       }
-
       printPhotoFiles(out, no);
-
       out.println();
       out.println("사진은 일부만 변경할 수 없습니다.");
       out.println("전체를 새로 등록해야 합니다.");
@@ -60,24 +62,16 @@ public class PhotoBoardUpdateServlet implements Servlet {
           "사진을 변경하시겠습니까?(y/N) ");
 
       if (response.equalsIgnoreCase("y")) {
-
-        // 이 사진 게시글에 첨부되었은 기존 파일을 모두 삭제한다.
         photoFileDao.deleteAll(no);
-
         List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
-
         for (PhotoFile photoFile : photoFiles) {
           photoFile.setBoardNo(no);
           photoFileDao.insert(photoFile);
         }
       }
-      txManager.commit();
       out.println("사진 게시글을 변경했습니다.");
-
-    } catch (Exception e) {
-      txManager.rollback();
-      out.println(e.getMessage());
-    }
+      return null;
+    });
   }
 
   private void printPhotoFiles(PrintStream out, int boardNo) throws Exception {
