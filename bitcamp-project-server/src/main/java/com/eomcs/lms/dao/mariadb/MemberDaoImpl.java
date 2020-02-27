@@ -22,9 +22,13 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement()) {
 
-      int result = stmt.executeUpdate("insert into lms_member(name, email, pwd, tel, photo) "
-          + "values('" + member.getName() + "', '" + member.getEmail() + "', '"
-          + member.getPassword() + "', '" + member.getTel() + "', '" + member.getPhoto() + "')");
+      int result = stmt.executeUpdate( //
+          "insert into lms_member(name, email, pwd, tel, photo) "//
+              + "values('" + member.getName() //
+              + "', '" + member.getEmail() //
+              + "', password('" + member.getPassword() //
+              + "'), '" + member.getTel() //
+              + "', '" + member.getPhoto() + "')");
 
       return result;
     }
@@ -60,7 +64,8 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery( //
-            "select member_id, name, email, pwd, tel, photo" + " from lms_member"
+            "select member_id, name, email, pwd, tel, photo" //
+                + " from lms_member" //
                 + " where member_id=" + no)) {
 
       if (rs.next()) {
@@ -84,10 +89,13 @@ public class MemberDaoImpl implements MemberDao {
     try (Connection con = dataSource.getConnection(); //
         Statement stmt = con.createStatement()) {
 
-      int result =
-          stmt.executeUpdate("update lms_member set name= '" + member.getName() + "', email='"
-              + member.getEmail() + "', pwd='" + member.getPassword() + "', tel='" + member.getTel()
-              + "', photo='" + member.getPhoto() + "' where member_id=" + member.getNo());
+      int result = stmt.executeUpdate( //
+          "update lms_member set name= '" + member.getName() //
+              + "', email='" + member.getEmail() //
+              + "', pwd=password('" + member.getPassword() //
+              + "'), tel='" + member.getTel() //
+              + "', photo='" + member.getPhoto() //
+              + "' where member_id=" + member.getNo());
 
       return result;
     }
