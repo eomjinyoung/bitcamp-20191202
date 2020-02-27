@@ -41,6 +41,7 @@ import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
 import com.eomcs.sql.ConnectionProxy;
+import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.util.ConnectionFactory;
 
 public class ServerApp {
@@ -94,6 +95,10 @@ public class ServerApp {
     PhotoBoardDao photoBoardDao = (PhotoBoardDao) context.get("photoBoardDao");
     PhotoFileDao photoFileDao = (PhotoFileDao) context.get("photoFileDao");
 
+    // 트랜잭션 관리자를 꺼내 변수에 저장한다.
+    PlatformTransactionManager txManager = //
+        (PlatformTransactionManager) context.get("transactionManager");
+
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardDao));
     servletMap.put("/board/add", new BoardAddServlet(boardDao));
@@ -119,11 +124,11 @@ public class ServerApp {
     servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
         photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
-        conFactory, photoBoardDao, lessonDao, photoFileDao));
+        txManager, photoBoardDao, lessonDao, photoFileDao));
     servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
-        conFactory, photoBoardDao, photoFileDao));
+        txManager, photoBoardDao, photoFileDao));
     servletMap.put("/photoboard/delete", new PhotoBoardDeleteServlet( //
-        conFactory, photoBoardDao, photoFileDao));
+        txManager, photoBoardDao, photoFileDao));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 

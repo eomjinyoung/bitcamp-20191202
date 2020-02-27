@@ -7,6 +7,7 @@ import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
+import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.util.ConnectionFactory;
 
 // 애플리케이션이 시작되거나 종료될 때
@@ -34,6 +35,10 @@ public class DataLoaderListener implements ApplicationContextListener {
       context.put("memberDao", new MemberDaoImpl(conFactory));
       context.put("photoBoardDao", new PhotoBoardDaoImpl(conFactory));
       context.put("photoFileDao", new PhotoFileDaoImpl(conFactory));
+
+      // 트랜잭션 관리자 준비
+      PlatformTransactionManager txManager = new PlatformTransactionManager(conFactory);
+      context.put("transactionManager", txManager);
 
     } catch (Exception e) {
       e.printStackTrace();
