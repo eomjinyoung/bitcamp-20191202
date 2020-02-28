@@ -7,14 +7,18 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/dao/mariadb 디렉토리 생성
-- src/main/java/com/eomcs/lms/dao/mariadb/BoardDaoImpl.java 추가
-- src/main/java/com/eomcs/lms/dao/mariadb/LessonDaoImpl.java 추가
-- src/main/java/com/eomcs/lms/dao/mariadb/MemberDaoImpl.java 추가
-- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
-- src/main/java/com/eomcs/lms/servlet/BoardXxxServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/LessonXxxServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardDetailServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardAddServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardDeleteServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonDetailServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonAddServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonDeleteServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberDetailServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberAddServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberDeleteServlet.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
