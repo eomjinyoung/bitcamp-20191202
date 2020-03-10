@@ -7,11 +7,23 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/sql/TransactionCallback.java 추가
-- src/main/java/com/eomcs/sql/TransactionTemplate.java 추가
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardAddServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardUpdateServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardDeleteServlet.java 변경
+- build.gradle 변경
+- src/main/java/com/eomcs/lms/domain/PhotoBoard.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/BoardDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/LessonDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/MemberDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/PhotoBoardDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/mariadb/PhotoFileDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/servlet/PhotoBoardDetailServlet.java 변경
+- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 변경
+- src/main/resources/com/eomcs/lms/conf/mybatis-config.xml 추가
+- src/main/resources/com/eomcs/lms/conf/jdbc.properties 추가
+- src/main/resources/com/eomcs/lms/mapper/BoardMapper.xml 추가
+- src/main/resources/com/eomcs/lms/mapper/LessonMapper.xml 추가
+- src/main/resources/com/eomcs/lms/mapper/MemberMapper.xml 추가
+- src/main/resources/com/eomcs/lms/mapper/PhotoBoardMapper.xml 추가
+- src/main/resources/com/eomcs/lms/mapper/PhotoFileMapper.xml 추가
 
 ## 실습  
 
