@@ -60,7 +60,7 @@ public class MemberDaoImpl implements MemberDao {
   @Override
   public List<Member> findByKeyword(String keyword) throws Exception {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      return sqlSession.selectList("MemberMapper.selectByKeyword");
+      return sqlSession.selectList("MemberMapper.selectByKeyword", keyword);
     }
   }
 
