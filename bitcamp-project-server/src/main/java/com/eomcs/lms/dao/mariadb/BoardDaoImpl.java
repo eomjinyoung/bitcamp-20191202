@@ -24,12 +24,10 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int insert(Board board) throws Exception {
-
-    try (Connection con = dataSource.getConnection(); //
-        PreparedStatement stmt = con.prepareStatement(//
-            "insert into lms_board(conts) values(?)")) {
-      stmt.setString(1, board.getTitle());
-      return stmt.executeUpdate();
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      int count = sqlSession.insert("BoardMapper.insertBoard", board);
+      sqlSession.commit();
+      return count;
     }
   }
 

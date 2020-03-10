@@ -24,6 +24,11 @@
       board_id desc
   </select>
   
+  <insert id="insertBoard" parameterType="Board">
+    insert into lms_board(conts) 
+    values(#{title})
+  </insert>
+  
 </mapper>
 
 
