@@ -3,11 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <properties resource="com/eomcs/mybatis/ex04/jdbc.properties"></properties>
+  <properties resource="com/eomcs/lms/conf/jdbc.properties"></properties>
 
   <typeAliases>
-    <typeAlias type="com.eomcs.mybatis.ex04.Board" alias="Board"/>
-    <typeAlias type="com.eomcs.mybatis.ex04.AttachFile" alias="AttachFile"/>
+    <typeAlias type="com.eomcs.lms.domain.Board" alias="Board"/>
+    <typeAlias type="com.eomcs.lms.domain.Lesson" alias="Lesson"/>
+    <typeAlias type="com.eomcs.lms.domain.Member" alias="Member"/>
+    <typeAlias type="com.eomcs.lms.domain.PhotoBoard" alias="PhotoBoard"/>
+    <typeAlias type="com.eomcs.lms.domain.PhotoFile" alias="PhotoFile"/>
   </typeAliases>
 
   <environments default="development">
@@ -23,8 +26,7 @@
   </environments>
   
   <mappers>
-    <mapper resource="com/eomcs/mybatis/ex04/BoardMapper.xml"/>
-    <mapper resource="com/eomcs/mybatis/ex04/BoardMapper2.xml"/>
+    <mapper resource="com/eomcs/lms/mapper/BoardMapper.xml"/>
   </mappers>
 </configuration>
 

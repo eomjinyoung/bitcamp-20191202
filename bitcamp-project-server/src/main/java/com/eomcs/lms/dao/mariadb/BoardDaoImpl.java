@@ -3,8 +3,9 @@ package com.eomcs.lms.dao.mariadb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.sql.DataSource;
@@ -12,9 +13,13 @@ import com.eomcs.sql.DataSource;
 public class BoardDaoImpl implements BoardDao {
 
   DataSource dataSource;
+  SqlSessionFactory sqlSessionFactory;
 
-  public BoardDaoImpl(DataSource dataSource) {
+  public BoardDaoImpl( //
+      DataSource dataSource, //
+      SqlSessionFactory sqlSessionFactory) {
     this.dataSource = dataSource;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -30,23 +35,8 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<Board> findAll() throws Exception {
-    try (Connection con = dataSource.getConnection();
-        PreparedStatement stmt = con.prepareStatement(//
-            "select board_id, conts, cdt, vw_cnt" //
-                + " from lms_board" //
-                + " order by board_id desc");
-        ResultSet rs = stmt.executeQuery()) {
-      ArrayList<Board> list = new ArrayList<>();
-      while (rs.next()) {
-        Board board = new Board();
-        board.setNo(rs.getInt("board_id"));
-        board.setTitle(rs.getString("conts"));
-        board.setDate(rs.getDate("cdt"));
-        board.setViewCount(rs.getInt("vw_cnt"));
-        list.add(board);
-      }
-
-      return list;
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      return sqlSession.selectList("BoardMapper.selectBoard");
     }
   }
 

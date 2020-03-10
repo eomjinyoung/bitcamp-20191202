@@ -33,8 +33,16 @@
     - DBMS 서버 정보를 설정한다.
     - DB 커넥션 풀을 설정한다.
 
+### 훈련3: BoardDaoImpl 에 Mybatis를 적용한다.
 
-
+- com.eomcs.lms.dao.mariadb.BoardDaoImpl 클래스 변경
+  - SQL을 뜯어내어 BoardMapper.xml로 옮긴다.
+  - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
+- com/eomcs/lms/mapper/BoardMapper.xml
+  - BoardDaoImpl 에 있던 SQL문을 이 파일로 옮긴다.
+- com.eomcs.lms.DataLoaderListener 변경
+  - SqlSessionFactory 객체를 준비한다.
+  - BoardDaoImpl 에 주입한다.
 
 
 

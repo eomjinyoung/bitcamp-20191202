@@ -1,6 +1,10 @@
 package com.eomcs.lms;
 
+import java.io.InputStream;
 import java.util.Map;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
@@ -29,8 +33,14 @@ public class DataLoaderListener implements ApplicationContextListener {
           jdbcUrl, username, password);
       context.put("dataSource", dataSource);
 
+      // Mybatis 객체 준비
+      InputStream inputStream = Resources.getResourceAsStream(//
+          "com/eomcs/lms/conf/mybatis-config.xml");
+      SqlSessionFactory sqlSessionFactory = //
+          new SqlSessionFactoryBuilder().build(inputStream);
+
       // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
-      context.put("boardDao", new BoardDaoImpl(dataSource));
+      context.put("boardDao", new BoardDaoImpl(dataSource, sqlSessionFactory));
       context.put("lessonDao", new LessonDaoImpl(dataSource));
       context.put("memberDao", new MemberDaoImpl(dataSource));
       context.put("photoBoardDao", new PhotoBoardDaoImpl(dataSource));
