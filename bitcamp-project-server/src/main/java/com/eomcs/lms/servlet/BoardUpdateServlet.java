@@ -31,7 +31,7 @@ public class BoardUpdateServlet implements Servlet {
     board.setTitle(Prompt.getString(//
         in, //
         out, //
-        String.format("제목(%s)? \n", old.getTitle()), //
+        String.format("제목(%s)? ", old.getTitle()), //
         old.getTitle()));
 
     board.setNo(no);

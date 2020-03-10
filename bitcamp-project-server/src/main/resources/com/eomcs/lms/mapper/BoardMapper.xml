@@ -29,6 +29,28 @@
     values(#{title})
   </insert>
   
+  <select id="selectDetail" resultMap="BoardMap" parameterType="int">
+    select 
+      board_id, 
+      conts, 
+      cdt, 
+      vw_cnt
+    from 
+      lms_board
+    where 
+      board_id=#{no}
+  </select>
+  
+  <update id="updateBoard" parameterType="Board">
+    update lms_board set
+      conts=#{title}
+    where board_id=#{no}
+  </update>
+  
+  <delete id="deleteBoard" parameterType="int">
+    delete from lms_board
+    where board_id=#{no}
+  </delete>
 </mapper>
 
 
