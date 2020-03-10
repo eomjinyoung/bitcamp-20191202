@@ -121,7 +121,7 @@ public class ServerApp {
     servletMap.put("/photoboard/list", new PhotoBoardListServlet( //
         photoBoardDao, lessonDao));
     servletMap.put("/photoboard/detail", new PhotoBoardDetailServlet( //
-        photoBoardDao, photoFileDao));
+        photoBoardDao));
     servletMap.put("/photoboard/add", new PhotoBoardAddServlet( //
         txManager, photoBoardDao, lessonDao, photoFileDao));
     servletMap.put("/photoboard/update", new PhotoBoardUpdateServlet( //
