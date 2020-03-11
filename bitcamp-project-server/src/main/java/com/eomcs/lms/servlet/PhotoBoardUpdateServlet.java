@@ -49,7 +49,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
         String.format("제목(%s)? ", old.getTitle()), //
         old.getTitle()));
 
-    printPhotoFiles(out, photoBoard);
+    printPhotoFiles(out, old);
     out.println();
     out.println("사진은 일부만 변경할 수 없습니다.");
     out.println("전체를 새로 등록해야 합니다.");
@@ -60,9 +60,6 @@ public class PhotoBoardUpdateServlet implements Servlet {
     if (response.equalsIgnoreCase("y")) {
       // 사용자가 입력한 파일 목록을 PhotoBoard 객체에 저장한다.
       photoBoard.setFiles(inputPhotoFiles(in, out));
-    } else {
-      // 첨부파일을 변경하지 않는다면 목록을 null로 설정한다.
-      photoBoard.setFiles(null);
     }
 
     transactionTemplate.execute(() -> {
