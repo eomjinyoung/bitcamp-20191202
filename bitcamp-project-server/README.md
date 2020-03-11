@@ -55,9 +55,16 @@
   
 ### 훈련4: `where` 태그를 사용하여 검색 조건을 변경한다. 
 
+수업을 검색(수업명, 시작일, 종료일, 총강의시간, 일강의시간)하는 기능을 추가한다.
+검색 조건은 AND 연산으로 처리한다.
 
-
-
+- src/main/resources/com/eomcs/lms/mapper/LessonMapper.xml 변경
+  - selectLesson SQL문을 변경한다.
+  - `where` 태그를 적용하여 조건을 만족하는 데이터를 찾는다. 
+- com.eomcs.lms.dao.LessonDao 변경
+  - findByKeyword() 메서드를 추가한다.
+- com.eomcs.lms.servlet.LessonSearchServlet 추가 
+  - 검색 요청을 처리한다.
 
 
 
