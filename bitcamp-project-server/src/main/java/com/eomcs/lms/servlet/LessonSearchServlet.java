@@ -44,6 +44,9 @@ public class LessonSearchServlet implements Servlet {
     if (value > 0) {
       params.put("dayHours", value);
     }
+    out.println("------------------------------");
+    out.println("[검색 결과]");
+    out.println();
 
     List<Lesson> lessons = lessonDao.findByKeyword(params);
     for (Lesson l : lessons) {

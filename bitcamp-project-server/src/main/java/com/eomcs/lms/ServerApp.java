@@ -28,6 +28,7 @@ import com.eomcs.lms.servlet.LessonAddServlet;
 import com.eomcs.lms.servlet.LessonDeleteServlet;
 import com.eomcs.lms.servlet.LessonDetailServlet;
 import com.eomcs.lms.servlet.LessonListServlet;
+import com.eomcs.lms.servlet.LessonSearchServlet;
 import com.eomcs.lms.servlet.LessonUpdateServlet;
 import com.eomcs.lms.servlet.LoginServlet;
 import com.eomcs.lms.servlet.MemberAddServlet;
@@ -112,6 +113,7 @@ public class ServerApp {
     servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
     servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
     servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
+    servletMap.put("/lesson/search", new LessonSearchServlet(lessonDao));
 
     servletMap.put("/member/list", new MemberListServlet(memberDao));
     servletMap.put("/member/add", new MemberAddServlet(memberDao));

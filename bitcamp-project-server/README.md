@@ -6,13 +6,20 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
+- src/main/java/com/eomcs/util/Prompt.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
-- src/main/java/com/eomcs/lms/mapper/BoardDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/mapper/XxxDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/PhotoFileDao.java 변경
+- src/main/java/com/eomcs/lms/dao/LessonDao.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/LessonDaoImpl.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/MemberDaoImpl.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/PhotoBoardDaoImpl.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/PhotoFileDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/servlet/PhotoBoardAddServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/PhotoBoardUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonSearchServlet.java 변경
 
 ## 실습  
 
@@ -65,7 +72,8 @@
   - findByKeyword() 메서드를 추가한다.
 - com.eomcs.lms.servlet.LessonSearchServlet 추가 
   - 검색 요청을 처리한다.
-
+- com.eomcs.lms.ServerApp 변경
+  - LessonSearchServlet 객체 등록 
 
 
 
