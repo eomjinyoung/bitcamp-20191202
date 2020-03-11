@@ -47,6 +47,11 @@
 - com.eomcs.lms.servlet.LessonUpdateServlet 변경
   - 클라이언트가 값을 보내지 않은 항목은 빈문자열이나 null, 0으로 설정한다.
   - 이 경우 update 대상 컬럼에서 제외된다.
+- src/main/resources/com/eomcs/lms/mapper/MemberMapper.xml 변경
+  - updateMember SQL을 변경한다.
+- com.eomcs.lms.servlet.MemberUpdateServlet 변경
+  - 클라이언트가 값을 보내지 않은 항목은 빈문자열이나 null, 0으로 설정한다.
+  - 이 경우 update 대상 컬럼에서 제외된다.
   
 ### 훈련4: <where>를 사용하여 검색 조건을 변경한다. 
 
