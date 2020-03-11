@@ -14,7 +14,14 @@
     <result column="tel" property="tel"/>
     <result column="cdt" property="registeredDate"/>
   </resultMap>
-    
+  
+  <sql id="select1">
+      member_id, 
+      name, 
+      email, 
+      tel,
+  </sql>
+  
   <insert id="insertMember" parameterType="Member">
     insert into lms_member(
       name, 
@@ -33,10 +40,7 @@
   
   <select id="selectMember" resultMap="MemberMap">
     select 
-      member_id, 
-      name, 
-      email, 
-      tel, 
+      <include refid="select1"/>
       cdt
     from 
       lms_member
@@ -45,11 +49,8 @@
   
   <select id="selectDetail" resultMap="MemberMap" parameterType="int">
     select 
-      member_id, 
-      name, 
-      email, 
+      <include refid="select1"/>
       pwd, 
-      tel, 
       photo
     from 
       lms_member
@@ -78,10 +79,7 @@
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
     select 
-      member_id, 
-      name, 
-      email, 
-      tel, 
+      <include refid="select1"/>
       cdt
     from 
       lms_member
@@ -95,11 +93,8 @@
     resultMap="MemberMap" 
     parameterType="map">
     select 
-      member_id, 
-      name, 
-      email, 
+      <include refid="select1"/>
       pwd, 
-      tel, 
       photo
     from lms_member
     where 

@@ -14,7 +14,16 @@
     <result column="tot_hr" property="totalHours"/>
     <result column="day_hr" property="dayHours"/>
   </resultMap>
-    
+  
+  <sql id="select1">
+    select 
+      lesson_id, 
+      titl, 
+      sdt, 
+      edt, 
+      tot_hr
+  </sql>
+  
   <insert id="insertLesson" parameterType="Lesson">
     insert into lms_lesson(
       sdt, 
@@ -33,24 +42,14 @@
   </insert>
   
   <select id="selectLesson" resultMap="LessonMap">
-    select 
-      lesson_id, 
-      titl, 
-      sdt, 
-      edt, 
-      tot_hr
+    <include refid="select1"/>
     from lms_lesson
   </select>
 
   
   <select id="selectDetail" resultMap="LessonMap" parameterType="int">
-    select 
-      lesson_id, 
-      titl, 
+    <include refid="select1"/>,
       conts, 
-      sdt, 
-      edt, 
-      tot_hr, 
       day_hr
     from 
       lms_lesson

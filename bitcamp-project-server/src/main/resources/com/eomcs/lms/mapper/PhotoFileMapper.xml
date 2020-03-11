@@ -11,9 +11,12 @@
     <result column="photo_id"  property="boardNo"/>
   </resultMap>
     
-  <insert id="insertPhotoFile" parameterType="PhotoFile">
+  <insert id="insertPhotoFile" parameterType="PhotoBoard">
     insert into lms_photo_file(photo_id,file_path) 
-    values(#{boardNo}, #{filepath})
+    values
+    <foreach collection="files" item="file" separator=",">
+      (#{no}, #{file.filepath})
+    </foreach>
   </insert>
   
   <select id="selectPhotoFile" resultMap="PhotoFileMap" parameterType="int">

@@ -57,6 +57,7 @@ public class PhotoBoardAddServlet implements Servlet {
 
     // 사용자로부터 사진 게시글에 첨부할 파일을 입력 받는다.
     List<PhotoFile> photoFiles = inputPhotoFiles(in, out);
+    photoBoard.setFiles(photoFiles);
 
     // 도우미 객체를 이용하여 트랜잭션 작업을 처리해보자.
     // => 트랜잭션으로 묶어서 처리할 작업은 TransactionCallback 규칙에 따라
@@ -72,10 +73,7 @@ public class PhotoBoardAddServlet implements Servlet {
         if (photoBoardDao.insert(photoBoard) == 0) {
           throw new Exception("사진 게시글 등록에 실패했습니다.");
         }
-        for (PhotoFile photoFile : photoFiles) {
-          photoFile.setBoardNo(photoBoard.getNo());
-          photoFileDao.insert(photoFile);
-        }
+        photoFileDao.insert(photoBoard);
         out.println("새 사진 게시글을 등록했습니다.");
 
         return null;
