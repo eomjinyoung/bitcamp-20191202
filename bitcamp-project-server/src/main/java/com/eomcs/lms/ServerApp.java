@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
@@ -41,8 +42,8 @@ import com.eomcs.lms.servlet.PhotoBoardDetailServlet;
 import com.eomcs.lms.servlet.PhotoBoardListServlet;
 import com.eomcs.lms.servlet.PhotoBoardUpdateServlet;
 import com.eomcs.lms.servlet.Servlet;
-import com.eomcs.sql.DataSource;
 import com.eomcs.sql.PlatformTransactionManager;
+import com.eomcs.sql.SqlSessionFactoryProxy;
 
 public class ServerApp {
 
@@ -84,8 +85,9 @@ public class ServerApp {
 
     notifyApplicationInitialized();
 
-    // 커넥션풀을 꺼낸다.
-    DataSource dataSource = (DataSource) context.get("dataSource");
+    // SqlSessionFactory를 꺼낸다.
+    SqlSessionFactory sqlSessionFactory = //
+        (SqlSessionFactory) context.get("sqlSessionFactory");
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
     BoardDao boardDao = (BoardDao) context.get("boardDao");
@@ -141,11 +143,10 @@ public class ServerApp {
 
         executorService.submit(() -> {
           processRequest(socket);
-          // 스레드에 보관된 커넥션 객체를 제거한다.
-          // => 스레드에서 제거한 Connection 객체는 다시 사용할 수 있도록
-          // DataSource에 반납된다.
-          //
-          dataSource.removeConnection();
+
+          // 스레드에 보관된 SqlSession 객체를 제거한다.
+          ((SqlSessionFactoryProxy) sqlSessionFactory).closeSession();
+
           System.out.println("--------------------------------------");
         });
 
