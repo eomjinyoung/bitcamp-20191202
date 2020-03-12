@@ -1,5 +1,7 @@
 package com.eomcs.lms.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
@@ -25,6 +27,31 @@ public class LessonServiceImpl implements LessonService {
     // => 이처럼 때로는 아무런 일도 하지 않는 서비스 클래스를 정의하더라도
     // 프로그래밍의 일관성 때문임을 기억하라!
     return lessonDao.findByNo(no);
+  }
+
+  @Override
+  public int add(Lesson lesson) throws Exception {
+    return lessonDao.insert(lesson);
+  }
+
+  @Override
+  public int delete(int no) throws Exception {
+    return lessonDao.delete(no);
+  }
+
+  @Override
+  public List<Lesson> list() throws Exception {
+    return lessonDao.findAll();
+  }
+
+  @Override
+  public List<Lesson> search(HashMap<String, Object> params) throws Exception {
+    return lessonDao.findByKeyword(params);
+  }
+
+  @Override
+  public int update(Lesson lesson) throws Exception {
+    return lessonDao.update(lesson);
   }
 }
 

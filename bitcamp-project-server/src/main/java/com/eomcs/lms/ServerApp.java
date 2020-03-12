@@ -14,7 +14,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.MemberService;
@@ -99,9 +98,6 @@ public class ServerApp {
     MemberService memberService = //
         (MemberService) context.get("memberService");
 
-    // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
-    LessonDao lessonDao = (LessonDao) context.get("lessonDao");
-
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardService));
     servletMap.put("/board/add", new BoardAddServlet(boardService));
@@ -109,12 +105,12 @@ public class ServerApp {
     servletMap.put("/board/update", new BoardUpdateServlet(boardService));
     servletMap.put("/board/delete", new BoardDeleteServlet(boardService));
 
-    servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
-    servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));
-    servletMap.put("/lesson/detail", new LessonDetailServlet(lessonDao));
-    servletMap.put("/lesson/update", new LessonUpdateServlet(lessonDao));
-    servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
-    servletMap.put("/lesson/search", new LessonSearchServlet(lessonDao));
+    servletMap.put("/lesson/list", new LessonListServlet(lessonService));
+    servletMap.put("/lesson/add", new LessonAddServlet(lessonService));
+    servletMap.put("/lesson/detail", new LessonDetailServlet(lessonService));
+    servletMap.put("/lesson/update", new LessonUpdateServlet(lessonService));
+    servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonService));
+    servletMap.put("/lesson/search", new LessonSearchServlet(lessonService));
 
     servletMap.put("/member/list", new MemberListServlet(memberService));
     servletMap.put("/member/add", new MemberAddServlet(memberService));

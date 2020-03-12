@@ -2,16 +2,16 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.lms.service.LessonService;
 import com.eomcs.util.Prompt;
 
 public class LessonAddServlet implements Servlet {
 
-  LessonDao lessonDao;
+  LessonService lessonService;
 
-  public LessonAddServlet(LessonDao lessonDao) {
-    this.lessonDao = lessonDao;
+  public LessonAddServlet(LessonService lessonService) {
+    this.lessonService = lessonService;
   }
 
   @Override
@@ -25,7 +25,7 @@ public class LessonAddServlet implements Servlet {
     lesson.setTotalHours(Prompt.getInt(in, out, "총 강의시간? "));
     lesson.setDayHours(Prompt.getInt(in, out, "일 강의시간? "));
 
-    if (lessonDao.insert(lesson) > 0) {
+    if (lessonService.add(lesson) > 0) {
       out.println("강의를 저장했습니다.");
 
     } else {

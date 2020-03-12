@@ -58,6 +58,7 @@ public class DataLoaderListener implements ApplicationContextListener {
           new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
       context.put("boardService", new BoardServiceImpl(boardDao));
       context.put("memberService", new MemberServiceImpl(memberDao));
+
     } catch (Exception e) {
       e.printStackTrace();
     }
