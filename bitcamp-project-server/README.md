@@ -1,8 +1,25 @@
-# 44_1 - MyBatis의 dynamic sql 문법 사용하기
+# 44_1 - UI 객체에서 비즈니스 로직 분리하기
+
+비즈니스 로직을 별도의 클래스로 분리하면,
+UI 구현 방식이 변경되더라도 비즈니스 로직을 재사용할 수 있다.
 
 ## 학습목표
 
-- Mybatis에서 동적 SQL 생성하는 방법을 안다.
+- Presentation/Service(Business)/Persistence Layer의 구조를 이해한다.
+
+### Presentation Layer
+
+- UI를 담당한다.
+
+### Business(Service) Layer
+
+- 업무 로직을 담당한다.
+- 트랜잭션 제어를 담당한다.
+
+### Persistence Layer
+
+- 데이터 저장을 담당한다.
+
 
 ## 실습 소스 및 결과
 
@@ -23,9 +40,16 @@
 
 ## 실습  
 
-### 훈련1: `sql` 태그를 사용하여 공통 SQL 코드를 분리한다.
+### 훈련1: PhotoBoardXxxServlet 에서 비즈니스 로직을 분리한다.
 
-- src/main/resources/com/eomcs/lms/mapper/*Mapper.xml
+- com.eomcs.lms.service 패키지 추가
+- com.eomcs.lms.service.PhotoBoardService 인터페이스 추가
+- com.eomcs.lms.service.LessonService 인터페이스 추가
+- com.eomcs.lms.service.impl.PhotoBoardServiceImpl 클래스 추가
+- com.eomcs.lms.service.impl.LessonServiceImpl 클래스 추가
+- com.eomcs.lms.servlet.PhotoBoardXxxServlet 변경
+  - 비즈니스 로직과 트랜잭션 제어 코드를 서비스 객체로 옮긴다.
+
   
 ### 훈련2: `foreach` 태그를를 사용하여 insert 문 생성하기
 
