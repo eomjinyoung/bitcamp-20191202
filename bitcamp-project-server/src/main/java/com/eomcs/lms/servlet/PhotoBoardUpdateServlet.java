@@ -4,32 +4,17 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.dao.PhotoBoardDao;
-import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import com.eomcs.sql.PlatformTransactionManager;
-import com.eomcs.sql.TransactionTemplate;
+import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardUpdateServlet implements Servlet {
 
-  // 트랜잭션 관리자를 이용하여 작업을 실행시켜줄 도우미 객체
-  TransactionTemplate transactionTemplate;
-  PhotoBoardDao photoBoardDao;
-  PhotoFileDao photoFileDao;
+  PhotoBoardService photoBoardService;
 
-  public PhotoBoardUpdateServlet( //
-      PlatformTransactionManager txManager, //
-      PhotoBoardDao photoBoardDao, //
-      PhotoFileDao photoFileDao) {
-
-    // 우리가 직접 트랜잭션 관리자를 사용하지 않고,
-    // 도우미 객체를 이용하여 트랜잭션 작업을 처리할 것이다.
-    this.transactionTemplate = new TransactionTemplate(txManager);
-
-    this.photoBoardDao = photoBoardDao;
-    this.photoFileDao = photoFileDao;
+  public PhotoBoardUpdateServlet(PhotoBoardService photoBoardService) {
+    this.photoBoardService = photoBoardService;
   }
 
   @Override
@@ -37,7 +22,7 @@ public class PhotoBoardUpdateServlet implements Servlet {
 
     int no = Prompt.getInt(in, out, "번호? ");
 
-    PhotoBoard old = photoBoardDao.findByNo(no);
+    PhotoBoard old = photoBoardService.get(no);
     if (old == null) {
       out.println("해당 번호의 사진 게시글이 없습니다.");
       return;
@@ -58,24 +43,11 @@ public class PhotoBoardUpdateServlet implements Servlet {
         "사진을 변경하시겠습니까?(y/N) ");
 
     if (response.equalsIgnoreCase("y")) {
-      // 사용자가 입력한 파일 목록을 PhotoBoard 객체에 저장한다.
       photoBoard.setFiles(inputPhotoFiles(in, out));
     }
 
-    transactionTemplate.execute(() -> {
-      if (photoBoardDao.update(photoBoard) == 0) {
-        throw new Exception("사진 게시글 변경에 실패했습니다.");
-      }
-
-      if (photoBoard.getFiles() != null) {
-        // 첨부파일을 변경한다면,
-        photoFileDao.deleteAll(no);
-        photoFileDao.insert(photoBoard);
-      }
-
-      out.println("사진 게시글을 변경했습니다.");
-      return null;
-    });
+    photoBoardService.update(photoBoard);
+    out.println("사진 게시글을 변경했습니다.");
   }
 
   private void printPhotoFiles(PrintStream out, PhotoBoard photoBoard) throws Exception {

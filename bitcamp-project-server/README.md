@@ -49,7 +49,10 @@ UI 구현 방식이 변경되더라도 비즈니스 로직을 재사용할 수 �
 - com.eomcs.lms.service.impl.LessonServiceImpl 클래스 추가
 - com.eomcs.lms.servlet.PhotoBoardXxxServlet 변경
   - 비즈니스 로직과 트랜잭션 제어 코드를 서비스 객체로 옮긴다.
-
+- com.eomcs.lms.DataLoaderListener 변경
+  - 서비스를 객체를 생성한다.
+- com.eomcs.lms.ServerApp 변경
+  - 서블릿에 서비스 객체를 주입한다.
   
 ### 훈련2: `foreach` 태그를를 사용하여 insert 문 생성하기
 

@@ -6,11 +6,18 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.lms.context.ApplicationContextListener;
+import com.eomcs.lms.dao.BoardDao;
+import com.eomcs.lms.dao.LessonDao;
+import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.dao.PhotoBoardDao;
+import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
+import com.eomcs.lms.service.impl.LessonServiceImpl;
+import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
 import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.sql.SqlSessionFactoryProxy;
 
@@ -31,21 +38,22 @@ public class DataLoaderListener implements ApplicationContextListener {
       SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(//
           new SqlSessionFactoryBuilder().build(inputStream));
 
-      // 이 메서드를 호출한 쪽(App)에서 DAO 객체를 사용할 수 있도록 Map 객체에 담아둔다.
-      context.put("boardDao", new BoardDaoImpl(sqlSessionFactory));
-      context.put("lessonDao", new LessonDaoImpl(sqlSessionFactory));
-      context.put("memberDao", new MemberDaoImpl(sqlSessionFactory));
-      context.put("photoBoardDao", new PhotoBoardDaoImpl(sqlSessionFactory));
-      context.put("photoFileDao", new PhotoFileDaoImpl(sqlSessionFactory));
+      // 서비스 객체가 사용할 DAO를 준비한다.
+      LessonDao lessonDao = new LessonDaoImpl(sqlSessionFactory);
+      BoardDao boardDao = new BoardDaoImpl(sqlSessionFactory);
+      MemberDao memberDao = new MemberDaoImpl(sqlSessionFactory);
+      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactory);
+      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(sqlSessionFactory);
 
       // 트랜잭션 관리자 준비
       PlatformTransactionManager txManager = new PlatformTransactionManager(//
           sqlSessionFactory);
-      context.put("transactionManager", txManager);
 
-      // ServerApp에서 SqlSession 객체를 꺼낼 수 있도록,
-      // SqlSessionFactory 를 저장한다.
-      context.put("sqlSessionFactory", sqlSessionFactory);
+      // 서블릿에서 사용할 서비스 객체를 준비한다.
+      context.put("lessonService", new LessonServiceImpl(lessonDao));
+      context.put("photoBoardService", //
+          new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
+
 
     } catch (Exception e) {
       e.printStackTrace();

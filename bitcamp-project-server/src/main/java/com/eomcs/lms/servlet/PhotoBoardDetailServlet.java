@@ -2,25 +2,25 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
+import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.util.Prompt;
 
 public class PhotoBoardDetailServlet implements Servlet {
 
-  PhotoBoardDao photoBoardDao;
+  PhotoBoardService photoBoardService;
 
   public PhotoBoardDetailServlet( //
-      PhotoBoardDao photoBoardDao) {
-    this.photoBoardDao = photoBoardDao;
+      PhotoBoardService photoBoardService) {
+    this.photoBoardService = photoBoardService;
   }
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "사진 게시글 번호? ");
 
-    PhotoBoard photoBoard = photoBoardDao.findByNo(no);
+    PhotoBoard photoBoard = photoBoardService.get(no);
 
     if (photoBoard != null) {
       out.printf("번호: %d\n", photoBoard.getNo());
