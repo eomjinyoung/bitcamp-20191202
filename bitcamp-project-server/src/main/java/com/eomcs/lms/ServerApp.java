@@ -14,9 +14,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
-import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.service.BoardService;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.lms.servlet.BoardAddServlet;
@@ -94,18 +94,19 @@ public class ServerApp {
         (LessonService) context.get("lessonService");
     PhotoBoardService photoBoardService = //
         (PhotoBoardService) context.get("photoBoardService");
+    BoardService boardService = //
+        (BoardService) context.get("boardService");
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
-    BoardDao boardDao = (BoardDao) context.get("boardDao");
     LessonDao lessonDao = (LessonDao) context.get("lessonDao");
     MemberDao memberDao = (MemberDao) context.get("memberDao");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
-    servletMap.put("/board/list", new BoardListServlet(boardDao));
-    servletMap.put("/board/add", new BoardAddServlet(boardDao));
-    servletMap.put("/board/detail", new BoardDetailServlet(boardDao));
-    servletMap.put("/board/update", new BoardUpdateServlet(boardDao));
-    servletMap.put("/board/delete", new BoardDeleteServlet(boardDao));
+    servletMap.put("/board/list", new BoardListServlet(boardService));
+    servletMap.put("/board/add", new BoardAddServlet(boardService));
+    servletMap.put("/board/detail", new BoardDetailServlet(boardService));
+    servletMap.put("/board/update", new BoardUpdateServlet(boardService));
+    servletMap.put("/board/delete", new BoardDeleteServlet(boardService));
 
     servletMap.put("/lesson/list", new LessonListServlet(lessonDao));
     servletMap.put("/lesson/add", new LessonAddServlet(lessonDao));

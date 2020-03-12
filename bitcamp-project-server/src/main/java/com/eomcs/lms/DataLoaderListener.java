@@ -16,6 +16,7 @@ import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
 import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
+import com.eomcs.lms.service.impl.BoardServiceImpl;
 import com.eomcs.lms.service.impl.LessonServiceImpl;
 import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
 import com.eomcs.sql.PlatformTransactionManager;
@@ -37,6 +38,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       // 트랜잭션 제어를 위해 오리지널 객체를 프록시 객체에 담아 사용한다.
       SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(//
           new SqlSessionFactoryBuilder().build(inputStream));
+      context.put("sqlSessionFactory", sqlSessionFactory);
 
       // 서비스 객체가 사용할 DAO를 준비한다.
       LessonDao lessonDao = new LessonDaoImpl(sqlSessionFactory);
@@ -53,7 +55,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       context.put("lessonService", new LessonServiceImpl(lessonDao));
       context.put("photoBoardService", //
           new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
-
+      context.put("boardService", new BoardServiceImpl(boardDao));
 
     } catch (Exception e) {
       e.printStackTrace();
