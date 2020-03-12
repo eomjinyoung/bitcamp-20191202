@@ -2,23 +2,23 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Prompt;
 
 public class MemberUpdateServlet implements Servlet {
 
-  MemberDao memberDao;
+  MemberService memberService;
 
-  public MemberUpdateServlet(MemberDao memberDao) {
-    this.memberDao = memberDao;
+  public MemberUpdateServlet(MemberService memberService) {
+    this.memberService = memberService;
   }
 
   @Override
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 
-    Member old = memberDao.findByNo(no);
+    Member old = memberService.get(no);
     if (old == null) {
       out.println("해당 번호의 회원이 없습니다.");
       return;
@@ -37,7 +37,7 @@ public class MemberUpdateServlet implements Servlet {
     member.setTel(Prompt.getString(in, out, //
         String.format("전화(%s)? ", old.getTel())));
 
-    if (memberDao.update(member) > 0) {
+    if (memberService.update(member) > 0) {
       out.println("회원을 변경했습니다.");
 
     } else {

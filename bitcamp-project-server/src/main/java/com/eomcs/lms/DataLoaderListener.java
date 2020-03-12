@@ -18,6 +18,7 @@ import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
 import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.service.impl.BoardServiceImpl;
 import com.eomcs.lms.service.impl.LessonServiceImpl;
+import com.eomcs.lms.service.impl.MemberServiceImpl;
 import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
 import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.sql.SqlSessionFactoryProxy;
@@ -56,7 +57,7 @@ public class DataLoaderListener implements ApplicationContextListener {
       context.put("photoBoardService", //
           new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
       context.put("boardService", new BoardServiceImpl(boardDao));
-
+      context.put("memberService", new MemberServiceImpl(memberDao));
     } catch (Exception e) {
       e.printStackTrace();
     }

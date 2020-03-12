@@ -15,9 +15,9 @@ import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.dao.LessonDao;
-import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.service.BoardService;
 import com.eomcs.lms.service.LessonService;
+import com.eomcs.lms.service.MemberService;
 import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.lms.servlet.BoardAddServlet;
 import com.eomcs.lms.servlet.BoardDeleteServlet;
@@ -96,10 +96,11 @@ public class ServerApp {
         (PhotoBoardService) context.get("photoBoardService");
     BoardService boardService = //
         (BoardService) context.get("boardService");
+    MemberService memberService = //
+        (MemberService) context.get("memberService");
 
     // DataLoaderListener가 준비한 DAO 객체를 꺼내 변수에 저장한다.
     LessonDao lessonDao = (LessonDao) context.get("lessonDao");
-    MemberDao memberDao = (MemberDao) context.get("memberDao");
 
     // 커맨드 객체 역할을 수행하는 서블릿 객체를 맵에 보관한다.
     servletMap.put("/board/list", new BoardListServlet(boardService));
@@ -115,12 +116,12 @@ public class ServerApp {
     servletMap.put("/lesson/delete", new LessonDeleteServlet(lessonDao));
     servletMap.put("/lesson/search", new LessonSearchServlet(lessonDao));
 
-    servletMap.put("/member/list", new MemberListServlet(memberDao));
-    servletMap.put("/member/add", new MemberAddServlet(memberDao));
-    servletMap.put("/member/detail", new MemberDetailServlet(memberDao));
-    servletMap.put("/member/update", new MemberUpdateServlet(memberDao));
-    servletMap.put("/member/delete", new MemberDeleteServlet(memberDao));
-    servletMap.put("/member/search", new MemberSearchServlet(memberDao));
+    servletMap.put("/member/list", new MemberListServlet(memberService));
+    servletMap.put("/member/add", new MemberAddServlet(memberService));
+    servletMap.put("/member/detail", new MemberDetailServlet(memberService));
+    servletMap.put("/member/update", new MemberUpdateServlet(memberService));
+    servletMap.put("/member/delete", new MemberDeleteServlet(memberService));
+    servletMap.put("/member/search", new MemberSearchServlet(memberService));
 
     servletMap.put("/photoboard/list", //
         new PhotoBoardListServlet(photoBoardService, lessonService));
@@ -133,7 +134,7 @@ public class ServerApp {
     servletMap.put("/photoboard/delete", //
         new PhotoBoardDeleteServlet(photoBoardService));
 
-    servletMap.put("/auth/login", new LoginServlet(memberDao));
+    servletMap.put("/auth/login", new LoginServlet(memberService));
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
