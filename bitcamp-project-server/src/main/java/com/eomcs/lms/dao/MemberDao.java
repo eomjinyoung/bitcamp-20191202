@@ -1,6 +1,7 @@
 package com.eomcs.lms.dao;
 
 import java.util.List;
+import java.util.Map;
 import com.eomcs.lms.domain.Member;
 
 // 데이터를 저장하고 꺼내는 방식(파일, 클라우드저장소, DB 등)에 상관없이
@@ -23,7 +24,7 @@ public interface MemberDao {
     return null;
   }
 
-  default Member findByEmailAndPassword(String email, String password) throws Exception {
+  default Member findByEmailAndPassword(Map<String, Object> params) throws Exception {
     return null;
   }
 }

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="LessonMapper">
+<mapper namespace="com.eomcs.lms.dao.LessonDao">
 
   <resultMap type="Lesson" id="LessonMap">
     <id column="lesson_id"   property="no"/>
@@ -24,7 +24,7 @@
       tot_hr
   </sql>
   
-  <insert id="insertLesson" parameterType="Lesson">
+  <insert id="insert" parameterType="Lesson">
     insert into lms_lesson(
       sdt, 
       edt, 
@@ -41,20 +41,13 @@
       #{description})
   </insert>
   
-  <select id="selectLesson" resultMap="LessonMap" parameterType="map">
+  <select id="findAll" resultMap="LessonMap" parameterType="map">
     <include refid="select1"/>
     from lms_lesson
-    <where>
-      <if test="title != null">titl like concat('%', #{title}, '%')</if>
-      <if test="startDate != null">and sdt >= #{startDate}</if>
-      <if test="endDate != null">and edt &lt;= #{endDate}</if>
-      <if test="totalHours != null">and tot_hr &lt;= #{totalHours}</if>
-      <if test="dayHours != null">and day_hr &lt;= #{dayHours}</if>
-    </where>
   </select>
 
   
-  <select id="selectDetail" resultMap="LessonMap" parameterType="int">
+  <select id="findByNo" resultMap="LessonMap" parameterType="int">
     <include refid="select1"/>,
       conts, 
       day_hr
@@ -64,7 +57,7 @@
       lesson_id=#{no}
   </select>
   
-  <update id="updateLesson" parameterType="Lesson">
+  <update id="update" parameterType="Lesson">
     update lms_lesson
     <set>
       <if test="title != null and title != ''">titl=#{title},</if>
@@ -77,10 +70,22 @@
     where lesson_id=#{no}
   </update>
   
-  <delete id="deleteLesson" parameterType="int">
+  <delete id="delete" parameterType="int">
     delete from lms_lesson
     where lesson_id=#{no}
   </delete>
+  
+  <select id="findByKeyword" resultMap="LessonMap" parameterType="map">
+    <include refid="select1"/>
+    from lms_lesson
+    <where>
+      <if test="title != null">titl like concat('%', #{title}, '%')</if>
+      <if test="startDate != null">and sdt >= #{startDate}</if>
+      <if test="endDate != null">and edt &lt;= #{endDate}</if>
+      <if test="totalHours != null">and tot_hr &lt;= #{totalHours}</if>
+      <if test="dayHours != null">and day_hr &lt;= #{dayHours}</if>
+    </where>
+  </select>
 </mapper>
 
 

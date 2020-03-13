@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="PhotoFileMapper">
+<mapper namespace="com.eomcs.lms.dao.PhotoFileDao">
 
   <resultMap type="PhotoFile" id="PhotoFileMap">
     <id column="photo_file_id"   property="no"/>
@@ -11,7 +11,7 @@
     <result column="photo_id"  property="boardNo"/>
   </resultMap>
     
-  <insert id="insertPhotoFile" parameterType="PhotoBoard">
+  <insert id="insert" parameterType="PhotoBoard">
     insert into lms_photo_file(photo_id,file_path) 
     values
     <foreach collection="files" item="file" separator=",">
@@ -19,7 +19,7 @@
     </foreach>
   </insert>
   
-  <select id="selectPhotoFile" resultMap="PhotoFileMap" parameterType="int">
+  <select id="findAll" resultMap="PhotoFileMap" parameterType="int">
     select 
       photo_file_id, 
       photo_id, 
@@ -32,7 +32,7 @@
       photo_file_id asc
   </select>
 
-  <delete id="deletePhotoFile" parameterType="int">
+  <delete id="deleteAll" parameterType="int">
     delete from lms_photo_file
     where photo_id=#{boardNo}
   </delete>

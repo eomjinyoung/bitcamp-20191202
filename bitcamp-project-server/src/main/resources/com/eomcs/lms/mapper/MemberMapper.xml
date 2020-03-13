@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="MemberMapper">
+<mapper namespace="com.eomcs.lms.dao.MemberDao">
 
   <resultMap type="Member" id="MemberMap">
     <id column="member_id"  property="no"/>
@@ -22,7 +22,7 @@
       tel,
   </sql>
   
-  <insert id="insertMember" parameterType="Member">
+  <insert id="insert" parameterType="Member">
     insert into lms_member(
       name, 
       email, 
@@ -38,7 +38,7 @@
     )
   </insert>
   
-  <select id="selectMember" resultMap="MemberMap">
+  <select id="findAll" resultMap="MemberMap">
     select 
       <include refid="select1"/>
       cdt
@@ -47,7 +47,7 @@
   </select>
 
   
-  <select id="selectDetail" resultMap="MemberMap" parameterType="int">
+  <select id="findByNo" resultMap="MemberMap" parameterType="int">
     select 
       <include refid="select1"/>
       pwd, 
@@ -58,7 +58,7 @@
       member_id=#{no}
   </select>
   
-  <update id="updateMember" parameterType="Member">
+  <update id="update" parameterType="Member">
     update lms_member
     <set>
       <if test="name != null and name != ''">name=#{name},</if>
@@ -71,12 +71,12 @@
       member_id=#{no}
   </update>
   
-  <delete id="deleteMember" parameterType="int">
+  <delete id="delete" parameterType="int">
     delete from lms_member
     where member_id=#{no}
   </delete>
   
-  <select id="selectByKeyword" 
+  <select id="findByKeyword" 
     resultMap="MemberMap" 
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
@@ -91,7 +91,7 @@
       or tel like #{keywordPattern}
   </select>
   
-  <select id="selectByEmailPassword" 
+  <select id="findByEmailAndPassword" 
     resultMap="MemberMap" 
     parameterType="map">
     select 

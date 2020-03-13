@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 import java.io.InputStream;
+import java.lang.reflect.Proxy;
 import java.util.Map;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,15 +12,11 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
-import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.service.impl.BoardServiceImpl;
 import com.eomcs.lms.service.impl.LessonServiceImpl;
 import com.eomcs.lms.service.impl.MemberServiceImpl;
 import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
+import com.eomcs.sql.DaoInvocationHandler;
 import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.sql.SqlSessionFactoryProxy;
 
@@ -41,12 +38,31 @@ public class DataLoaderListener implements ApplicationContextListener {
           new SqlSessionFactoryBuilder().build(inputStream));
       context.put("sqlSessionFactory", sqlSessionFactory);
 
+      // DAO 프록시 객체가 사용할 InvocationHandler 준비
+      DaoInvocationHandler daoInvocationHandler = //
+          new DaoInvocationHandler(sqlSessionFactory);
+
       // 서비스 객체가 사용할 DAO를 준비한다.
-      LessonDao lessonDao = new LessonDaoImpl(sqlSessionFactory);
-      BoardDao boardDao = new BoardDaoImpl(sqlSessionFactory);
-      MemberDao memberDao = new MemberDaoImpl(sqlSessionFactory);
-      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactory);
-      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(sqlSessionFactory);
+      LessonDao lessonDao = (LessonDao) Proxy.newProxyInstance(//
+          this.getClass().getClassLoader(), //
+          new Class[] {LessonDao.class}, //
+          daoInvocationHandler);
+      BoardDao boardDao = (BoardDao) Proxy.newProxyInstance(//
+          this.getClass().getClassLoader(), //
+          new Class[] {BoardDao.class}, //
+          daoInvocationHandler);
+      MemberDao memberDao = (MemberDao) Proxy.newProxyInstance(//
+          this.getClass().getClassLoader(), //
+          new Class[] {MemberDao.class}, //
+          daoInvocationHandler);
+      PhotoBoardDao photoBoardDao = (PhotoBoardDao) Proxy.newProxyInstance(//
+          this.getClass().getClassLoader(), //
+          new Class[] {PhotoBoardDao.class}, //
+          daoInvocationHandler);
+      PhotoFileDao photoFileDao = (PhotoFileDao) Proxy.newProxyInstance(//
+          this.getClass().getClassLoader(), //
+          new Class[] {PhotoFileDao.class}, //
+          daoInvocationHandler);
 
       // 트랜잭션 관리자 준비
       PlatformTransactionManager txManager = new PlatformTransactionManager(//
