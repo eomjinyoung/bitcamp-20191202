@@ -41,11 +41,14 @@ public class DaoInvocationHandler implements InvocationHandler {
 
     Class<?> returnType = method.getReturnType();
     if (returnType == List.class) {
-      return sqlSession.selectList(sqlId);
+      return (args == null) ? sqlSession.selectList(sqlId) : //
+          sqlSession.selectList(sqlId, args[0]);
     } else if (returnType == int.class || returnType == void.class) {
-      return sqlSession.update(sqlId); // update()는 insert(), delete() 과 같다.
+      return (args == null) ? sqlSession.update(sqlId) : // update()는 insert(), delete() 과 같다.
+          sqlSession.update(sqlId, args[0]);
     } else {
-      return sqlSession.selectOne(sqlId);
+      return (args == null) ? sqlSession.selectOne(sqlId) : //
+          sqlSession.selectOne(sqlId, args[0]);
     }
   }
 
