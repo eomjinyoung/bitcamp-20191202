@@ -11,7 +11,6 @@
 - src/main/resources/com/eomcs/lms/mapper/XxxMapper.xml 변경
 - src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
 - src/main/java/com/eomcs/lms/service/impl/MemberServiceImpl.java 변경
-- src/main/java/com/eomcs/sql/DaoInvocationHandler.java 추가
 - src/main/java/com/eomcs/sql/MybatisDaoFactory.java 추가
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
 
@@ -27,17 +26,14 @@
 - com.eomcs.lms.service.impl.MemberServiceImpl 변경
   - findByEmailAndPassword()를 호출할 때 파라미터를 Map에 담아 넘긴다. 
 
-### 훈련2: Dao 작업을 실제 수행할 클래스를 정의한다.
-
-- com.eomcs.sql.DaoInvocationHandler 클래스 추가
-
-### 훈련3: 복잡한 DAO 생성을 단순화시키는 팩토리 클래스를 정의한다.
+### 훈련2: 복잡한 DAO 생성을 단순화시키는 팩토리 클래스를 정의한다.
 
 - com.eomcs.sql.MybatisDaoFactory 클래스 추가
   - DAO 프록시 객체를 생성하는 팩토리 메서드 createDao()를 정의한다.
-  - 인터페이스에 따라 리턴 타입을 다르도록 제네릭을 적용한다. 
+  - 인터페이스에 따라 리턴 타입을 다르도록 제네릭을 적용한다.
+  - InvocationHandler 구현체를 람다 문법을 사용하여 로컬 클래스로 정의한다. 
 
-### 훈련4: DAO 객체 생성에 프록시 생성기를 적용한다.
+### 훈련3: DAO 객체 생성에 프록시 생성기를 적용한다.
 
 - com.eomcs.lms.dao.* 에서 DAO 구현체 모두 제거
 - com.eomcs.lms.DataLoaderListener 변경
