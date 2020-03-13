@@ -27,12 +27,21 @@
   - namespace 값을 인터페이스 전체 이름(fully-qualified name)과 일치시킨다.
   - 메서드에서 사용할 SQL은 메서드 이름과 일치시킨다.
   - MemberDao의 경우 findByEmailAndPassword()의 파라미터를 Map 타입으로 변경한다.
-- com.eomcs.lms.dao.* 에서 DAO 구현체 모두 제거
 
 ### 훈련2: Dao 작업을 실제 수행할 클래스를 정의한다.
 
 - com.eomcs.sql.DaoInvocationHandler 클래스 추가
 
+### 훈련3: 복잡한 DAO 생성을 단순화시키는 팩토리 클래스를 정의한다.
 
+- com.eomcs.sql.MybatisDaoFactory 클래스 추가
+  - DAO 프록시 객체를 생성하는 팩토리 메서드 createDao()를 정의한다.
+  - 인터페이스에 따라 리턴 타입을 다르도록 제네릭을 적용한다. 
+
+### 훈련4: DAO 객체 생성에 프록시 생성기를 적용한다.
+
+- com.eomcs.lms.dao.* 에서 DAO 구현체 모두 제거
+- com.eomcs.lms.DataLoaderListener 변경
+  - MybatisDaoFactory를 이용하여 DAO 구현 객체 생성한다.
 
 
