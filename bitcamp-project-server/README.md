@@ -90,6 +90,7 @@
 ### 훈련5: concrete class의 생성자를 호출하여 객체를 준비한다.(ApplicationContext05)
   
 - com.eomcs.util.ApplicationContext 클래스 변경
+  - concrete class만 따로 로딩하여 목록을 관리한다.
   - reflection API를 사용하여 생성자의 파라미터 정보를 알아낸다.
   - 파라미터 객체를 준비하여 생성자를 호출한다.
   - 생성된 객체를 객체 보관소(objPool)에 저장한다.

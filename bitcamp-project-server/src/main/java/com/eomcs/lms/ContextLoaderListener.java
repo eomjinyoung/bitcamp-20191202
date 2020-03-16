@@ -11,7 +11,7 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.service.impl.BoardServiceImpl2;
+import com.eomcs.lms.service.impl.BoardServiceImpl;
 import com.eomcs.lms.service.impl.LessonServiceImpl;
 import com.eomcs.lms.service.impl.MemberServiceImpl;
 import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
@@ -60,7 +60,7 @@ public class ContextLoaderListener implements ApplicationContextListener {
       context.put("lessonService", new LessonServiceImpl(lessonDao));
       context.put("photoBoardService", //
           new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
-      context.put("boardService", new BoardServiceImpl2(sqlSessionFactory));
+      context.put("boardService", new BoardServiceImpl(boardDao));
       context.put("memberService", new MemberServiceImpl(memberDao));
 
     } catch (Exception e) {
