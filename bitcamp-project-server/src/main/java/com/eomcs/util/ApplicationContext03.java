@@ -11,12 +11,12 @@ import org.apache.ibatis.io.Resources;
 // - 객체가 일을 하는데 필요로하는 의존 객체를 주입한다.
 // - 객체를 생성과 소멸을 관리한다.
 //
-public class ApplicationContext {
+public class ApplicationContext03 {
 
   // 클래스 이름을 담을 저장소
   ArrayList<String> classNames = new ArrayList<>();
 
-  public ApplicationContext(String packageName) throws Exception {
+  public ApplicationContext03(String packageName) throws Exception {
     // 패키지의 실제 파일 시스템 경로를 알아낸다.
     // System.out.println("ApplicationContext: " + packageName);
 
