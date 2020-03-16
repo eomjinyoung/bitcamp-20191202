@@ -94,4 +94,25 @@
   - reflection API를 사용하여 생성자의 파라미터 정보를 알아낸다.
   - 파라미터 객체를 준비하여 생성자를 호출한다.
   - 생성된 객체를 객체 보관소(objPool)에 저장한다.
+
+### 훈련6: 애노테이션을 이용하여 생성된 객체의 이름을 관리한다.(ApplicationContext06)
+
+- com.eomcs.util.Component 애노테이션 추가
+  - 빈의 이름을 설정하는 애노테이션을 정의한다.
+- com.eomcs.lms.servlet.XxxServlet 변경
+  - 클래스에 Component 애노테이션을 적용하여 이름을 지정한다.
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 객체를 객체풀에 저장할 때 Component 애노테이션에서 이름을 가져와서 저장한다.
+  - Component 애노테이션이 없으면 그냥 클래스 이름으로 저장한다.
+  - 외부에서 생성한 객체를 저장할 수 있도록 생성자 변경한다.
+  - 외부에서 저장된 객체를 꺼낼 수 있도록 getBean() 메서드 추가한다.
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 외부에서 생성한 객체를 등록한 addBean() 메서드를 추가한다.
+  - 내부에서 생성한 객체를 꺼낼 수 있도록 getBean() 메서드를 추가한다.
+- com.eomcs.lms.ServerApp 변경
+  - ApplicationContext를 사용하여 객체를 관리한다.
+  
+  
+  
+  
   

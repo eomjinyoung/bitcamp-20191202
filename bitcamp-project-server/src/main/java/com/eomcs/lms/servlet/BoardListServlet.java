@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
+import com.eomcs.util.Component;
 
+@Component("/board/list")
 public class BoardListServlet implements Servlet {
 
   BoardService boardService;

@@ -1,6 +1,7 @@
 package com.eomcs.lms;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,10 +12,6 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.service.impl.BoardServiceImpl;
-import com.eomcs.lms.service.impl.LessonServiceImpl;
-import com.eomcs.lms.service.impl.MemberServiceImpl;
-import com.eomcs.lms.service.impl.PhotoBoardServiceImpl;
 import com.eomcs.sql.MybatisDaoFactory;
 import com.eomcs.sql.PlatformTransactionManager;
 import com.eomcs.sql.SqlSessionFactoryProxy;
@@ -29,39 +26,42 @@ public class ContextLoaderListener implements ApplicationContextListener {
   public void contextInitialized(Map<String, Object> context) {
 
     try {
-      // IoC 컨테이너 준비
-      ApplicationContext appCtx = new ApplicationContext("com.eomcs.lms");
-      context.put("iocContainer", appCtx);
+      // ApplicationContext에서 자동으로 생성하지 못하는 객체는
+      // 따로 생성하여 Map에 보관한다.
+      HashMap<String, Object> beans = new HashMap<>();
 
-      // Mybatis 객체 준비
+      // Mybatis 설정 파일을 로딩할 때 사용할 입력 스트림 준비
       InputStream inputStream = Resources.getResourceAsStream(//
           "com/eomcs/lms/conf/mybatis-config.xml");
 
       // 트랜잭션 제어를 위해 오리지널 객체를 프록시 객체에 담아 사용한다.
       SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryProxy(//
           new SqlSessionFactoryBuilder().build(inputStream));
-      context.put("sqlSessionFactory", sqlSessionFactory);
+      beans.put("sqlSessionFactory", sqlSessionFactory);
 
       // DAO 프록시 객체를 생성해 줄 Factory를 준비
       MybatisDaoFactory daoFactory = new MybatisDaoFactory(sqlSessionFactory);
 
       // 서비스 객체가 사용할 DAO를 준비한다.
-      LessonDao lessonDao = daoFactory.createDao(LessonDao.class);
-      BoardDao boardDao = daoFactory.createDao(BoardDao.class);
-      MemberDao memberDao = daoFactory.createDao(MemberDao.class);
-      PhotoBoardDao photoBoardDao = daoFactory.createDao(PhotoBoardDao.class);
-      PhotoFileDao photoFileDao = daoFactory.createDao(PhotoFileDao.class);
+      beans.put("lessonDao", daoFactory.createDao(LessonDao.class));
+      beans.put("boardDao", daoFactory.createDao(BoardDao.class));
+      beans.put("memberDao", daoFactory.createDao(MemberDao.class));
+      beans.put("photoBoardDao", daoFactory.createDao(PhotoBoardDao.class));
+      beans.put("photoFileDao", daoFactory.createDao(PhotoFileDao.class));
 
       // 트랜잭션 관리자 준비
       PlatformTransactionManager txManager = new PlatformTransactionManager(//
           sqlSessionFactory);
+      beans.put("transactionManager", txManager);
 
-      // 서블릿에서 사용할 서비스 객체를 준비한다.
-      context.put("lessonService", new LessonServiceImpl(lessonDao));
-      context.put("photoBoardService", //
-          new PhotoBoardServiceImpl(txManager, photoBoardDao, photoFileDao));
-      context.put("boardService", new BoardServiceImpl(boardDao));
-      context.put("memberService", new MemberServiceImpl(memberDao));
+      // IoC 컨테이너 준비
+      ApplicationContext appCtx = new ApplicationContext(//
+          "com.eomcs.lms", // 새로 생성할 객체의 패키지
+          beans // 기존에 따로 생성한 객체 목록
+      );
+
+      // ServerApp이 사용할 수 있게 context 맵에 담아 둔다.
+      context.put("iocContainer", appCtx);
 
     } catch (Exception e) {
       e.printStackTrace();

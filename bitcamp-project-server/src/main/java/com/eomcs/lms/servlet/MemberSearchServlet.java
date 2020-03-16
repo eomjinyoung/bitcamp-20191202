@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
+import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 
+@Component("/member/search")
 public class MemberSearchServlet implements Servlet {
 
   MemberService memberService;

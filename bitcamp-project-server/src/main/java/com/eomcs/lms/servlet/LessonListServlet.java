@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
+import com.eomcs.util.Component;
 
+@Component("/lesson/list")
 public class LessonListServlet implements Servlet {
 
   LessonService lessonService;

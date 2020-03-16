@@ -7,8 +7,10 @@ import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
+import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 
+@Component("/photoboard/list")
 public class PhotoBoardListServlet implements Servlet {
 
   PhotoBoardService photoBoardService;

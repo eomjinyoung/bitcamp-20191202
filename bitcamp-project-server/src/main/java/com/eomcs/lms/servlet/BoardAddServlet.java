@@ -4,8 +4,10 @@ import java.io.PrintStream;
 import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
+import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 
+@Component("/board/add") // 나중에 이 이름으로 서블릿을 찾을 수 있도록 설정한다.
 public class BoardAddServlet implements Servlet {
 
   BoardService boardService;
