@@ -248,7 +248,7 @@ public class ServerApp {
     System.out.println("서버 수업 관리 시스템입니다.");
 
     ServerApp app = new ServerApp();
-    app.addApplicationContextListener(new DataLoaderListener());
+    app.addApplicationContextListener(new ContextLoaderListener());
     app.service();
   }
 }
