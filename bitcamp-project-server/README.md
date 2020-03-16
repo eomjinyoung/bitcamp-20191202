@@ -56,8 +56,13 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/service/impl/BoardServiceImpl2.java 추가
-- src/main/java/com/eomcs/lms/DataLoaderListener.java 변경
+- src/main/java/com/eomcs/util/Component.java 추가
+- src/main/java/com/eomcs/util/ApplicationContext.java 추가
+- src/main/java/com/eomcs/lms/service/impl/BoardServiceImpl2.java 삭제
+- src/main/java/com/eomcs/lms/service/impl/XxxServiceImpl.java 변경
+- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
+- src/main/java/com/eomcs/lms/DataLoaderListener.java 의 이름 변경
+  - ContextLoaderListener.java 로 이름 변경
 
 ## 실습  
 
