@@ -165,50 +165,83 @@
   - getParameterValues()를 변경한다.
   - getParameterValue()를 추가한다.
   
-  
-### 훈련5: concrete class의 생성자를 호출하여 객체를 준비한다.(ApplicationContext05)
+### 훈련17: 객체풀에서 먼저 파라미터 값을 찾는다.(ApplicationContext17)
   
 - com.eomcs.util.ApplicationContext 클래스 변경
-  - concrete class만 따로 로딩하여 목록을 관리한다.
-  - reflection API를 사용하여 생성자의 파라미터 정보를 알아낸다.
-  - 파라미터 객체를 준비하여 생성자를 호출한다.
-  - 생성된 객체를 객체 보관소(objPool)에 저장한다.
-
-### 훈련6: 애노테이션을 이용하여 생성된 객체의 이름을 관리한다.(ApplicationContext06)
+  - getParameterValue()를 변경한다.
+  
+### 훈련18: 객체풀에 없으면 concrete class 중에서 찾는다.(ApplicationContext18)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - getParameterValue()를 변경한다.
+  - findAvailableClass()를 추가한다.
+  - createObject()를 변경한다.
+    - 생성한 객체를 호출한 쪽에서 사용할 수 있도록 리턴한다.
+  
+### 훈련19: 파라미터 타입이 인터페이스일 경우 구현체를 찾는다.(ApplicationContext19)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - findAvailableClass()를 변경한다.
+  - concrete class 목록에서 인터페이스를 구현한 클래스가 있는지 조사한다. 
+  
+### 훈련20: 파라미터 타입의 서브 클래스를 찾는다.(ApplicationContext20)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - findAvailableClass()를 변경한다.
+  - isChildClass()를 추가한다.
+  
+### 훈련21: IoC 컨테이너 외부에서 생성한 객체를 추가한다.(ApplicationContext21)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 생성자를 변경한다.
+  - 파라미터로 받은 맵에서 객체를 꺼내 객체풀에 담는다.
+- com.eomcs.lms.ContextLoaderListener 변경
+  - Mybatis 관련 객체를 별도의 Map에 보관하여 ApplicationContext 객체를 생성할 때 넘겨준다.
+  
+### 훈련22: IoC 컨테이너에 보관된 객체를 확인한다.(ApplicationContext22)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - printBeans()를 추가한다.
+- com.eomcs.lms.ContextLoaderListener 변경
+  - ApplicationContext를 생성한 후 printBeans()를 호출하여 생성된 객체를 확인한다.
+  - ServerApp에서 ApplicationContext를 사용할 수 있도록 맵에 담는다.
+ 
+### 훈련23: IoC 컨테이너에 보관된 객체를 꺼내는 메서드를 추가한다.(ApplicationContext23)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - getBean()을 추가한다.
+- com.eomcs.lms.ServerApp 변경
+  - ApplicationContext를 사용하여 객체를 관리한다.
+   
+### 훈련24: 애노테이션을 이용하여 생성된 객체의 이름을 관리한다.(ApplicationContext24)
 
 - com.eomcs.util.Component 애노테이션 추가
   - 빈의 이름을 설정하는 애노테이션을 정의한다.
 - com.eomcs.lms.servlet.XxxServlet 변경
   - 클래스에 Component 애노테이션을 적용하여 이름을 지정한다.
 - com.eomcs.util.ApplicationContext 클래스 변경
-  - 객체를 객체풀에 저장할 때 Component 애노테이션에서 이름을 가져와서 저장한다.
-  - Component 애노테이션이 없으면 그냥 클래스 이름으로 저장한다.
-  - 외부에서 생성한 객체를 저장할 수 있도록 생성자 변경한다.
-  - 외부에서 저장된 객체를 꺼낼 수 있도록 getBean() 메서드 추가한다.
-- com.eomcs.util.ApplicationContext 클래스 변경
-  - 외부에서 생성한 객체를 등록한 addBean() 메서드를 추가한다.
-  - 내부에서 생성한 객체를 꺼낼 수 있도록 getBean() 메서드를 추가한다.
-- com.eomcs.lms.ServerApp 변경
-  - ApplicationContext를 사용하여 객체를 관리한다.
+  - getBeanName()을 추가한다.
+    - 객체를 객체풀에 저장할 때 Component 애노테이션에서 이름을 가져와서 저장한다.
+    - Component 애노테이션이 없으면 그냥 클래스 이름으로 저장한다.
+  - createObject()를 변경한다.
+    - 객체를 저장할 때 getBeanName()의 리턴 값을 사용한다.
   
-### 훈련7: @Component 애노테이션이 붙은 객체만 관리한다.(ApplicationContext)
+### 훈련25: @Component 애노테이션이 붙은 객체만 관리한다.(ApplicationContext)
 
 - com.eomcs.lms.servlet.impl.XxxServiceImpl 변경
   - 클래스에 Component 애노테이션을 적용한다.
 - com.eomcs.util.ApplicationContext 클래스 변경
-  - @Component가 붙은 클래스만 찾아내 객체를 생성한다.
-  - 내부에 보관된 객체 정보를 출력하는 printBeans() 추가한다. 
-- com.eomcs.ContextLoaderListener 변경
-  - ApplcationContext를 생성한 후 printBeans() 호출하여 보관된 객체 정보를 조회한다.
+  - isConcreteClass()를 isComponentClass()로 변경한다. 
+  - @Component가 붙은 클래스만 찾아내서 객체를 생성한다.
   
-### 훈련8: IoC 컨테이너의 이점을 활용해보자.
+### 훈련26: IoC 컨테이너의 이점을 활용해보자.
 
 - com.eomcs.lms.servlet.HelloServlet 추가
   - 클라이언트가 "/hello"를 요청했을 때 "안녕하세요!"하고 인사말을 응답한다.
   - IoC 컨테이너를 도입하면, 새 명령을 처리하는 서블릿이 추가되더라도 
     기존 코드(예: ServerApp)를 변경할 필요가 없다. 
   
-### 훈련9: IoC 컨테이너의 이점을 활용해보자. II
+### 훈련27: IoC 컨테이너의 이점을 활용해보자. II
 
 - com.eomcs.lms.servlet.HelloServlet 삭제
   - 기능을 제거하고 싶다면 그냥 클래스를 지우면 된다.

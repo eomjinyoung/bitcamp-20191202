@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import org.apache.ibatis.io.Resources;
 
@@ -13,7 +14,7 @@ import org.apache.ibatis.io.Resources;
 // - 객체가 일을 하는데 필요로하는 의존 객체를 주입한다.
 // - 객체를 생성과 소멸을 관리한다.
 //
-public class ApplicationContext16 {
+public class ApplicationContext20 {
 
   // concrete class를 담을 저장소
   ArrayList<Class<?>> concreteClasses = new ArrayList<>();
@@ -21,7 +22,7 @@ public class ApplicationContext16 {
   // 객체 저장소
   HashMap<String, Object> objPool = new HashMap<>();
 
-  public ApplicationContext16(String packageName) throws Exception {
+  public ApplicationContext20(String packageName) throws Exception {
     File path = Resources.getResourceAsFile(packageName.replace('.', '/'));
 
     findClasses(path, packageName);
@@ -36,7 +37,7 @@ public class ApplicationContext16 {
     }
   }
 
-  private void createObject(Class<?> clazz) throws Exception {
+  private Object createObject(Class<?> clazz) throws Exception {
     Constructor<?> constructor = clazz.getConstructors()[0];
     Parameter[] params = constructor.getParameters();
 
@@ -50,6 +51,8 @@ public class ApplicationContext16 {
     // 객체풀에 보관한다.
     objPool.put(clazz.getName(), obj);
     System.out.println(clazz.getName() + " 객체 생성!");
+
+    return obj;
   }
 
   private Object[] getParameterValues(Parameter[] params) throws Exception {
@@ -65,8 +68,52 @@ public class ApplicationContext16 {
     return values;
   }
 
-  private Object getParameterValue(Class<?> type) {
+  private Object getParameterValue(Class<?> type) throws Exception {
+    Collection<?> objs = objPool.values();
+    for (Object obj : objs) {
+      if (type.isInstance(obj)) {
+        return obj;
+      }
+    }
+
+    Class<?> availableClass = findAvailableClass(type);
+    if (availableClass == null) {
+      return null;
+    }
+
+    return createObject(availableClass);
+  }
+
+  private Class<?> findAvailableClass(Class<?> type) throws Exception {
+    for (Class<?> clazz : concreteClasses) {
+      if (type.isInterface()) {
+        Class<?>[] interfaces = clazz.getInterfaces();
+        for (Class<?> interfaceInfo : interfaces) {
+          if (interfaceInfo == type) {
+            return clazz;
+          }
+        }
+      } else if (isChildClass(clazz, type)) {
+        // 파라미터가 클래스라면,
+        // 각각의 클래스에 대해 같은 타입이거나 수퍼 클래스인지 검사한다.
+        return clazz;
+      }
+    }
     return null;
+  }
+
+  private boolean isChildClass(Class<?> clazz, Class<?> type) {
+    // 수퍼 클래스로 따라 올라가면서 같은 타입인지 검사한다.
+    if (clazz == type) {
+      return true;
+    }
+
+    if (clazz == Object.class) {
+      // 더 이상 상위 클래스가 없다면,
+      return false;
+    }
+
+    return isChildClass(clazz.getSuperclass(), type);
   }
 
   private void findClasses(File path, String packageName) throws Exception {

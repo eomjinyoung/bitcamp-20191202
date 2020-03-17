@@ -5,7 +5,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 import org.apache.ibatis.io.Resources;
 
 // 역할:
@@ -21,7 +23,13 @@ public class ApplicationContext {
   // 객체 저장소
   HashMap<String, Object> objPool = new HashMap<>();
 
-  public ApplicationContext(String packageName) throws Exception {
+  public ApplicationContext(String packageName, HashMap<String, Object> beans) throws Exception {
+    // Map에 들어 있는 객체를 먼저 객체풀에 보관한다.
+    Set<String> keySet = beans.keySet();
+    for (String key : keySet) {
+      objPool.put(key, beans.get(key));
+    }
+
     File path = Resources.getResourceAsFile(packageName.replace('.', '/'));
 
     findClasses(path, packageName);
@@ -36,7 +44,23 @@ public class ApplicationContext {
     }
   }
 
-  private void createObject(Class<?> clazz) throws Exception {
+  public void printBeans() {
+    System.out.println("-----------------------------------");
+    Set<String> beanNames = objPool.keySet();
+    for (String beanName : beanNames) {
+      System.out.printf("%s =====> %s\n", //
+          beanName, // 객체 이름
+          objPool.get(beanName).getClass().getName() // 클래스명
+      );
+    }
+  }
+
+  // 객체 이름으로 객체를 찾아 꺼내준다.
+  public Object getBean(String name) {
+    return objPool.get(name);
+  }
+
+  private Object createObject(Class<?> clazz) throws Exception {
     Constructor<?> constructor = clazz.getConstructors()[0];
     Parameter[] params = constructor.getParameters();
 
@@ -48,8 +72,20 @@ public class ApplicationContext {
     Object obj = constructor.newInstance(paramValues);
 
     // 객체풀에 보관한다.
-    objPool.put(clazz.getName(), obj);
+    objPool.put(getBeanName(clazz), obj);
     System.out.println(clazz.getName() + " 객체 생성!");
+
+    return obj;
+  }
+
+  private String getBeanName(Class<?> clazz) {
+    Component compAnno = clazz.getAnnotation(Component.class);
+    if (compAnno == null || compAnno.value().length() == 0) {
+      // @Component 애노테이션이 없거나 이름을 지정하지 않았으면
+      // 클래스 이름을 빈의 이름으로 사용한다.
+      return clazz.getName();
+    }
+    return compAnno.value();
   }
 
   private Object[] getParameterValues(Parameter[] params) throws Exception {
@@ -59,14 +95,58 @@ public class ApplicationContext {
       values[i] = getParameterValue(params[i].getType());
       System.out.printf("%s ==> %s,\n", //
           params[i].getType().getSimpleName(), //
-          values[i]);
+          values[i].getClass().getName());
     }
     System.out.println("}");
     return values;
   }
 
-  private Object getParameterValue(Class<?> type) {
+  private Object getParameterValue(Class<?> type) throws Exception {
+    Collection<?> objs = objPool.values();
+    for (Object obj : objs) {
+      if (type.isInstance(obj)) {
+        return obj;
+      }
+    }
+
+    Class<?> availableClass = findAvailableClass(type);
+    if (availableClass == null) {
+      return null;
+    }
+
+    return createObject(availableClass);
+  }
+
+  private Class<?> findAvailableClass(Class<?> type) throws Exception {
+    for (Class<?> clazz : concreteClasses) {
+      if (type.isInterface()) {
+        Class<?>[] interfaces = clazz.getInterfaces();
+        for (Class<?> interfaceInfo : interfaces) {
+          if (interfaceInfo == type) {
+            return clazz;
+          }
+        }
+      } else if (isChildClass(clazz, type)) {
+        // 파라미터가 클래스라면,
+        // 각각의 클래스에 대해 같은 타입이거나 수퍼 클래스인지 검사한다.
+        return clazz;
+      }
+    }
     return null;
+  }
+
+  private boolean isChildClass(Class<?> clazz, Class<?> type) {
+    // 수퍼 클래스로 따라 올라가면서 같은 타입인지 검사한다.
+    if (clazz == type) {
+      return true;
+    }
+
+    if (clazz == Object.class) {
+      // 더 이상 상위 클래스가 없다면,
+      return false;
+    }
+
+    return isChildClass(clazz.getSuperclass(), type);
   }
 
   private void findClasses(File path, String packageName) throws Exception {
@@ -83,7 +163,7 @@ public class ApplicationContext {
           f.getName().replace(".class", ""));
       if (f.isFile()) {
         Class<?> clazz = Class.forName(className);
-        if (isConcreteClass(clazz)) {
+        if (isComponentClass(clazz)) {
           concreteClasses.add(clazz);
         }
       } else {
@@ -92,13 +172,21 @@ public class ApplicationContext {
     }
   }
 
-  private boolean isConcreteClass(Class<?> clazz) {
+  private boolean isComponentClass(Class<?> clazz) {
     if (clazz.isInterface() // 인터페이스인 경우
         || clazz.isEnum() // Enum 타입인 경우
         || Modifier.isAbstract(clazz.getModifiers()) // 추상 클래스인 경우
     ) {
       return false; // 이런 클래스를 객체를 생성할 수 없다.
     }
+
+    // 클래스에서 @Component 애노테이션 정보를 추출한다.
+    Component compAnno = clazz.getAnnotation(Component.class);
+    if (compAnno == null) {
+      return false;
+    }
+
+    // 오직 @Component 애노테이션이 붙은 일반 클래스만이 객체 생성 대상이다.
     return true;
   }
 }

@@ -30,7 +30,7 @@ public class MybatisDaoFactory {
       String interfaceName = daoInterface.getName();
       String methodName = method.getName();
       String sqlId = String.format("%s.%s", interfaceName, methodName);
-      System.out.println(sqlId);
+      System.out.printf("SQL ID => %s\n", sqlId);
 
       // => 리턴 타입에 따라 메서드를 호출한다.
       try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -47,7 +47,6 @@ public class MybatisDaoFactory {
         }
       }
     };
-
   }
 
   @SuppressWarnings("unchecked")
