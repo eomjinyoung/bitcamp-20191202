@@ -6,9 +6,10 @@ import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/member/update")
-public class MemberUpdateServlet implements Servlet {
+@Component
+public class MemberUpdateServlet {
 
   MemberService memberService;
 
@@ -16,7 +17,7 @@ public class MemberUpdateServlet implements Servlet {
     this.memberService = memberService;
   }
 
-  @Override
+  @RequestMapping("/member/update")
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
 

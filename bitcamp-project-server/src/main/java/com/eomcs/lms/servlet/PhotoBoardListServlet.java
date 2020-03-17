@@ -9,9 +9,10 @@ import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/photoboard/list")
-public class PhotoBoardListServlet implements Servlet {
+@Component
+public class PhotoBoardListServlet {
 
   PhotoBoardService photoBoardService;
   LessonService lessonService;
@@ -23,7 +24,7 @@ public class PhotoBoardListServlet implements Servlet {
     this.lessonService = lessonService;
   }
 
-  @Override
+  @RequestMapping("/photoboard/list")
   public void service(Scanner in, PrintStream out) throws Exception {
 
     int lessonNo = Prompt.getInt(in, out, "수업번호? ");

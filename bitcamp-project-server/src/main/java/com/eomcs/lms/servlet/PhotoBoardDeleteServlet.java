@@ -5,9 +5,10 @@ import java.util.Scanner;
 import com.eomcs.lms.service.PhotoBoardService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/photoboard/delete")
-public class PhotoBoardDeleteServlet implements Servlet {
+@Component
+public class PhotoBoardDeleteServlet {
 
   PhotoBoardService photoBoardService;
 
@@ -15,7 +16,7 @@ public class PhotoBoardDeleteServlet implements Servlet {
     this.photoBoardService = photoBoardService;
   }
 
-  @Override
+  @RequestMapping("/photoboard/delete")
   public void service(Scanner in, PrintStream out) throws Exception {
     int no = Prompt.getInt(in, out, "번호? ");
     photoBoardService.delete(no);

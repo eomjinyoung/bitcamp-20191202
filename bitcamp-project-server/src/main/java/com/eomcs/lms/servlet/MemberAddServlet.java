@@ -6,9 +6,10 @@ import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
+import com.eomcs.util.RequestMapping;
 
-@Component("/member/add")
-public class MemberAddServlet implements Servlet {
+@Component
+public class MemberAddServlet {
 
   MemberService memberService;
 
@@ -16,7 +17,7 @@ public class MemberAddServlet implements Servlet {
     this.memberService = memberService;
   }
 
-  @Override
+  @RequestMapping("/member/add")
   public void service(Scanner in, PrintStream out) throws Exception {
     Member member = new Member();
     member.setName(Prompt.getString(in, out, "이름? "));
