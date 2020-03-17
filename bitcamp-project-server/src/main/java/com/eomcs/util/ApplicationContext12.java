@@ -5,7 +5,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import org.apache.ibatis.io.Resources;
 
 // 역할:
@@ -13,60 +12,36 @@ import org.apache.ibatis.io.Resources;
 // - 객체가 일을 하는데 필요로하는 의존 객체를 주입한다.
 // - 객체를 생성과 소멸을 관리한다.
 //
-public class ApplicationContext {
+public class ApplicationContext12 {
 
   // concrete class를 담을 저장소
   ArrayList<Class<?>> concreteClasses = new ArrayList<>();
 
-  // 객체 저장소
-  HashMap<String, Object> objPool = new HashMap<>();
-
-  public ApplicationContext(String packageName) throws Exception {
+  public ApplicationContext12(String packageName) throws Exception {
     File path = Resources.getResourceAsFile(packageName.replace('.', '/'));
 
     findClasses(path, packageName);
 
+    // concrete class의 객체를 생성한다.
     for (Class<?> clazz : concreteClasses) {
-      try {
-        createObject(clazz);
-      } catch (Exception e) {
-        System.out.printf("%s 클래스의 객체를 생성할 수 없습니다.\n", //
-            clazz.getName());
-      }
+      createObject(clazz);
     }
   }
 
-  private void createObject(Class<?> clazz) throws Exception {
+  private void createObject(Class<?> clazz) {
+    // 클래스의 생성자 정보를 알아낸다.
+    // => 첫 번째 생성자만 고려한다.
     Constructor<?> constructor = clazz.getConstructors()[0];
+
+    // 생성자의 파라미터 정보를 알아낸다.
     Parameter[] params = constructor.getParameters();
 
-    // 생성자의 파라미터 값 준비한다.
-    System.out.printf("%s()\n", clazz.getName());
-    Object[] paramValues = getParameterValues(params);
-
-    // 객체를 생성한다.
-    Object obj = constructor.newInstance(paramValues);
-
-    // 객체풀에 보관한다.
-    objPool.put(clazz.getName(), obj);
-    System.out.println(clazz.getName() + " 객체 생성!");
-  }
-
-  private Object[] getParameterValues(Parameter[] params) throws Exception {
-    Object[] values = new Object[params.length];
-    System.out.println("파라미터 값: {");
-    for (int i = 0; i < values.length; i++) {
-      values[i] = getParameterValue(params[i].getType());
-      System.out.printf("%s ==> %s,\n", //
-          params[i].getType().getSimpleName(), //
-          values[i]);
+    // 생성자 정보를 출력한다.
+    System.out.print(clazz.getName() + "(");
+    for (Parameter param : params) {
+      System.out.printf("%s,", param.getType().getSimpleName());
     }
-    System.out.println("}");
-    return values;
-  }
-
-  private Object getParameterValue(Class<?> type) {
-    return null;
+    System.out.println(")");
   }
 
   private void findClasses(File path, String packageName) throws Exception {

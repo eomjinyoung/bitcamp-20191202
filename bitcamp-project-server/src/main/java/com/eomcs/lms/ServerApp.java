@@ -62,8 +62,8 @@ public class ServerApp {
     iocContainer = (ApplicationContext) context.get("iocContainer");
 
     // IoC 컨테이너에서 SqlSessionFactory를 꺼낸다.
-    SqlSessionFactory sqlSessionFactory = //
-        (SqlSessionFactory) iocContainer.getBean("sqlSessionFactory");
+    SqlSessionFactory sqlSessionFactory = null;//
+    // (SqlSessionFactory) iocContainer.getBean("sqlSessionFactory");
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
@@ -140,7 +140,7 @@ public class ServerApp {
         return;
       }
 
-      Servlet servlet = (Servlet) iocContainer.getBean(request);
+      Servlet servlet = null;// (Servlet) iocContainer.getBean(request);
 
       if (servlet != null) {
         try {

@@ -55,11 +55,12 @@ public class ContextLoaderListener implements ApplicationContextListener {
       beans.put("transactionManager", txManager);
 
       // IoC 컨테이너 준비
-      ApplicationContext appCtx = new ApplicationContext(//
-          "com.eomcs.lms", // 새로 생성할 객체의 패키지
-          beans // 기존에 따로 생성한 객체 목록
-      );
-      appCtx.printBeans();
+      ApplicationContext appCtx = new ApplicationContext("com.eomcs.lms");
+      // ApplicationContext appCtx = new ApplicationContext(//
+      // "com.eomcs.lms", // 새로 생성할 객체의 패키지
+      // beans // 기존에 따로 생성한 객체 목록
+      // );
+      // appCtx.printBeans();
 
       // ServerApp이 사용할 수 있게 context 맵에 담아 둔다.
       context.put("iocContainer", appCtx);

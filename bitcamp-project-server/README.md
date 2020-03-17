@@ -70,10 +70,10 @@
 
 - com.eomcs.util.ApplicationContext 클래스 생성
 
-### 훈련2: 특정 패키지에 소속된 클래스 이름을 수집한다.(ApplicationContext02)
+### 훈련2: 특정 패키지의 파일 시스템 경로를 알아낸다.(ApplicationContext02)
 
 - com.eomcs.util.ApplicationContext 클래스 변경
-  - 패키지명을 입력받아서 해당 패키지를 뒤져 모든 클래스의 이름을 가져온다.
+  - 패키지명을 입력받아서 파일 시스템의 경로를 알아낸다.
 - com.eomcs.lms.DataLoaderListener 의 이름 변경
   - 이제 이 클래스는 데이터를 저장하고 로딩하는 역할을 넘어섰다.
   - 애플리케이션을 실행할 때 사용할 객체나 환경을 준비하는 일을 한다.
@@ -81,16 +81,90 @@
 - com.eomcs.lms.ContextLoaderListener 변경
   - ApplicationContext 객체를 생성하여 맵에 보관한다.
   
-### 훈련3: 객체를 생성할 수 있는 concrete class 만 추출한다.(ApplicationContext03)
+### 훈련3: 패키지 폴더의 파일 이름을 알아낸다.(ApplicationContext03)
+
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 패키지 폴더를 뒤져 모든 파일 이름을 가져온다.
+  - findFiles()를 추가한다.
+
+### 훈련4: 파일 중에서 클래스 파일의 이름만 추출한다.(ApplicationContext04)
+
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - findFiles()를 findClasses()로 변경한다.
+  - listFiles()에 FileFilter를 꼽는다.
+
+### 훈련5: 중첩 파일은 제외한다.(ApplicationContext05)
+
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - FileFilter에 중첩 파일 제거 조건을 붙인다.
+  
+### 훈련6: 클래스 이름에 패키지명을 포함한다.(ApplicationContext06)
+
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - findClasses()의 두 번째 파라미터에 패키지 이름을 전달한다.
+  
+### 훈련7: 클래스 이름에서 확장자 .class를 제거한다.(ApplicationContext07)
+
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - findClasses()를 변경한다.
+  
+### 훈련8: 객체를 생성할 수 있는 concrete class 만 추출한다.(ApplicationContext08)
   
 - com.eomcs.util.ApplicationContext 클래스 변경
-  - reflection API를 사용하여 인터페이스와 추상클래스 등을 구분한다.
+  - isConcreteClass()를 추가한다.
+    - reflection API를 사용하여 인터페이스와 추상클래스 등을 구분한다.
+  - findClasses()를 변경한다.
+    - 메서드 선언문에 예외 처리를 추가한다.
+    - isConcreteClass()를 통해 concrete class를 구분한다.
   
-### 훈련4: concrete class의 생성자 정보를 알아낸다.(ApplicationContext04)
+### 훈련9: concrete class의 타입 정보를 목록에 보관한다.(ApplicationContext09)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - concrete class의 타입 정보를 저장할 필드를 선언한다.
+  - findClasses()에 타입 정보를 추가하는 코드를 넣는다.
+  - 생성자에서 목록에 등록된 클래스를 출력하여 확인해본다.
+
+### 훈련10: concrete class를 생성하는 메서드 추가한다.(ApplicationContext10)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - createObject()를 추가한다.
+  - 생성자 변경: 각 concrete class 에 대해 createObject()를 호출한다.
+  
+### 훈련11: concrete class의 생성자를 알아낸다.(ApplicationContext11)
   
 - com.eomcs.util.ApplicationContext 클래스 변경
   - reflection API를 사용하여 클래스의 생성자를 알아낸다.
-  - 생성자의 파라미터 정보를 알아낸다.
+  - createObject()를 변경한다.
+  
+### 훈련12: 생성자의 파라미터를 알아낸다.(ApplicationContext12)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - reflection API를 사용하여 생성자의 파라미터를 알아낸다.
+  - createObject()를 변경한다.
+  
+### 훈련13: 파라미터의 값을 준비하는 메서드를 추가한다.(ApplicationContext13)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - createObject()를 변경한다.
+  - getParameterValues()를 추가한다.
+  
+### 훈련14: 생성자를 호출하여 객체풀에 보관한다.(ApplicationContext14)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 객체풀 역할을 수행할 필드 추가: HashMap<String,Object> objPool
+  - createObject()를 변경한다.
+  
+### 훈련15: 객체 생성 중에 발생한 오류 처리(ApplicationContext15)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - 생성자 변경
+  
+### 훈련16: 생성자 파라미터 값을 준비하는 메서드를 추가한다.(ApplicationContext16)
+  
+- com.eomcs.util.ApplicationContext 클래스 변경
+  - getParameterValues()를 변경한다.
+  - getParameterValue()를 추가한다.
+  
   
 ### 훈련5: concrete class의 생성자를 호출하여 객체를 준비한다.(ApplicationContext05)
   

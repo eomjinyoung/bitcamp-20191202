@@ -13,7 +13,7 @@ import org.apache.ibatis.io.Resources;
 // - 객체가 일을 하는데 필요로하는 의존 객체를 주입한다.
 // - 객체를 생성과 소멸을 관리한다.
 //
-public class ApplicationContext {
+public class ApplicationContext15 {
 
   // concrete class를 담을 저장소
   ArrayList<Class<?>> concreteClasses = new ArrayList<>();
@@ -21,7 +21,7 @@ public class ApplicationContext {
   // 객체 저장소
   HashMap<String, Object> objPool = new HashMap<>();
 
-  public ApplicationContext(String packageName) throws Exception {
+  public ApplicationContext15(String packageName) throws Exception {
     File path = Resources.getResourceAsFile(packageName.replace('.', '/'));
 
     findClasses(path, packageName);
@@ -54,19 +54,12 @@ public class ApplicationContext {
 
   private Object[] getParameterValues(Parameter[] params) throws Exception {
     Object[] values = new Object[params.length];
-    System.out.println("파라미터 값: {");
-    for (int i = 0; i < values.length; i++) {
-      values[i] = getParameterValue(params[i].getType());
-      System.out.printf("%s ==> %s,\n", //
-          params[i].getType().getSimpleName(), //
-          values[i]);
+    System.out.print("파라미터 값: {");
+    for (Parameter param : params) {
+      System.out.printf("%s,", param.getType().getSimpleName());
     }
     System.out.println("}");
     return values;
-  }
-
-  private Object getParameterValue(Class<?> type) {
-    return null;
   }
 
   private void findClasses(File path, String packageName) throws Exception {

@@ -1,11 +1,8 @@
 package com.eomcs.util;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import org.apache.ibatis.io.Resources;
 
 // 역할:
@@ -13,60 +10,20 @@ import org.apache.ibatis.io.Resources;
 // - 객체가 일을 하는데 필요로하는 의존 객체를 주입한다.
 // - 객체를 생성과 소멸을 관리한다.
 //
-public class ApplicationContext {
+public class ApplicationContext09 {
 
   // concrete class를 담을 저장소
   ArrayList<Class<?>> concreteClasses = new ArrayList<>();
 
-  // 객체 저장소
-  HashMap<String, Object> objPool = new HashMap<>();
-
-  public ApplicationContext(String packageName) throws Exception {
+  public ApplicationContext09(String packageName) throws Exception {
     File path = Resources.getResourceAsFile(packageName.replace('.', '/'));
 
     findClasses(path, packageName);
 
+    // concrete class 목록을 출력해 본다.
     for (Class<?> clazz : concreteClasses) {
-      try {
-        createObject(clazz);
-      } catch (Exception e) {
-        System.out.printf("%s 클래스의 객체를 생성할 수 없습니다.\n", //
-            clazz.getName());
-      }
+      System.out.println(clazz.getName());
     }
-  }
-
-  private void createObject(Class<?> clazz) throws Exception {
-    Constructor<?> constructor = clazz.getConstructors()[0];
-    Parameter[] params = constructor.getParameters();
-
-    // 생성자의 파라미터 값 준비한다.
-    System.out.printf("%s()\n", clazz.getName());
-    Object[] paramValues = getParameterValues(params);
-
-    // 객체를 생성한다.
-    Object obj = constructor.newInstance(paramValues);
-
-    // 객체풀에 보관한다.
-    objPool.put(clazz.getName(), obj);
-    System.out.println(clazz.getName() + " 객체 생성!");
-  }
-
-  private Object[] getParameterValues(Parameter[] params) throws Exception {
-    Object[] values = new Object[params.length];
-    System.out.println("파라미터 값: {");
-    for (int i = 0; i < values.length; i++) {
-      values[i] = getParameterValue(params[i].getType());
-      System.out.printf("%s ==> %s,\n", //
-          params[i].getType().getSimpleName(), //
-          values[i]);
-    }
-    System.out.println("}");
-    return values;
-  }
-
-  private Object getParameterValue(Class<?> type) {
-    return null;
   }
 
   private void findClasses(File path, String packageName) throws Exception {
