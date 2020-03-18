@@ -8,11 +8,17 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 // Spring IoC 컨테이너가 이 클래스를 Java Config로 자동 인식하려면
 // 다음 태그를 붙여야 한다.
 // 단, 이 클래스가 @ComponentScan 에서 지정한 패키지 안에 있어야 한다.
 @Configuration
+
+// 다음 애노테이션을 선언하면,
+// @Transactional 이 붙은 메서드가 있을 경우
+// 트랜잭션 제어 코드가 삽입된 프록시 객체를 자동생성한다.
+@EnableTransactionManagement
 
 // Spring IoC 컨테이너에서 사용할 Properties 파일을 로딩하기
 @PropertySource("classpath:com/eomcs/lms/conf/jdbc.properties")
