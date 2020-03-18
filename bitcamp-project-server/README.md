@@ -7,13 +7,16 @@
 ## 실습 소스 및 결과
 
 - build.gradle 변경
-- src/main/java/com/eomcs/util/ApplicationContext.java 삭제
-- src/main/java/com/eomcs/lms/AppConfig.java 추가
-- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
+- src/main/java/com/eomcs/sql/PlatformTransactionManager.java 삭제
+- src/main/java/com/eomcs/sql/TransactionTemplate.java 삭제
+- src/main/java/com/eomcs/sql/TransactionCallback.java 삭제
+- src/main/java/com/eomcs/sql/SqlSessionFactoryProxy.java 삭제
+- src/main/java/com/eomcs/sql/SqlSessionProxy.java 삭제
+- src/main/java/com/eomcs/sql/MybatisDaoFactory.java 삭제
+- src/main/resources/com/eomcs/lms/conf/mybatis-config.xml 삭제
+- src/main/java/com/eomcs/lms/service/impl/PhotoBoardServiceImpl.java 변경
+- src/main/java/com/eomcs/lms/AppConfig.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
-- src/main/java/com/eomcs/util/Component.java 삭제
-- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
-- src/main/java/com/eomcs/lms/service/impl/XxxServiceImpl.java 변경
 
 ## 실습  
 
