@@ -4,10 +4,10 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.lms.service.PhotoBoardService;
-import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.RequestMapping;
 

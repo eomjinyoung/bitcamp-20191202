@@ -2,9 +2,9 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
-import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.RequestMapping;
 

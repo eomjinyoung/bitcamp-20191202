@@ -2,10 +2,10 @@ package com.eomcs.lms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
-import com.eomcs.util.Component;
 
 @Component
 public class LessonServiceImpl implements LessonService {

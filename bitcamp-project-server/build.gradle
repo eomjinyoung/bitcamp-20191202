@@ -19,6 +19,10 @@ repositories {
 }
 
 dependencies {
+  // Spring IoC 컨테이너
+  implementation 'org.springframework:spring-context:5.2.4.RELEASE'
+
+  // MariaDB JDBC 드라이버
   implementation 'org.mariadb.jdbc:mariadb-java-client:2.5.4'
 
   // JSON 형식의 문자열을 다루는 라이브러리

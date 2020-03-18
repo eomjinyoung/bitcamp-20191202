@@ -3,9 +3,9 @@ package com.eomcs.lms.servlet;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
-import com.eomcs.util.Component;
 import com.eomcs.util.RequestMapping;
 
 @Component

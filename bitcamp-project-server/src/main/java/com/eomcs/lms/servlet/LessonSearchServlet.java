@@ -5,9 +5,9 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
-import com.eomcs.util.Component;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.RequestMapping;
 

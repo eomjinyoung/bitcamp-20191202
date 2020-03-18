@@ -13,9 +13,9 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.sql.SqlSessionFactoryProxy;
-import com.eomcs.util.ApplicationContext;
 import com.eomcs.util.RequestHandler;
 import com.eomcs.util.RequestMappingHandlerMapping;
 
@@ -70,8 +70,8 @@ public class ServerApp {
         (RequestMappingHandlerMapping) context.get("handlerMapper");
 
     // IoC 컨테이너에서 SqlSessionFactory를 꺼낸다.
-    SqlSessionFactory sqlSessionFactory = //
-        (SqlSessionFactory) iocContainer.getBean("sqlSessionFactory");
+    SqlSessionFactory sqlSessionFactory = null;//
+    // (SqlSessionFactory) iocContainer.getBean("sqlSessionFactory");
 
     try (ServerSocket serverSocket = new ServerSocket(9999)) {
 
