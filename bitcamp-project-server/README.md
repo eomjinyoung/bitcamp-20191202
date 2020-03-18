@@ -7,14 +7,14 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/util/RequestMapping.java 추가
-- src/main/java/com/eomcs/lms/servlet/Servlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
-- src/main/java/com/eomcs/util/ApplicationContext.java 변경
+- build.gradle 변경
+- src/main/java/com/eomcs/util/ApplicationContext.java 삭제
+- src/main/java/com/eomcs/lms/AppConfig.java 추가
 - src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
-- src/main/java/com/eomcs/util/RequestHandler.java 추가
-- src/main/java/com/eomcs/util/RequestMappingHandlerMapping.java 추가
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
+- src/main/java/com/eomcs/util/Component.java 삭제
+- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
+- src/main/java/com/eomcs/lms/service/impl/XxxServiceImpl.java 변경
 
 ## 실습  
 
@@ -72,3 +72,6 @@
   - DAO 객체를 생성하는 메서드를 추가한다.  
 - com.eomcs.lms.ContextLoaderListener 변경
   - IoC 컨테이너에 저장할 객체 생성 코드를 제거한다.
+- 서버를 실행하면 정상적으로 동작한다.
+
+  
