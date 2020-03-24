@@ -19,8 +19,13 @@
 
 ## 실습 소스 및 결과
 
+- build.gradle 변경
+- src/main/resources/log4j.properties 추가
+- src/main/java/com/eomcs/lms/AppConfig.java 변경
 - src/main/java/com/eomcs/lms/DatabaseConfig.java 변경
-- src/main/java/com/eomcs/lms/service/impl/PhotoBoardServiceImpl.java 변경
+- src/main/java/com/eomcs/lms/MybatisConfig.java 변경
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
 
@@ -44,7 +49,13 @@
 ### 훈련3: 각 클래스의 로그 출력을 Log4j로 전환한다.
 
 - com.eomcs.lms.ServerApp 변경
-  - 기존의 출력을 log4j로 전환한다.
+- com.eomcs.lms.ContextLoaderListener 변경
+- com.eomcs.lms.AppConfig 변경
+- com.eomcs.lms.DatabaseConfig 변경
+- com.eomcs.lms.MybatisConfig 변경
+
+### 훈련4: Mybatis에 log4j를 설정한다.
+
 
 
 
