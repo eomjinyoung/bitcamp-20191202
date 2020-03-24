@@ -1,5 +1,7 @@
 package com.eomcs.lms;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.ComponentScan;
 
 // Spring IoC 컨테이너가 탐색할 패키지 설정
@@ -9,8 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(value = "com.eomcs.lms")
 public class AppConfig {
 
+  static Logger logger = LogManager.getLogger(AppConfig.class);
+
   public AppConfig() {
-    System.out.println("AppConfig 객체 생성!");
+    logger.debug("AppConfig 객체 생성!");
   }
 
   // Spring IoC 컨테이너에 수동으로 객체를 등록하고 싶다면,

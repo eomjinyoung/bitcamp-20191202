@@ -1,6 +1,8 @@
 package com.eomcs.lms;
 
 import javax.sql.DataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +26,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:com/eomcs/lms/conf/jdbc.properties")
 public class DatabaseConfig {
 
+  static Logger logger = LogManager.getLogger(DatabaseConfig.class);
+
   // @PropertySource로 로딩한 .properties 파일의 값을 사용하고 싶다면,
   // 다음 애노테이션을 인스턴스 필드 앞에 붙여라.
   // Spring IoC 컨테이너가 이 클래스의 객체를 생성할 때
@@ -41,7 +45,7 @@ public class DatabaseConfig {
   String jdbcPassword;
 
   public DatabaseConfig() {
-    System.out.println("DatabaseConfig 객체 생성!");
+    logger.debug("DatabaseConfig 객체 생성!");
   }
 
   // Spring IoC 컨테이너에 수동으로 객체를 등록하고 싶다면,

@@ -43,7 +43,8 @@
 
 ### 훈련3: 각 클래스의 로그 출력을 Log4j로 전환한다.
 
-
+- com.eomcs.lms.ServerApp 변경
+  - 기존의 출력을 log4j로 전환한다.
 
 
 
