@@ -1,5 +1,7 @@
 # 53_1 - Log4j 1.2.x 를 사용하여 애플리케이션 로그 처리하기
 
+https://m.blog.naver.com/PostView.nhn?blogId=freemoa1&logNo=221786640780&proxyReferer=http%3A%2F%2Fm.facebook.com
+
 애플리케이션의 실행 상태를 확인하고 싶을 때 보통 
 `System.out.println()`을 사용하여 변수의 값이나 
 메서드의 리턴 값, 객체의 필드 값을 출력한다. 
