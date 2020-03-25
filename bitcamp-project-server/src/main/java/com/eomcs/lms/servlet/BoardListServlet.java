@@ -2,7 +2,7 @@ package com.eomcs.lms.servlet;
 
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
@@ -18,7 +18,7 @@ public class BoardListServlet {
   }
 
   @RequestMapping("/board/list")
-  public void service(Scanner in, PrintStream out) throws Exception {
+  public void service(Map<String, String> params, PrintStream out) throws Exception {
 
     out.println("<!DOCTYPE html>");
     out.println("<html>");
@@ -28,6 +28,7 @@ public class BoardListServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("  <h1>게시글</h1>");
+    out.println("  <a href='/board/addForm'>새 글</a><br>");
     out.println("  <table border='1'>");
     out.println("  <tr>");
     out.println("    <th>번호</th>");
@@ -38,7 +39,13 @@ public class BoardListServlet {
 
     List<Board> boards = boardService.list();
     for (Board board : boards) {
-      out.printf("  <tr><td>%d</td> <td>%s</td> <td>%s</td> <td>%d</td></tr>\n", //
+      out.printf("  <tr>"//
+          + "<td>%d</td> "//
+          + "<td><a href='/board/detail?no=%d'>%s</a></td> "//
+          + "<td>%s</td> "//
+          + "<td>%d</td>"//
+          + "</tr>\n", //
+          board.getNo(), //
           board.getNo(), //
           board.getTitle(), //
           board.getDate(), //
