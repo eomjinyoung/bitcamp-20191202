@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -231,7 +232,7 @@ public class ServerApp {
     return requestUri.split("\\?")[0]; // 예) /member/add
   }
 
-  private Map<String, String> getParameters(String requestUri) {
+  private Map<String, String> getParameters(String requestUri) throws Exception {
     // 데이터(Query String)는 따로 저장
     // => /member/list?email=aaa@test.com&name=aaa&password=1111
     Map<String, String> params = new HashMap<>();
@@ -242,7 +243,12 @@ public class ServerApp {
       for (String entry : entries) {
         logger.debug(String.format("parameter => %s", entry));
         String[] kv = entry.split("=");
-        params.put(kv[0], kv[1]);
+
+        // 웹브라우저가 URL 인코딩하여 보낸 데이터를
+        // 디코딩하여 String 객체로 만든다.
+        String value = URLDecoder.decode(kv[1], "UTF-8");
+
+        params.put(kv[0], value);
       }
     }
     return params;
