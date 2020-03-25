@@ -6,9 +6,11 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/BoardListServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberListServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/LessonListServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/MemberXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LessonXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/PhotoBoardXxxServlet.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
 
@@ -67,6 +69,12 @@
   - 웹브라우저가 보낸 게시글을 변경한다.
   - 웹브라우저에게 게시글 변경 결과를 보낸다.
   
-  
+### 훈련9: 회원 관리 서블릿을 모두 변경하기
+
+### 훈련10: 수업 관리 서블릿을 모두 변경하기
+
+### 훈련11: 사진게시글 관리 서블릿을 모두 변경하기
+
+### 훈련12: 로그인 서블릿을 모두 변경하기
   
   
