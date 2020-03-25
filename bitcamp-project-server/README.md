@@ -16,6 +16,9 @@
 
 - com.eomcs.lms.servlet.BoardListServlet 변경
 
+### 훈련2: 웹브라우저에게 데이터 입력을 요구한다.
 
+- com.eomcs.lms.servlet.BoardAddServlet 변경
+  - 웹브라우저에게 게시물 데이터 입력을 요구하는 HTML을 보낸다.
 
 
