@@ -182,7 +182,6 @@ public class ServerApp {
         notFound(out);
         logger.info("해당 명령을 지원하지 않습니다.");
       }
-      out.println("!end!");
       out.flush();
       logger.info("클라이언트에게 응답하였음!");
 
