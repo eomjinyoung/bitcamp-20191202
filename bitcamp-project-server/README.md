@@ -20,6 +20,9 @@
 
 - com.eomcs.lms.servlet.BoardAddFormServlet 추가
   - 웹브라우저에게 게시물 데이터 입력을 요구하는 HTML을 보낸다.
+- com.eomcs.lms.servlet.BoardListServlet 변경
+  - /board/addForm 을 요청하는 링크를 추가한다.
+
 
 ### 훈련3: 웹브라우저가 보낸 데이터 받기
 
@@ -38,3 +41,15 @@
 
 - com.eomcs.lms.servlet.BoardDetailServlet 변경
   - 웹브라우저에게 게시글 상세 정보를 HTML 형식으로 만들어 보낸다.
+- com.eomcs.lms.servlet.BoardListServlet 변경
+  - /board/detail 을 요청하는 링크를 추가한다.  
+  
+### 훈련6: 게시글 삭제하기
+
+- com.eomcs.lms.servlet.BoardDeleteServlet 변경
+  - 웹브라우저에게 게시글 삭제 결과를 HTML 형식으로 만들어 보낸다.
+- com.eomcs.lms.servlet.BoardDetailServlet 변경
+  - /board/delete 을 요청하는 링크를 추가한다.
+  
+  
+  

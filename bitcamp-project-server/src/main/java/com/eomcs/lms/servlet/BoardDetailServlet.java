@@ -34,6 +34,8 @@ public class BoardDetailServlet {
       out.printf("제목: %s<br>\n", board.getTitle());
       out.printf("등록일: %s<br>\n", board.getDate());
       out.printf("조회수: %d<br>\n", board.getViewCount());
+      out.printf("<p><a href='/board/delete?no=%d'>삭제</a></p>\n", //
+          board.getNo());
     } else {
       out.println("<p>해당 번호의 게시물이 없습니다.</p>");
     }
