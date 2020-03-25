@@ -16,10 +16,10 @@
 
 - com.eomcs.lms.servlet.BoardListServlet 변경
 
-### 훈련2: 웹브라우저에게 게시물 데이터 입력을 요구한다.
+### 훈련2: 웹브라우저에게 게시글 데이터 입력을 요구한다.
 
 - com.eomcs.lms.servlet.BoardAddFormServlet 추가
-  - 웹브라우저에게 게시물 데이터 입력을 요구하는 HTML을 보낸다.
+  - 웹브라우저에게 게시글 데이터 입력을 요구하는 HTML을 보낸다.
 - com.eomcs.lms.servlet.BoardListServlet 변경
   - /board/addForm 을 요청하는 링크를 추가한다.
 
@@ -35,11 +35,13 @@
 ### 훈련4: 웹브라우저가 보낸 게시글 데이터 저장하기
 
 - com.eomcs.lms.servlet.BoardAddServlet 변경
+  - 웹브라우저가 보낸 게시글을 입력한다.
   - 웹브라우저에게 게시글 입력 결과를 보낸다.
 
 ### 훈련5: 게시글 상세 정보를 출력하기
 
 - com.eomcs.lms.servlet.BoardDetailServlet 변경
+  - 웹브라우저가 보낸 번호의 게시글을 가져온다.
   - 웹브라우저에게 게시글 상세 정보를 HTML 형식으로 만들어 보낸다.
 - com.eomcs.lms.servlet.BoardListServlet 변경
   - /board/detail 을 요청하는 링크를 추가한다.  
@@ -47,9 +49,24 @@
 ### 훈련6: 게시글 삭제하기
 
 - com.eomcs.lms.servlet.BoardDeleteServlet 변경
+  - 웹브라우저가 보낸 번호의 게시글을 삭제한다.
   - 웹브라우저에게 게시글 삭제 결과를 HTML 형식으로 만들어 보낸다.
 - com.eomcs.lms.servlet.BoardDetailServlet 변경
   - /board/delete 을 요청하는 링크를 추가한다.
+  
+### 훈련7: 게시글 변경폼 만들기
+
+- com.eomcs.lms.servlet.BoardDetailServlet 변경
+  - /board/updateForm 을 요청하는 링크를 추가한다.
+- com.eomcs.lms.servlet.BoardUpdateFormServlet 추가
+  - 웹브라우저에게 게시글 데이터 변경을 요구하는 HTML을 보낸다.
+
+### 훈련8: 게시글 변경하기
+
+- com.eomcs.lms.servlet.BoardUpdateServlet 변경
+  - 웹브라우저가 보낸 게시글을 변경한다.
+  - 웹브라우저에게 게시글 변경 결과를 보낸다.
+  
   
   
   
