@@ -71,9 +71,23 @@
   
 ### 훈련9: 회원 관리 서블릿을 모두 변경하기
 
+- com.eomcs.lms.dao.MemberDao 변경
+  - default 메서드를 추상 메서드로 전환한다.
+- com.eomcs.lms.servlet.MemberAddFormServlet 추가
+- com.eomcs.lms.servlet.MemberXxxServlet 변경
+- com.eomcs.lms.ServerApp 변경
+
 ### 훈련10: 수업 관리 서블릿을 모두 변경하기
 
+- com.eomcs.lms.dao.LessonDao 변경
+  - default 메서드를 추상 메서드로 전환한다.
+- com.eomcs.lms.servlet.LessonAddFormServlet 추가
+- com.eomcs.lms.servlet.LessonXxxServlet 변경
+
 ### 훈련11: 사진게시글 관리 서블릿을 모두 변경하기
+
+- com.eomcs.lms.servlet.PhotoBoardAddFormServlet 추가
+- com.eomcs.lms.servlet.PhotoBoardXxxServlet 변경
 
 ### 훈련12: 로그인 서블릿을 모두 변경하기
   
