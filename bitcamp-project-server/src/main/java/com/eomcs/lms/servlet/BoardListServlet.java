@@ -52,6 +52,7 @@ public class BoardListServlet {
           board.getViewCount() //
       );
     }
+    out.println("</table>");
 
     out.println("</body>");
     out.println("</html>");
