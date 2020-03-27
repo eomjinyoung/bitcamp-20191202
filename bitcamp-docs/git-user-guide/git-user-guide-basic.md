@@ -12,10 +12,14 @@
     - 간단한 데이터베이스를 이용하여 파일에서 변경되는 부분(patch set)을 관리한다.
     - 예) RCS(Revision Control System)
   - 중앙집중식 버전 관리
-    - 파일의 마지막 스냅샷만 받는다(checkout).
+    - 파일의 마지막 스냅샷을 받는다(checkout).
     - 스냅샷(snapshot)? 특정 시점의 파일 버전을 기록한 것.
+    - 로컬은 한 개의 스냅샵만 유지한다.
     - 만약 서버에 문제가 생기면 모든 변경 내력(history)을 잃는다.
-    - 예) CVS, Subversion, Perforce 등
+    - 로컬에 있는 스냅샵 중에서 최신 버전으로 복구한다.
+    - 예) CVS, Subversion(SVN), Perforce 등
+    - CVS: commit 할 때 파일 전체를 보관한다.
+    - Subversion: commit 할 때 파일에서 변경한 부분만 보관한다.
   - 분산 버전 관리 시스템
     - 저장소 전부를 복제한다.
     - 변경 내력(history)까지 모두 복제한다.
@@ -37,7 +41,7 @@
 Git은 다음 세가지 상태로 파일을 관리한다.
 
 - Committed
-  - 로컬 데이터베이스에 안전하게 저장되었다는 뜻이다.
+  - 로컬 데이터베이스(저장소; Repository)에 안전하게 저장되었다는 뜻이다.
 - Modified
   - 파일이 변경되었지만 아직 로컬 데이터베이스에 저장되지 않았다는 뜻이다.
 - Staged
