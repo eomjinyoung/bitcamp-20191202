@@ -47,9 +47,13 @@ public class LessonDetailServlet {
           lesson.getTotalHours());
       out.printf("일 강의시간: <input name='dayHours' type='number' value='%d'><br>\n", //
           lesson.getDayHours());
-      out.println("<p><button>변경</button>");
-      out.printf("<a href='/lesson/delete?no=%d'>삭제</a></p>\n", //
+      out.println("<p>");
+      out.println("<button>변경</button>");
+      out.printf("<a href='/lesson/delete?no=%d'>삭제</a>\n", //
           lesson.getNo());
+      out.printf("<a href='/photoboard/list?lessonNo=%d'>사진게시판</a>\n", //
+          lesson.getNo());
+      out.println("</p>");
       out.println("</form>");
     } else {
       out.println("<p>해당 번호의 강의가 없습니다.</p>");

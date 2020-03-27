@@ -32,7 +32,6 @@ public class PhotoBoardListServlet {
     out.println("  <title>강의 사진 목록</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("  <h1>강의 사진</h1>");
     try {
       int lessonNo = Integer.parseInt(params.get("lessonNo"));
       Lesson lesson = lessonService.get(lessonNo);
@@ -40,9 +39,7 @@ public class PhotoBoardListServlet {
         throw new Exception("수업 번호가 유효하지 않습니다.");
       }
 
-      out.printf("<p>수업명: %s</p>\n", lesson.getTitle());
-      out.println("<hr>");
-
+      out.printf("  <h1>강의 사진 - %s</h1>", lesson.getTitle());
       out.printf("  <a href='/photoboard/addForm?lessonNo=%d'>새 사진</a><br>\n", //
           lessonNo);
       out.println("  <table border='1'>");
