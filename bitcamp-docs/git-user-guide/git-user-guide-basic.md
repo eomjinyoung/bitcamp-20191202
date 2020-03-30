@@ -511,6 +511,19 @@ f559e21 (HEAD -> master, b1) v0.3
 5d8d97b (origin/master, origin/HEAD) Initial commit 
 ```
 
+```
+예6) 커밋 정보와 브랜치 정보를 함께 보기
+$ git log --oneline --graph --all
+* 6f4725e (HEAD -> master) v0.6
+| * 34fda9c (b1) v0.5
+| * 9cf510e v0.4
+|/  
+* f559e21 v0.3
+* 5896279 v0.2
+* 8dd76bf v0.1
+* 5d8d97b (origin/master, origin/HEAD) Initial commit
+```
+
 ### git commit --amend
 
 - 마지막 커밋을 다시 현재의 Staging Area의 내용으로 덮어쓴다.
