@@ -44,7 +44,7 @@ public class BoardUpdateFormServlet extends GenericServlet {
       if (board == null) {
         out.println("<p>해당 번호의 게시글이 없습니다.</p>");
       } else {
-        out.println("<form action='/board/update'>");
+        out.println("<form action='update'>");
         out.printf("번호: <input name='no' readonly type='text' value='%d'><br>\n", //
             board.getNo());
         out.println("내용:<br>");

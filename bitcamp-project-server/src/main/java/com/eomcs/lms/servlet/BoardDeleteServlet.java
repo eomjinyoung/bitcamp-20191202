@@ -31,7 +31,7 @@ public class BoardDeleteServlet extends GenericServlet {
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='refresh' content='2;url=/board/list'>");
+      out.println("<meta http-equiv='refresh' content='2;url=list'>");
       out.println("<title>게시글 삭제</title>");
       out.println("</head>");
       out.println("<body>");

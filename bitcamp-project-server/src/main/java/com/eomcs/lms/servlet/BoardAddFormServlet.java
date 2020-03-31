@@ -35,7 +35,7 @@ public class BoardAddFormServlet extends GenericServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시물 입력</h1>");
-    out.println("<form action='/board/add'>");
+    out.println("<form action='add'>");
     out.println("내용:<br>");
     out.println("<textarea name='title' rows='5' cols='60'></textarea><br>");
     out.println("<button>제출</button>");

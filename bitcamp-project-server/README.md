@@ -49,6 +49,50 @@
 
 ### 훈련4: 기존의 서블릿 클래스를 JavaEE의 Servlet 기술을 적용하여 변경한다.
 
-- com.eomcs.lms.servlet.XxxServlet.java 변경
+- com.eomcs.lms.servlet.XxxServlet 변경
+- com.eomcs.lms.ServerApp 삭제
+
+### 훈련5: 웹애플리케이션을 빌드 한다.
+
+- build.gradle 변경
+  - 웹애플리케이션 배치 파일을 생성하기 위해 'war' 플러그인을 추가한다.
+- 'gradle build'를 실행한다.
+  - 'build/libs/bitcamp-project-server.war' 파일이 생성된다.
+
+### 훈련6: 톰캣 서버에 배치한다.
+
+- $톰캣홈/webapps/ 폴더에 war 파일을 놓는다.
+- 톰캣 서버를 다시 시작한다.
+  - 톰캣 서버는 bitcamp-project-server.war 파일과 
+    동일한 이름으로 폴더를 만들고 압축 푼다.
+  - 예) $톰캣홈/webapp/bitcamp-project-server
+
+### 훈련7: 웹애플리케이션을 실행한다.
+
+- /board/list 실행
+  - http://localhost:포트번호/웹애플리케이션이름/board/list
+  - 웹애플리케이션 이름은 webapps/ 폴더에 압축을 푼 디렉토리 이름이다.
+  - 예) http://localhost:9999/bitcamp-project-server/board/list
+- 새글 링크 클릭
+  - 화면을 찾을 수 없다.
+  - 이유? 링크에 절대 경로를 사용한다. "/board/addForm"
+  - 웹 애플리케이션을 배치하면 기본으로 프로젝트명이 웹 애플리케이션 이름이 된다.
+  - 이 웹 애플리케이션에 있는 서블릿을 실행하려면 항상 
+    웹 애플리케이션 이름을 사용하여 실행해야 한다.
+  - 예) /bitcamp-project-server/board/addForm
+  - 해결책? 상대 경로를 지정하라!
+
+### 훈련8: URL 링크를 상대로 경로로 바꾼다.
+
+- com.eomcs.lms.servlet.XxxServlet 변경
+  - 절대 경로 대신 상대 경로로 바꾼다.
+
+
+
+
+
+
+
+
 
 

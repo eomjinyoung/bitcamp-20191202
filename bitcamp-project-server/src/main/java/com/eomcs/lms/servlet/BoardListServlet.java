@@ -37,7 +37,7 @@ public class BoardListServlet extends GenericServlet {
       out.println("</head>");
       out.println("<body>");
       out.println("  <h1>게시글</h1>");
-      out.println("  <a href='/board/addForm'>새 글</a><br>");
+      out.println("  <a href='addForm'>새 글</a><br>");
       out.println("  <table border='1'>");
       out.println("  <tr>");
       out.println("    <th>번호</th>");
@@ -50,7 +50,7 @@ public class BoardListServlet extends GenericServlet {
       for (Board board : boards) {
         out.printf("  <tr>"//
             + "<td>%d</td> "//
-            + "<td><a href='/board/detail?no=%d'>%s</a></td> "//
+            + "<td><a href='detail?no=%d'>%s</a></td> "//
             + "<td>%s</td> "//
             + "<td>%d</td>"//
             + "</tr>\n", //
