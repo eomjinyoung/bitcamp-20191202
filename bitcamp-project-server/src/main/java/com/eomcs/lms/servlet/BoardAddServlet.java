@@ -1,38 +1,53 @@
 package com.eomcs.lms.servlet;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import org.springframework.stereotype.Component;
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
-import com.eomcs.util.RequestMapping;
 
-@Component
-public class BoardAddServlet {
+@WebServlet("/board/add")
+public class BoardAddServlet extends GenericServlet {
+  private static final long serialVersionUID = 1L;
 
-  BoardService boardService;
+  @Override
+  public void service(ServletRequest req, ServletResponse res)
+      throws ServletException, IOException {
+    try {
+      res.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = res.getWriter();
 
-  public BoardAddServlet(BoardService boardService) {
-    this.boardService = boardService;
-  }
+      ServletContext servletContext = req.getServletContext();
+      ApplicationContext iocContainer =
+          (ApplicationContext) servletContext.getAttribute("iocContainer");
+      BoardService boardService = iocContainer.getBean(BoardService.class);
 
-  @RequestMapping("/board/add")
-  public void service(Map<String, String> params, PrintWriter out) throws Exception {
-    Board board = new Board();
-    board.setTitle(params.get("title"));
-    boardService.add(board);
+      Board board = new Board();
+      board.setTitle(req.getParameter("title"));
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<meta http-equiv='refresh' content='2;url=/board/list'>");
-    out.println("<title>게시글 입력</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>게시물 입력 결과</h1>");
-    out.println("<p>새 게시글을 등록했습니다.</p>");
-    out.println("</body>");
-    out.println("</html>");
+      boardService.add(board);
+
+      out.println("<!DOCTYPE html>");
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<meta charset='UTF-8'>");
+      out.println("<meta http-equiv='refresh' content='2;url=/board/list'>");
+      out.println("<title>게시글 입력</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>게시물 입력 결과</h1>");
+      out.println("<p>새 게시글을 등록했습니다.</p>");
+      out.println("</body>");
+      out.println("</html>");
+
+    } catch (Exception e) {
+      throw new ServletException(e);
+    }
   }
 }

@@ -40,14 +40,14 @@
   - 이클립스 설정 파일을 갱신한다.
 - 이클립스 IDE의 프로젝트를 refresh 한다.
 
-### 훈련2: JavaEE의 Servlet 기술을 사용하여 Spring IoC 컨테이너를 준비한다.
+### 훈련3: JavaEE의 Servlet 기술을 사용하여 Spring IoC 컨테이너를 준비한다.
 
 - com.eomcs.lms.ContextLoaderListener 변경
   - Servlet 기술에게 제공하는 ServletContextListener를 구현한다.
   - Spring IoC 컨테이너를 준비한다. 
 - com.eomcs.lms.context 패키지 및 하위 클래스 삭제
 
-### 훈련3: 기존의 서블릿 클래스를 JavaEE의 Servlet 규칙에 따라 변경한다.
+### 훈련4: 기존의 서블릿 클래스를 JavaEE의 Servlet 기술을 적용하여 변경한다.
 
 - com.eomcs.lms.servlet.XxxServlet.java 변경
 

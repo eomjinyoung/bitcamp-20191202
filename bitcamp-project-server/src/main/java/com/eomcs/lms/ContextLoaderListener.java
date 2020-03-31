@@ -3,6 +3,7 @@ package com.eomcs.lms;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 // 조건:
 // => javax.servlet.ServletContextListener 인터페이스를 구현해야 한다.
 //
+@WebListener // 이 애노테이션을 붙이면 서블릿 컨테이너가 이 객체를 관리한다.
 public class ContextLoaderListener implements ServletContextListener {
 
   static Logger logger = LogManager.getLogger(ContextLoaderListener.class);
@@ -34,23 +36,19 @@ public class ContextLoaderListener implements ServletContextListener {
 
     try {
       // Spring IoC 컨테이너 준비
-      ApplicationContext appCtx = new AnnotationConfigApplicationContext(//
+      ApplicationContext iocContainer = new AnnotationConfigApplicationContext(//
           // Spring IoC 컨테이너의 설정 정보를 담고 있는 클래스 타입을 지정.
           AppConfig.class);
-      printBeans(appCtx);
+      printBeans(iocContainer);
 
       // 서블릿이 사용할 수 있게 ServletContext에 담아 둔다.
-      servletContext.setAttribute("iocContainer", appCtx);
+      servletContext.setAttribute("iocContainer", iocContainer);
 
       logger.debug("----------------------------");
 
       // 서블릿 객체는 더이상 'Spring IoC 컨테이너'에서 관리하지 않는다.
       // 서블릿 객체의 관리 주체가 서블릿 컨테이너로 넘어갔다.
       //
-
-      // 현재 Spring IoC 컨테이너에 들어 있는 객체를 확인해보자.
-      printBeans(appCtx);
-
     } catch (Exception e) {
       e.printStackTrace();
     }
