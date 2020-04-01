@@ -1,7 +1,12 @@
 plugins {
     id 'java'
-    id 'eclipse'
+    
+    id 'eclipse-wtp'
+    // => 'eclipse' 플러그인 기능을 포함한다.
+    // => 이클립스 웹 프로젝트용 설정 파일을 생성한다.
+
     id 'war'
+    // => 배치 관련 기능을 처리한다.
 }
 
 tasks.withType(JavaCompile) {
