@@ -14,8 +14,10 @@
 ## 실습 소스 및 결과
 
 - build.gradle 변경
-- src/main/java/com/eomcs/lms/ServerApp.java 변경
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/context 폴더 삭제
 - src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 삭제
 
 ## 실습  
 
