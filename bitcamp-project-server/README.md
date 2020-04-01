@@ -7,6 +7,8 @@
 ## 실습 소스 및 결과
 
 - build.gradle 변경
+- src/main/webapp/index.html 추가
+
 
 ## 실습  
 
