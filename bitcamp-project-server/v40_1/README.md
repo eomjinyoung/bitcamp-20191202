@@ -1,4 +1,4 @@
-# 40_1 - Connection을 스레드에 보관하기: ThreadLocal을 사용하여 스레드에 값 보관하기
+# 40_1 - Connection을 스레드에 보관하기: ThreadLocal을 사용하여 Connection 보관하기
 
 ## 학습목표
 

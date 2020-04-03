@@ -41,7 +41,7 @@
 
 - src/main/java/com/eomcs/sql/ConnectionProxy.java 추가
 - src/main/java/com/eomcs/util/ConnectionFactory.java 변경
-- src/main/java/com/eomcs/lms/ServletApp.java 변경
+- src/main/java/com/eomcs/lms/ServerApp.java 변경
 
 ## 실습  
 
