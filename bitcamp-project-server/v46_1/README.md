@@ -63,6 +63,7 @@
 - src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
 - src/main/java/com/eomcs/lms/DataLoaderListener.java 의 이름 변경
   - ContextLoaderListener.java 로 이름 변경
+- src/main/java/com/eomcs/ServerApp.java 변경
 
 ## 실습  
 
@@ -236,6 +237,8 @@
   
 ### 훈련26: IoC 컨테이너의 이점을 활용해보자.
 
+- com.eomcs.lms.ServerApp 변경
+  - IoC 컨테이너에서 명령을 처리할 서블릿 객체를 꺼낸다.
 - com.eomcs.lms.servlet.HelloServlet 추가
   - 클라이언트가 "/hello"를 요청했을 때 "안녕하세요!"하고 인사말을 응답한다.
   - IoC 컨테이너를 도입하면, 새 명령을 처리하는 서블릿이 추가되더라도 

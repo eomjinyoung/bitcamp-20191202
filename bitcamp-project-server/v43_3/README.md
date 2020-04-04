@@ -8,7 +8,7 @@
 
 - src/main/java/com/eomcs/util/Prompt.java 변경
 - src/main/java/com/eomcs/lms/ServerApp.java 변경
-- src/main/java/com/eomcs/lms/mapper/XxxDaoImpl.java 변경
+- src/main/java/com/eomcs/lms/mapper/XxxMapper.xml 변경
 - src/main/java/com/eomcs/lms/dao/PhotoFileDao.java 변경
 - src/main/java/com/eomcs/lms/dao/LessonDao.java 변경
 - src/main/java/com/eomcs/lms/dao/mariadb/LessonDaoImpl.java 변경

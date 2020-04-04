@@ -1,4 +1,4 @@
-# 51_1 - Spring IoC 컨테이너와 MyBatis 프레임워크 연동하기
+# 51_1 - Spring IoC 컨테이너와 MyBatis 연동하기
 
 ## 학습목표
 
