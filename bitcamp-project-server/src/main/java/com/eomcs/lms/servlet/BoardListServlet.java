@@ -37,7 +37,7 @@ public class BoardListServlet extends GenericServlet {
       out.println("</head>");
       out.println("<body>");
       out.println("  <h1>게시글</h1>");
-      out.println("  <a href='addForm'>새 글</a><br>");
+      out.println("  <a href='add'>새 글</a><br>");
       out.println("  <table border='1'>");
       out.println("  <tr>");
       out.println("    <th>번호</th>");
