@@ -7,8 +7,8 @@
 
 ## 실습 소스 및 결과
 
-- com.eomcs.lms.servlet.BoardAddFormServlet 삭제
-- com.eomcs.lms.servlet.BoardUpdateFormServlet 삭제
+- com.eomcs.lms.servlet.XxxUpdateFormServlet 삭제
+- com.eomcs.lms.servlet.XxxAddFormServlet 삭제
 - com.eomcs.lms.servlet.XxxServlet 변경
 
 
