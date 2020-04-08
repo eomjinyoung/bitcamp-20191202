@@ -4,54 +4,54 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
 @WebServlet("/lesson/search")
-public class LessonSearchServlet extends GenericServlet {
+public class LessonSearchServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = res.getWriter();
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
-      ServletContext servletContext = req.getServletContext();
+      ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
 
       HashMap<String, Object> map = new HashMap<>();
-      String value = req.getParameter("title");
+      String value = request.getParameter("title");
       if (value.length() > 0) {
         map.put("title", value);
       }
 
-      value = req.getParameter("startDate");
+      value = request.getParameter("startDate");
       if (value.length() > 0) {
         map.put("startDate", value);
       }
 
-      value = req.getParameter("endDate");
+      value = request.getParameter("endDate");
       if (value.length() > 0) {
         map.put("endDate", value);
       }
 
-      value = req.getParameter("totalHours");
+      value = request.getParameter("totalHours");
       if (value.length() > 0) {
         map.put("totalHours", Integer.parseInt(value));
       }
 
-      value = req.getParameter("dayHours");
+      value = request.getParameter("dayHours");
       if (value.length() > 0) {
         map.put("dayHours", Integer.parseInt(value));
       }

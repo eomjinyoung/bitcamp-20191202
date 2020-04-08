@@ -2,39 +2,40 @@ package com.eomcs.lms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
 @WebServlet("/member/update")
-public class MemberUpdateServlet extends GenericServlet {
+public class MemberUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      res.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = res.getWriter();
+      request.setCharacterEncoding("UTF-8");
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
-      ServletContext servletContext = req.getServletContext();
+      ServletContext servletContext = request.getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       MemberService memberService = iocContainer.getBean(MemberService.class);
 
       Member member = new Member();
-      member.setNo(Integer.parseInt(req.getParameter("no")));
-      member.setName(req.getParameter("name"));
-      member.setEmail(req.getParameter("email"));
-      member.setPassword(req.getParameter("password"));
-      member.setPhoto(req.getParameter("photo"));
-      member.setTel(req.getParameter("tel"));
+      member.setNo(Integer.parseInt(request.getParameter("no")));
+      member.setName(request.getParameter("name"));
+      member.setEmail(request.getParameter("email"));
+      member.setPassword(request.getParameter("password"));
+      member.setPhoto(request.getParameter("photo"));
+      member.setTel(request.getParameter("tel"));
 
       out.println("<!DOCTYPE html>");
       out.println("<html>");
