@@ -54,17 +54,12 @@ public class BoardAddServlet extends HttpServlet {
 
       boardService.add(board);
 
-      // 작업을 완료한 후 다른 페이지를 가라고 클라이언트에게 URL을 보낸다.
       response.sendRedirect("list");
-      // => 이 URL은 웹브라우저가 사용한다.
-      // => 따라서 URL이 / 로 시작하면 서버 루트를 의미한다.
-      // => URL이 /로 시작하지 않으면 상대 경로를 의미한다.
-      // => 상대경로란 리다이렉트 메시지를
-      // 받기 전의 URL(/bitcamp-project-server/board/add)을 기준으로
-      // 계산한 경로(/bitcamp-project-server/board/list)이다.
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list");
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

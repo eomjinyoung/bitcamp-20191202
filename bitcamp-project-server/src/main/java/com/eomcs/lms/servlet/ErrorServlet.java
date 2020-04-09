@@ -28,10 +28,10 @@ public class ErrorServlet extends HttpServlet {
     out.println("<body>");
     out.println("<h1>오류 내용</h1>");
 
-    out.printf("<p>%s</p>", //
-        (String) request.getSession().getAttribute("errorMessage"));
+    Exception error = (Exception) request.getAttribute("error");
+    out.printf("<p>%s</p>", error.getMessage());
 
-    String url = (String) request.getSession().getAttribute("url");
+    String url = (String) request.getAttribute("url");
     if (url != null) {
       out.printf("<p><a href='%s'>뒤로 가기</a></p>", url);
     }
