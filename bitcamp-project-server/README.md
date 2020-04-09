@@ -1,29 +1,22 @@
-# 56_2 - 서블릿을 이용하여 스프링 IoC 컨테이너 준비하기
+# 56_3 - 리다이렉트와 리프래시 활용
 
 ## 학습목표
 
-- GET/POST 요청을 구분하여 처리할 수 있다.
-- HttpServlet과 GenericServlet의 차이점을 이해한다.
+- 리프래시를 구현할 수 있다.
+- 리다이렉트를 구현할 수 있다.
+- 리프래시와 리다이렉트의 차이점을 이해한다.
 
 ## 실습 소스 및 결과
 
-- com.eomcs.lms.ContextLoaderListener 변경
-- com.eomcs.lms.servlet.AppInitServlet 추가
-- src/main/webapp/WEB-INF/web.xml 추가
+- com.eomcs.lms.servlet.ErrorServlet 추가
+- com.eomcs.lms.servlet.XxxServlet 변경
 
 
 ## 실습  
 
-### 훈련1: 서블릿에서 Spring IoC 컨테이너를 준비하여 공유하게 한다.
+### 훈련1: 등록, 변경, 삭제 후 목록을 출력하는 서블릿으로 리다이렉트 한다.
 
-- com.eomcs.lms.ContextLoaderListener 변경
-  - 리스너를 비활성화시킨다.
-    - @WebListener 애노테이션을 주석으로 막는다.
-- com.eomcs.lms.servlet.AppInitServlet 추가
-  - 웹 애플리케이션이 시작할 때 자동 생성되게 한다.
-  - BoardAddFormServlet의 코드를 doGet() 메서드로 옮긴다.
-    - @WebServlet 애노테이션에 loadOnStartup 속성 추가
-  - service() 또는 doXxx() 메서드는 오버라이딩 하지 않는다.
-    - 왜? 클라이언트 요청을 처리하는 일을 하지 않는다.
-    - 이 클래스는 다른 서블릿이 사용할 IoC 컨테이너를 준비한다.
+- com.eomcs.lms.servelt.XxxServlet 변경
+  - 등록/변경/삭제 후에 목록 페이지을 요청하도록 리다이렉트 한다.
+  
 

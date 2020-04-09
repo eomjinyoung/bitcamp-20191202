@@ -2,8 +2,9 @@
 
 ## 학습목표
 
-- GET/POST 요청을 구분하여 처리할 수 있다.
-- HttpServlet과 GenericServlet의 차이점을 이해한다.
+- 서블릿을 통해 공통 자원을 준비시킬 수 있다.
+- load-on-startup 의 용도를 이해한다.
+- init() 메서드의 용도를 이해한다.
 
 ## 실습 소스 및 결과
 
