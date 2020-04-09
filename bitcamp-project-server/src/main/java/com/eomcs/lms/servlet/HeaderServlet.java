@@ -25,6 +25,11 @@ public class HeaderServlet extends HttpServlet {
     out.println("<title>Bitcamp-LMS</title>");
     out.println(
         "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>");
+    out.println("<style>");
+    out.println("div {");
+    out.println("  border: 1px solid gray;");
+    out.println("}");
+    out.println("</style>");
     out.println("</head>");
     out.println("<body>");
     out.println("<nav class='navbar navbar-expand-lg navbar-light bg-light'>");
@@ -50,5 +55,6 @@ public class HeaderServlet extends HttpServlet {
     out.println("  </ul>");
     out.println("</div>");
     out.println("</nav>");
+    out.println("<div class='container-lg'>");
   }
 }

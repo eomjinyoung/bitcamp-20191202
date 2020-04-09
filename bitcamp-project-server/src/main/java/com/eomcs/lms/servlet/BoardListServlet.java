@@ -58,8 +58,7 @@ public class BoardListServlet extends HttpServlet {
       }
       out.println("</table>");
 
-      out.println("</body>");
-      out.println("</html>");
+      request.getRequestDispatcher("/footer").include(request, response);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
