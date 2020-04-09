@@ -20,6 +20,7 @@ public class PhotoBoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    int lessonNo = 0;
     try {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -65,10 +66,11 @@ public class PhotoBoardDetailServlet extends HttpServlet {
         out.println("사진: <input name='photo4' type='file'><br>");
         out.println("사진: <input name='photo5' type='file'><br>");
 
+        lessonNo = photoBoard.getLesson().getNo();
         out.println("<p><button>변경</button>");
         out.printf("<a href='delete?no=%d&lessonNo=%d'>삭제</a></p>\n", //
             photoBoard.getNo(), //
-            photoBoard.getLesson().getNo());
+            lessonNo);
         out.println("</form>");
 
       } else {
@@ -77,7 +79,9 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list?lessonNo=" + lessonNo);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

@@ -28,15 +28,13 @@ public class LessonDeleteServlet extends HttpServlet {
       if (lessonService.delete(no) > 0) { // 삭제했다면,
         response.sendRedirect("list");
       } else {
-        request.getSession().setAttribute("errorMessage", //
-            "삭제할 수업 번호가 유효하지 않습니다.");
-        request.getSession().setAttribute("url", //
-            "lesson/list");
-        response.sendRedirect("../error");
+        throw new Exception("삭제할 수업 번호가 유효하지 않습니다.");
       }
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list");
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

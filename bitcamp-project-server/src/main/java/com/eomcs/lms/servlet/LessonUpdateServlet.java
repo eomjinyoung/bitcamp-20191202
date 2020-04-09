@@ -39,15 +39,13 @@ public class LessonUpdateServlet extends HttpServlet {
       if (lessonService.update(lesson) > 0) {
         response.sendRedirect("list");
       } else {
-        request.getSession().setAttribute("errorMessage", //
-            "변경할 수업 번호가 유효하지 않습니다.");
-        request.getSession().setAttribute("url", //
-            "lesson/list");
-        response.sendRedirect("../error");
+        throw new Exception("변경할 수업 번호가 유효하지 않습니다.");
       }
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list");
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

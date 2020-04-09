@@ -23,6 +23,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
     try {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -32,7 +34,6 @@ public class PhotoBoardAddServlet extends HttpServlet {
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
 
-      int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
       Lesson lesson = lessonService.get(lessonNo);
 
       out.println("<!DOCTYPE html>");
@@ -60,7 +61,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list?lessonNo=" + lessonNo);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
@@ -106,10 +109,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
       response.sendRedirect("list?lessonNo=" + lessonNo);
 
     } catch (Exception e) {
-      request.getSession().setAttribute("errorMessage", e.getMessage());
-      request.getSession().setAttribute("url", //
-          "photoboard/list?lessonNo=" + lessonNo);
-      response.sendRedirect("../error");
+      request.setAttribute("error", e);
+      request.setAttribute("url", "list?lessonNo=" + lessonNo);
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }
