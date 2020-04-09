@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-import com.eomcs.lms.service.MemberService;
+import com.eomcs.lms.service.BoardService;
 
-@WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/board/delete")
+public class BoardDeleteServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -21,16 +21,16 @@ public class MemberDeleteServlet extends HttpServlet {
       ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
-      MemberService memberService = iocContainer.getBean(MemberService.class);
+      BoardService boardService = iocContainer.getBean(BoardService.class);
 
       int no = Integer.parseInt(request.getParameter("no"));
-      if (memberService.delete(no) > 0) { // 삭제했다면,
+      if (boardService.delete(no) > 0) {
         response.sendRedirect("list");
       } else {
         request.getSession().setAttribute("errorMessage", //
-            "삭제할 회원 번호가 유효하지 않습니다.");
+            "삭제할 게시물 번호가 유효하지 않습니다.");
         request.getSession().setAttribute("url", //
-            "member/list");
+            "board/list");
         response.sendRedirect("../error");
       }
 

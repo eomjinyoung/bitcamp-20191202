@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
-import com.eomcs.lms.domain.Member;
-import com.eomcs.lms.service.MemberService;
+import com.eomcs.lms.domain.Board;
+import com.eomcs.lms.service.BoardService;
 
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
+@WebServlet("/board/update")
+public class BoardUpdateServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -22,22 +22,41 @@ public class MemberAddServlet extends HttpServlet {
     try {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
+
+      ServletContext servletContext = getServletContext();
+      ApplicationContext iocContainer =
+          (ApplicationContext) servletContext.getAttribute("iocContainer");
+      BoardService boardService = iocContainer.getBean(BoardService.class);
+
+      int no = Integer.parseInt(request.getParameter("no"));
+
+      Board board = boardService.get(no);
+
       out.println("<!DOCTYPE html>");
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<title>회원 입력</title>");
+      out.println("<title>게시글 변경</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>회원 입력</h1>");
-      out.println("<form action='add' method='post'>");
-      out.println("이름: <input name='name' type='text'><br>");
-      out.println("이메일: <input name='email' type='email'><br>");
-      out.println("암호: <input name='password' type='password'><br>");
-      out.println("사진: <input name='photo' type='text'><br>");
-      out.println("전화: <input name='tel' type='tel'><br>");
-      out.println("<button>제출</button>");
-      out.println("</form>");
+      out.println("<h1>게시물 변경</h1>");
+
+      if (board == null) {
+        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
+      } else {
+        out.println("<form action='update' method='post'>");
+        out.printf("번호: <input name='no' readonly type='text' value='%d'><br>\n", //
+            board.getNo());
+        out.println("내용:<br>");
+        out.printf("<textarea name='title' rows='5' cols='60'>%s</textarea><br>\n", //
+            board.getTitle());
+        out.printf("등록일: %s<br>\n", //
+            board.getDate());
+        out.printf("조회수: %d<br>\n", //
+            board.getViewCount());
+        out.println("<button>변경</button>");
+        out.println("</form>");
+      }
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
@@ -54,24 +73,22 @@ public class MemberAddServlet extends HttpServlet {
       ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
-      MemberService memberService = iocContainer.getBean(MemberService.class);
+      BoardService boardService = iocContainer.getBean(BoardService.class);
 
-      Member member = new Member();
-      member.setName(request.getParameter("name"));
-      member.setEmail(request.getParameter("email"));
-      member.setPassword(request.getParameter("password"));
-      member.setPhoto(request.getParameter("photo"));
-      member.setTel(request.getParameter("tel"));
+      Board board = new Board();
+      board.setNo(Integer.parseInt(request.getParameter("no")));
+      board.setTitle(request.getParameter("title"));
 
-      if (memberService.add(member) > 0) {
+      if (boardService.update(board) > 0) {
         response.sendRedirect("list");
       } else {
         request.getSession().setAttribute("errorMessage", //
-            "회원을 추가할 수 없습니다.");
+            "변경할 게시물 번호가 유효하지 않습니다.");
         request.getSession().setAttribute("url", //
-            "member/list");
+            "board/list");
         response.sendRedirect("../error");
       }
+
     } catch (Exception e) {
       throw new ServletException(e);
     }

@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
+@WebServlet("/auth/login")
+public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -22,24 +22,23 @@ public class MemberAddServlet extends HttpServlet {
     try {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
+
       out.println("<!DOCTYPE html>");
       out.println("<html>");
       out.println("<head>");
       out.println("<meta charset='UTF-8'>");
-      out.println("<title>회원 입력</title>");
+      out.println("<title>로그인</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>회원 입력</h1>");
-      out.println("<form action='add' method='post'>");
-      out.println("이름: <input name='name' type='text'><br>");
+      out.println("<h1>로그인</h1>");
+      out.println("<form action='login' method='post'>");
       out.println("이메일: <input name='email' type='email'><br>");
       out.println("암호: <input name='password' type='password'><br>");
-      out.println("사진: <input name='photo' type='text'><br>");
-      out.println("전화: <input name='tel' type='tel'><br>");
-      out.println("<button>제출</button>");
+      out.println("<button>로그인</button>");
       out.println("</form>");
       out.println("</body>");
       out.println("</html>");
+
     } catch (Exception e) {
       throw new ServletException(e);
     }
@@ -49,29 +48,41 @@ public class MemberAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      request.setCharacterEncoding("UTF-8");
+      response.setContentType("text/html;charset=UTF-8");
+      PrintWriter out = response.getWriter();
 
       ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       MemberService memberService = iocContainer.getBean(MemberService.class);
 
-      Member member = new Member();
-      member.setName(request.getParameter("name"));
-      member.setEmail(request.getParameter("email"));
-      member.setPassword(request.getParameter("password"));
-      member.setPhoto(request.getParameter("photo"));
-      member.setTel(request.getParameter("tel"));
+      String email = request.getParameter("email");
+      String password = request.getParameter("password");
 
-      if (memberService.add(member) > 0) {
-        response.sendRedirect("list");
+      Member member = memberService.get(email, password);
+
+      out.println("<!DOCTYPE html>");
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<meta charset='UTF-8'>");
+      if (member != null) {
+        out.println("<meta http-equiv='refresh' content='2;url=../board/list'>");
       } else {
-        request.getSession().setAttribute("errorMessage", //
-            "회원을 추가할 수 없습니다.");
-        request.getSession().setAttribute("url", //
-            "member/list");
-        response.sendRedirect("../error");
+        out.println("<meta http-equiv='refresh' content='2;url=login'>");
       }
+      out.println("<title>로그인</title>");
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>로그인 결과</h1>");
+
+      if (member != null) {
+        out.printf("<p>'%s'님 환영합니다.</p>\n", member.getName());
+      } else {
+        out.println("<p>사용자 정보가 유효하지 않습니다.</p>");
+      }
+
+      out.println("</body>");
+      out.println("</html>");
     } catch (Exception e) {
       throw new ServletException(e);
     }
