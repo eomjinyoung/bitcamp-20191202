@@ -33,13 +33,9 @@ public class PhotoBoardListServlet extends HttpServlet {
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
       PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("  <meta charset='UTF-8'>");
-      out.println("  <title>강의 사진 목록</title>");
-      out.println("</head>");
-      out.println("<body>");
+
+      request.getRequestDispatcher("/header").include(request, response);
+
       try {
         Lesson lesson = lessonService.get(lessonNo);
         if (lesson == null) {
@@ -78,8 +74,8 @@ public class PhotoBoardListServlet extends HttpServlet {
       } catch (Exception e) {
         out.printf("<p>%s</p>\n", e.getMessage());
       }
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
 
     } catch (Exception e) {
       request.setAttribute("error", e);

@@ -56,13 +56,8 @@ public class LessonSearchServlet extends HttpServlet {
         map.put("dayHours", Integer.parseInt(value));
       }
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("  <meta charset='UTF-8'>");
-      out.println("  <title>강의 검색</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("  <h1>강의 검색 결과</h1>");
       out.println("  <table border='1'>");
       out.println("  <tr>");
@@ -89,8 +84,9 @@ public class LessonSearchServlet extends HttpServlet {
         );
       }
       out.println("</table>");
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");

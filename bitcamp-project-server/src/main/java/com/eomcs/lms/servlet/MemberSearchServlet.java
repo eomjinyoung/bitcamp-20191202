@@ -29,13 +29,8 @@ public class MemberSearchServlet extends HttpServlet {
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       MemberService memberService = iocContainer.getBean(MemberService.class);
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("  <meta charset='UTF-8'>");
-      out.println("  <title>회원 검색</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("  <h1>회원 검색 결과</h1>");
       out.println("  <table border='1'>");
       out.println("  <tr>");
@@ -65,8 +60,9 @@ public class MemberSearchServlet extends HttpServlet {
         );
       }
       out.println("</table>");
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");

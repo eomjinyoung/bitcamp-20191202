@@ -24,13 +24,8 @@ public class LessonAddServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<title>강의 입력</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("<h1>강의 입력</h1>");
       out.println("<form action='add' method='post'>");
       out.println("강의명: <input name='title' type='text'><br>");
@@ -42,8 +37,9 @@ public class LessonAddServlet extends HttpServlet {
       out.println("일 강의시간: <input name='dayHours' type='number'><br>");
       out.println("<button>제출</button>");
       out.println("</form>");
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");

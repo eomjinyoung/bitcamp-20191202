@@ -36,13 +36,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
       Lesson lesson = lessonService.get(lessonNo);
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<title>사진 입력</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("<h1>사진 입력</h1>");
       out.println("<form action='add' method='post'>");
       out.printf("강의번호: <input name='lessonNo' type='text' value='%d' readonly><br>\n", //
@@ -58,8 +53,9 @@ public class PhotoBoardAddServlet extends HttpServlet {
       out.println("사진: <input name='photo5' type='file'><br>");
       out.println("<button>제출</button>");
       out.println("</form>");
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);

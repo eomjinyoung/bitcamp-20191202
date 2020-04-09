@@ -33,13 +33,8 @@ public class PhotoBoardDetailServlet extends HttpServlet {
 
       PhotoBoard photoBoard = photoBoardService.get(no);
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<title>사진 상세정보</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("<h1>사진 상세정보</h1>");
 
       if (photoBoard != null) {
@@ -76,8 +71,9 @@ public class PhotoBoardDetailServlet extends HttpServlet {
       } else {
         out.println("<p>해당 번호의 사진 게시글이 없습니다.</p>");
       }
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);

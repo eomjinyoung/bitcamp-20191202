@@ -4,10 +4,13 @@
 
 - 포워딩과 인클루딩을 구현할 수 있다.
 - 포워딩과 인클루딩의 동작을 이해한다.
+- ServletRequest 보관소를 활용할 수 있다.
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/ErrorServlet.java 추가
+- src/main/java/com/eomcs/lms/servlet/HeaderServlet.java 추가
+- src/main/java/com/eomcs/lms/servlet/FooterServlet.java 추가
+- src/main/java/com/eomcs/lms/servlet/ErrorServlet.java 변경 
 - src/main/java/com/eomcs/lms/servlet/XxxServlet 변경
 
 
@@ -21,4 +24,8 @@
 - com.eomcs.lms.servlet.ErrorServlet 변경
   - ServletRequest 보관소에서 오류 객체를 꺼내 오류 내용을 출력한다. 
   
+### 훈련2: 화면의 상단과 하단을 출력할 서블릿을 만들고 각 페이지에 포함한다.
 
+- com.eomcs.lms.servlet.HeaderServlet 추가
+- com.eomcs.lms.servlet.FooterServlet 추가
+- com.eomcs.lms.servlet.XxxServlet 변경

@@ -31,13 +31,8 @@ public class LessonDetailServlet extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
       Lesson lesson = lessonService.get(no);
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<title>수업 상세정보</title>");
-      out.println("</head>");
-      out.println("<body>");
+      request.getRequestDispatcher("/header").include(request, response);
+
       out.println("<h1>수업 상세정보</h1>");
 
       if (lesson != null) {
@@ -68,8 +63,9 @@ public class LessonDetailServlet extends HttpServlet {
       } else {
         out.println("<p>해당 번호의 강의가 없습니다.</p>");
       }
-      out.println("</body>");
-      out.println("</html>");
+
+      request.getRequestDispatcher("/footer").include(request, response);
+
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
