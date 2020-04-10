@@ -23,4 +23,8 @@
   - img 태그를 이용하여 사진을 출력한다.
   - 사진을 변경할 수 있도록 변경폼을 multipart/form-data로 설정한다. 
 
-### 훈련3: 
+### 훈련3: 회원 변경에 파일 업로드 기능을 추가한다.
+
+- com.eomcs.lms.servlet.MemberUpdateServlet 변경
+  - 멀티파트 형식으로 넘어온 데이터를 처리한다.
+  
