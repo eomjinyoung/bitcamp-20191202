@@ -3,12 +3,16 @@ package com.eomcs.lms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -17,6 +21,7 @@ import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @WebServlet("/photoboard/add")
+@MultipartConfig(maxFileSize = 5000000)
 public class PhotoBoardAddServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -39,18 +44,18 @@ public class PhotoBoardAddServlet extends HttpServlet {
       request.getRequestDispatcher("/header").include(request, response);
 
       out.println("<h1>사진 입력</h1>");
-      out.println("<form action='add' method='post'>");
+      out.println("<form action='add' method='post' enctype='multipart/form-data'>");
       out.printf("강의번호: <input name='lessonNo' type='text' value='%d' readonly><br>\n", //
           lesson.getNo());
       out.printf("강의명: %s<br>\n", lesson.getTitle());
       out.println("내용:<br>");
       out.println("<textarea name='title' rows='5' cols='60'></textarea><br>");
       out.println("<hr>");
-      out.println("사진: <input name='photo1' type='file'><br>");
-      out.println("사진: <input name='photo2' type='file'><br>");
-      out.println("사진: <input name='photo3' type='file'><br>");
-      out.println("사진: <input name='photo4' type='file'><br>");
-      out.println("사진: <input name='photo5' type='file'><br>");
+      out.println("사진: <input name='photo' type='file'><br>");
+      out.println("사진: <input name='photo' type='file'><br>");
+      out.println("사진: <input name='photo' type='file'><br>");
+      out.println("사진: <input name='photo' type='file'><br>");
+      out.println("사진: <input name='photo' type='file'><br>");
       out.println("<button>제출</button>");
       out.println("</form>");
 
@@ -88,11 +93,16 @@ public class PhotoBoardAddServlet extends HttpServlet {
       photoBoard.setLesson(lesson);
 
       ArrayList<PhotoFile> photoFiles = new ArrayList<>();
-      for (int i = 1; i <= 5; i++) {
-        String filepath = request.getParameter("photo" + i);
-        if (filepath.length() > 0) {
-          photoFiles.add(new PhotoFile().setFilepath(filepath));
+      Collection<Part> parts = request.getParts();
+      String dirPath = getServletContext().getRealPath("/upload/photoboard");
+      for (Part part : parts) {
+        if (!part.getName().equals("photo") || //
+            part.getSize() <= 0) {
+          continue;
         }
+        String filename = UUID.randomUUID().toString();
+        part.write(dirPath + "/" + filename);
+        photoFiles.add(new PhotoFile().setFilepath(filename));
       }
 
       if (photoFiles.size() == 0) {

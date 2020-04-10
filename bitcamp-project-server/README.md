@@ -28,3 +28,8 @@
 - com.eomcs.lms.servlet.MemberUpdateServlet 변경
   - 멀티파트 형식으로 넘어온 데이터를 처리한다.
   
+### 훈련4: 사진게시판에 파일 업로드를 적용한다.
+
+- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
+- com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
+- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 변경
