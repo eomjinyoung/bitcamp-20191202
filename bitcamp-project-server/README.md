@@ -9,12 +9,12 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/MemberAddServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberDetailServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/MemberUpdateServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardAddServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardDetailServlet.java 변경
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardUpdateServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/BoardListServlet.java 변경
+- src/main/webapp/board/list.jsp 추가
+- src/main/java/com/eomcs/lms/servlet/BoardDetailServlet.java 변경
+- src/main/webapp/board/detail.jsp 추가
+- src/main/java/com/eomcs/lms/servlet/BoardUpdateServlet.java 변경
+- src/main/webapp/board/updateform.jsp 추가
 
 ## 실습  
 
@@ -36,5 +36,13 @@
 - src/main/webapp/board/detail.jsp 추가
   - BoardDetailServlet의 출력을 이 JSP에 작성한다.
 - com.eomcs.lms.servlet.BoardDetailServlet 변경
+  - 서비스 객체를 통해 출력할 데이터를 준비한다.
+  - 출력은 JSP에게 위임한다.
+
+### 훈련3: 게시글 변경폼 출력에 JSP를 적용한다.
+
+- src/main/webapp/board/updateform.jsp 추가
+  - BoardUpdateServlet의 출력을 이 JSP에 작성한다.
+- com.eomcs.lms.servlet.BoardUpdateServlet 변경
   - 서비스 객체를 통해 출력할 데이터를 준비한다.
   - 출력은 JSP에게 위임한다.
