@@ -1,8 +1,11 @@
-# 56_8 - 파일 업로드 기능 추가 
+# 57_1 - JSP를 활용하여 서블릿에서 출력 기능을 분리하기  
 
 ## 학습목표
 
-- multipart 형식으로 파일을 업로드하고 처리할 수 있다.
+- JSP 구동원리를 이해한다.
+- JSP를 사용하여 출력기능을 구현할 수 있다.
+- 서블릿과 JSP를 연동하여 클라이언트 요청을 처리할 수 있다.
+- MVC 아키텍처를 이해한다.
 
 ## 실습 소스 및 결과
 
@@ -15,25 +18,11 @@
 
 ## 실습  
 
-### 훈련1: 회원 추가에 파일 업로드 기능을 추가한다.
+### 훈련1: 게시글 목록 출력에 JSP를 적용한다.
 
-- com.eomcs.lms.servlet.MemberAddServlet 변경
-  - 입력폼에 multipart/form-data 인코딩 적용한다.
-  - 서블릿 3.0에 추가된 멀티파트 데이터 처리 기능 활용하여 파일을 저장한다.
-
-### 훈련2: 회원 조회에 사진을 출력한다.
-
-- com.eomcs.lms.servlet.MemberDetailServlet 변경
-  - img 태그를 이용하여 사진을 출력한다.
-  - 사진을 변경할 수 있도록 변경폼을 multipart/form-data로 설정한다. 
-
-### 훈련3: 회원 변경에 파일 업로드 기능을 추가한다.
-
-- com.eomcs.lms.servlet.MemberUpdateServlet 변경
-  - 멀티파트 형식으로 넘어온 데이터를 처리한다.
-  
-### 훈련4: 사진게시판에 파일 업로드를 적용한다.
-
-- com.eomcs.lms.servlet.PhotoBoardAddServlet 변경
-- com.eomcs.lms.servlet.PhotoBoardDetailServlet 변경
-- com.eomcs.lms.servlet.PhotoBoardUpdateServlet 변경
+- src/main/webapp/board/list.jsp 추가
+  - BoardListServlet의 출력을 이 JSP에 작성한다.
+  - 
+- com.eomcs.lms.servlet.BoardListServlet 변경
+  - 서비스 객체를 통해 출력할 데이터를 준비한다.
+  - 출력은 JSP에게 위임한다.
