@@ -6,9 +6,9 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/HeaderServlet.java 추가
-- src/main/java/com/eomcs/lms/servlet/FooterServlet.java 추가
-- src/main/java/com/eomcs/lms/servlet/XxxServlet 변경
+- src/main/java/com/eomcs/lms/servlet/HeaderServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/LoginServlet 변경
+- src/main/java/com/eomcs/lms/servlet/LogoutServlet.java 추가
 
 
 ## 실습  
