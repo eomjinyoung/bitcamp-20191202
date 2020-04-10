@@ -1,7 +1,6 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,18 +19,7 @@ public class BoardAddServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    request.getRequestDispatcher("/header").include(request, response);
-
-    out.println("<h1>게시물 입력</h1>");
-    out.println("<form action='add' method='post'>");
-    out.println("내용:<br>");
-    out.println("<textarea name='title' rows='5' cols='60'></textarea><br>");
-    out.println("<button>등록</button>");
-    out.println("</form>");
-
-    request.getRequestDispatcher("/footer").include(request, response);
+    request.getRequestDispatcher("/board/form.jsp").include(request, response);
   }
 
   @Override
