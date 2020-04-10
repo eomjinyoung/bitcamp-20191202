@@ -37,7 +37,9 @@ public class MemberDetailServlet extends HttpServlet {
       out.println("<h1>회원 상세정보</h1>");
 
       if (member != null) {
-        out.println("<form action='update' method='post'>");
+        out.println("<form action='update' method='post' enctype='multipart/form-data'>");
+        out.printf("<img src='../upload/member/%s' height='80'><br>\n", //
+            member.getPhoto());
         out.printf("번호: <input name='no' type='text' readonly value='%d'><br>\n", //
             member.getNo());
         out.printf("이름: <input name='name' type='text' value='%s'><br>\n", //
@@ -45,7 +47,7 @@ public class MemberDetailServlet extends HttpServlet {
         out.printf("이메일: <input name='email' type='email' value='%s'><br>\n", //
             member.getEmail());
         out.println("암호: <input name='password' type='password'><br>");
-        out.printf("사진: <input name='photo' type='text' value='%s'><br>\n", //
+        out.printf("사진: <input name='photo' type='file'><br>\n", //
             member.getPhoto());
         out.printf("전화: <input name='tel' type='tel' value='%s'><br>\n", //
             member.getTel());
