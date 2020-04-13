@@ -5,6 +5,13 @@
 <jsp:include page="/header.jsp"/>
 
 <jsp:useBean id="board" class="com.eomcs.lms.domain.Board" scope="request"/>
+<%--
+Board board = (Board) request.getAttribute("board");
+if (board == null) {
+  board = new Board();
+  request.setAttribute("board", board);
+}
+--%>
 
 <h1>게시물 상세정보(JSP)</h1>
 번호: <%=board.getNo()%><br>

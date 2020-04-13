@@ -4,9 +4,9 @@
     trimDirectiveWhitespaces="true"%>
 
 <jsp:include page="/header.jsp"/>
-<%
-Lesson lesson = (Lesson) request.getAttribute("lesson");
-%>
+
+<jsp:useBean id="lesson" class="com.eomcs.lms.domain.Lesson" scope="request"/>
+
 <h1>사진 입력(JSP)</h1>
 <form action='add' method='post' enctype='multipart/form-data'>
 강의번호: <input name='lessonNo' type='text' value='<%=lesson.getNo()%>' readonly><br>

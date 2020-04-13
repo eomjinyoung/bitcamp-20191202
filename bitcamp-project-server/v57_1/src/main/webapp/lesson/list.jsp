@@ -15,8 +15,12 @@
     <th>기간</th>
     <th>총강의시간</th>
   </tr>
+
+<jsp:useBean id="list" 
+  type="java.util.List<Lesson>"
+  class="java.util.ArrayList"
+  scope="request"/>
 <% 
-  List<Lesson> list = (List<Lesson>) request.getAttribute("list");
   for(Lesson item : list) {
 %>
     <tr>

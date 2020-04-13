@@ -15,8 +15,12 @@
     <th>전화</th>
     <th>등록일</th>
   </tr>
+
+<jsp:useBean id="list" 
+  type="java.util.List<Member>"
+  class="java.util.ArrayList"
+  scope="request"/>
 <% 
-  List<Member> list = (List<Member>) request.getAttribute("list");
   for(Member item : list) {
 %>
   <tr>

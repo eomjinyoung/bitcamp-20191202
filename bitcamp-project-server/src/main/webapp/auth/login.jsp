@@ -6,11 +6,13 @@
 <jsp:include page="/header.jsp"/>
 
 <h1>로그인 결과</h1>
+<jsp:useBean id="loginUser" 
+  class="com.eomcs.lms.domain.Member"
+  scope="session"/>
 <%
-Member member = (Member)session.getAttribute("loginUser");
-if (member != null) {
+if (loginUser.getName() != null) {
 %> 
-<p>'<%=member.getName()%>'님 환영합니다.</p>
+<p>'<%=loginUser.getName()%>'님 환영합니다.</p>
 <%
 } else {
 %>

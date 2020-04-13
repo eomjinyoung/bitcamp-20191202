@@ -7,9 +7,7 @@
 
 <jsp:include page="/header.jsp"/>
 
-<% 
-  Lesson lesson = (Lesson) request.getAttribute("lesson");
-%>
+<jsp:useBean id="lesson" class="com.eomcs.lms.domain.Lesson" scope="request"/>
 
   <h1>강의 사진(JSP) - <a href='../lesson/detail?no=<%=lesson.getNo()%>'><%=lesson.getTitle()%></a></h1>  
   <a href='add?lessonNo=<%=lesson.getNo()%>'>새 사진</a><br>
@@ -20,8 +18,12 @@
     <th>등록일</th>
     <th>조회수</th>
   </tr>
+  
+<jsp:useBean id="list" 
+  type="java.util.List<PhotoBoard>"
+  class="java.util.ArrayList"
+  scope="request"/>  
 <% 
-  List<PhotoBoard> list = (List<PhotoBoard>) request.getAttribute("list");
   for(PhotoBoard item : list) {
 %>
   <tr>
