@@ -15,8 +15,11 @@
     <th>등록일</th>
     <th>조회수</th>
   </tr>
+<jsp:useBean id="list" 
+  type="java.util.List<Board>"
+  class="java.util.ArrayList"
+  scope="request"/>
 <% 
-  List<Board> list = (List<Board>) request.getAttribute("list");
   for(Board item : list) {
 %>
   <tr>
