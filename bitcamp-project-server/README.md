@@ -7,11 +7,12 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 추가
-- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
-- src/main/webapp/member/detail.jsp 변경
-- src/main/webapp/photoboard/detail.jsp 변경
-- src/main/webapp/index.html 변경
+- src/main/java/com/eomcs/lms/filter/CharacterEncodingFilter.java 추가
+- src/main/java/com/eomcs/lms/web/XxxController.java 추가
+- src/main/java/com/eomcs/lms/servlet/XxxServlet.java 삭제
+- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 변경
+- src/main/java/com/eomcs/lms/servlet/AppInitServlet.java 삭제
+- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
 
 ## 실습  
 
