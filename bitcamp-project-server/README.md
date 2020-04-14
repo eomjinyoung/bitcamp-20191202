@@ -1,13 +1,8 @@
-# 58_1 - Front Controller 설계 기법 적용하기
+# 58_2 - Page Controller를 POJO로 전환하고 Spring IoC 컨테이너에서 관리하기
 
 ## 학습목표
 
-- Front Controller 설계 기법의 이점을 이해한다.
-
-### Front Controller
-
-- 컨트롤러들의 공통 기능을 가져와서 통합 처리한다.
-- 외부의 접점을 하나로 줄임으로써 요청을 제어하기가 쉬워진다.
+- Spring IoC 컨테이너를 사용할 수 있다.
 
 
 ## 실습 소스 및 결과
@@ -20,23 +15,25 @@
 
 ## 실습  
 
-### 훈련1: 프론트 컨트롤러 역할을 수행할 서블릿을 만든다.
+### 훈련1: 페이지 컨트롤러를 다룰 때 사용할 애노케이션과 클래스를 준비한다.
 
-- com.eomcs.lms.servlet.DispatcherServlet 추가
-  - /app/* 요청을 처리한다.
+- com.eomcs.util.RequestMapping 애노테이션 추가
+  - 클라이언트 요청에 대해 호출되는 메서드에 붙이는 애노테이션이다.
+- com.eomcs.util.RequestHandler 클래스 추가
+  - 호출될 객체와 메서드 정보를 담는다.
+- com.eomcs.util.RequestMappingHandlerMapping 클래스 추가
+  - 요청 URL에 대한 RequestHandler를 관리한다.
 
-### 훈련2: 프론트 컨트롤러 역할에 맞춰서 기존의 서블릿을 페이지 컨트롤러로 변경한다.
+### 훈련2: 페이지 컨트롤러 객체에서 request handler 정보를 추출하여 보관한다.
 
-- com.eomcs.lms.servlet.XxxServlet 변경
-  - 직접 JSP를 인클루딩 하는 대신에 JSP URL을 ServletRequest에 저장한다.
-  - 직접 리다이렉트 하는 대신에 리다이렉트 URL을 ServletRequest에 저장한다.
-  - 직접 예외처리 서블릿으로 포워딩 하는 대신에 ServletRequest에 저장한다.
-- src/main/webapp/member/detail.jsp 변경
-  - 절대 경로를 이용하여 사진 경로 표현
-- src/main/webapp/photoboard/detail.jsp 변경
-  - 절대 경로를 이용하여 사진 경로 표현
-  
-### 훈련3: index.html의 메뉴 링크를 개정한다.
+- com.eomcs.lms.servlet.AppInitServlet 삭제
+  - ContextLoaderListener가 이 클래스의 역할을 대신한다.
+- com.eomcs.lms.ContextLoaderListener 변경
+  - Spring IoC 컨테이너에서 관리하는 객체 중에서 
+    @RequestMapping 애노케이션이 붙은 메서드를 찾아서 
+    RequestMappingHandlerMapping 객체에 보관한다.
+    
+### 훈련3: 프론트 컨트롤러는 RequestMappingHandlerMapping에서 메서드를 찾아 호출한다.
 
-- src/main/webapp/index.html 변경
-  - /app/* 경로에 맞춰 메뉴 링크를 변경한다.
+- com.eomcs.lms.servlet.DispatcherServlet 변경
+  - 클라이언트 요청이 들어오면, 그 경로에 해당하는 request handler를 찾아 호출한다.
