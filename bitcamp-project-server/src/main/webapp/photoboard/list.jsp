@@ -21,7 +21,7 @@
 <c:forEach items="${list}" var="item">
   <tr>
     <td>${item.no}</td> 
-    <td><a href='detail?no=${item.no}'>${item.title}</a></td> 
+    <td><a href='detail?no=${item.no}'>=> ${item.title}</a></td> 
     <td>${item.createdDate}</td> 
     <td>${item.viewCount}</td>
   </tr>

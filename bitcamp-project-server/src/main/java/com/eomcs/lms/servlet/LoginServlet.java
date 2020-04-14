@@ -1,6 +1,7 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,19 +59,25 @@ public class LoginServlet extends HttpServlet {
       } else {
         cookie.setMaxAge(0);
       }
-      response.addCookie(cookie);
+
+      // 프론트 컨트롤러가 쿠키를 응답헤더에 담을 수 있도록
+      // 쿠키 바구니에 저장한다.
+      @SuppressWarnings("unchecked")
+      ArrayList<Cookie> cookies = (ArrayList<Cookie>) request.getAttribute("cookies");
+      cookies.add(cookie);
 
       Member member = memberService.get(email, password);
       if (member != null) {
         request.getSession().setAttribute("loginUser", member);
-        response.setHeader("Refresh", "2;url=../index.html");
+        request.setAttribute("refreshUrl", "2;url=../../index.html");
+        // 인클루딩 되는 서블릿은 응답 헤더를 추가할 수 없다.
+        // 따라서 프론트 컨트롤러에게 추가해달라고 요청해야 한다.
       } else {
         request.getSession().invalidate();
-        response.setHeader("Refresh", "2;url=login");
+        request.setAttribute("refreshUrl", "2;url=login");
       }
 
       request.setAttribute("viewUrl", "/auth/login.jsp");
-
 
     } catch (Exception e) {
       request.setAttribute("error", e);

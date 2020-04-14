@@ -16,6 +16,7 @@
 - src/main/java/com/eomcs/lms/servlet/XxxServlet.java 변경
 - src/main/webapp/member/detail.jsp 변경
 - src/main/webapp/photoboard/detail.jsp 변경
+- src/main/webapp/index.html 변경
 
 ## 실습  
 
@@ -30,3 +31,12 @@
   - 직접 JSP를 인클루딩 하는 대신에 JSP URL을 ServletRequest에 저장한다.
   - 직접 리다이렉트 하는 대신에 리다이렉트 URL을 ServletRequest에 저장한다.
   - 직접 예외처리 서블릿으로 포워딩 하는 대신에 ServletRequest에 저장한다.
+- src/main/webapp/member/detail.jsp 변경
+  - 절대 경로를 이용하여 사진 경로 표현
+- src/main/webapp/photoboard/detail.jsp 변경
+  - 절대 경로를 이용하여 사진 경로 표현
+  
+### 훈련3: index.html의 메뉴 링크를 개정한다.
+
+- src/main/webapp/index.html 변경
+  - /app/* 경로에 맞춰 메뉴 링크를 변경한다.
