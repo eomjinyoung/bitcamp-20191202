@@ -5,7 +5,7 @@
 
 <jsp:include page="/header.jsp"/>
 
-<h1>게시물 변경(JSP + EL)</h1>
+<h1>게시물 변경(JSP + EL + JSTL)</h1>
 
 <form action='update' method='post'>
 번호: <input name='no' readonly type='text' value='${board.no}'><br>

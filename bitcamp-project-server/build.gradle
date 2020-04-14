@@ -63,6 +63,9 @@ dependencies {
   //
   compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
   
+  // JSTL API 및 구현 라이브러리
+  implementation 'jstl:jstl:1.2'
+    
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
 }
