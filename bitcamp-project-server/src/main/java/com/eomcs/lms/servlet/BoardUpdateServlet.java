@@ -27,14 +27,11 @@ public class BoardUpdateServlet extends HttpServlet {
       int no = Integer.parseInt(request.getParameter("no"));
       Board board = boardService.get(no);
       request.setAttribute("board", board);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/updateform.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/board/updateform.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
@@ -54,7 +51,7 @@ public class BoardUpdateServlet extends HttpServlet {
       board.setTitle(request.getParameter("title"));
 
       if (boardService.update(board) > 0) {
-        response.sendRedirect("list");
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
       }
@@ -62,7 +59,6 @@ public class BoardUpdateServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

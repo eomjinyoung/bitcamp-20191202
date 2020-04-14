@@ -30,16 +30,11 @@ public class BoardListServlet extends HttpServlet {
       // JSP에게 출력을 위임하기 전에
       // JSP가 사용할 데이터를 ServletRequest에 보관한다.
       request.setAttribute("list", boards);
-
-      // JSP를 인클루드하여 출력을 맡긴다.
-      // => 인클루드 하는 쪽에서 출력 스트림의 콘텐트타입을 설정해야 한다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/list.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/board/list.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }
