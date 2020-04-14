@@ -9,9 +9,5 @@
 <p>${error.message}</p>
 <pre>${errorDetail}</pre>
 
-<c:if test="${not empty url}">
-<p><a href='${url}'>뒤로 가기</a></p>
-</c:if>
-
 <jsp:include page="/footer.jsp"/>
     

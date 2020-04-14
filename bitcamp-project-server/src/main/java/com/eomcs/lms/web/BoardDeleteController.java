@@ -14,18 +14,12 @@ public class BoardDeleteController {
   BoardService boardService;
 
   @RequestMapping("/board/delete")
-  public void delete(HttpServletRequest request, HttpServletResponse response) {
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-      if (boardService.delete(no) > 0) {
-        request.setAttribute("viewUrl", "redirect:list");
-      } else {
-        throw new Exception("삭제할 게시물 번호가 유효하지 않습니다.");
-      }
-
-    } catch (Exception e) {
-      request.setAttribute("error", e);
-      request.setAttribute("url", "list");
+  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    int no = Integer.parseInt(request.getParameter("no"));
+    if (boardService.delete(no) > 0) {
+      return "redirect:list";
+    } else {
+      throw new Exception("삭제할 게시물 번호가 유효하지 않습니다.");
     }
   }
 }

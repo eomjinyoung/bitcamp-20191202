@@ -15,16 +15,10 @@ public class BoardDetailController {
   BoardService boardService;
 
   @RequestMapping("/board/detail")
-  public void detail(HttpServletRequest request, HttpServletResponse response) {
-    try {
-      int no = Integer.parseInt(request.getParameter("no"));
-      Board board = boardService.get(no);
-      request.setAttribute("board", board);
-      request.setAttribute("viewUrl", "/board/detail.jsp");
-
-    } catch (Exception e) {
-      request.setAttribute("error", e);
-      request.setAttribute("url", "list");
-    }
+  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    int no = Integer.parseInt(request.getParameter("no"));
+    Board board = boardService.get(no);
+    request.setAttribute("board", board);
+    return "/board/detail.jsp";
   }
 }

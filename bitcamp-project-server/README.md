@@ -37,3 +37,13 @@
 
 - com.eomcs.lms.servlet.DispatcherServlet 변경
   - 클라이언트 요청이 들어오면, 그 경로에 해당하는 request handler를 찾아 호출한다.
+
+### 훈련4: 페이지 컨트롤러를 POJO로 변경한다.
+
+- com.eomcs.lms.web.XxxController 추가
+  - 기존의 서블릿 클래스를 web 패키지에 이동하고 클래스 이름도 바꾼다.
+  - POJO에 맞춰 코드를 변경한다.
+
+### 훈련5: 요청 데이터의 한글 처리 필터를 붙인다.
+
+- com.eomcs.lms.filter.CharacterEncodingFilter 추가

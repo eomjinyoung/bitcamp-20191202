@@ -16,15 +16,9 @@ public class BoardListController {
   BoardService boardService;
 
   @RequestMapping("/board/list")
-  public void list(HttpServletRequest request, HttpServletResponse response) {
-    try {
-      List<Board> boards = boardService.list();
-      request.setAttribute("list", boards);
-      request.setAttribute("viewUrl", "/board/list.jsp");
-
-    } catch (Exception e) {
-      request.setAttribute("error", e);
-      request.setAttribute("url", "list");
-    }
+  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    List<Board> boards = boardService.list();
+    request.setAttribute("list", boards);
+    return "/board/list.jsp";
   }
 }

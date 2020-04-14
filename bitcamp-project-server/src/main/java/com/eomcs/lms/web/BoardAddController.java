@@ -15,22 +15,14 @@ public class BoardAddController {
   BoardService boardService;
 
   @RequestMapping("/board/add")
-  public void add(HttpServletRequest request, HttpServletResponse response) {
+  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
     if (request.getMethod().equals("GET")) {
-      request.setAttribute("viewUrl", "/board/form.jsp");
-      return;
+      return "/board/form.jsp";
     }
 
-    try {
-      request.setCharacterEncoding("UTF-8");
-      Board board = new Board();
-      board.setTitle(request.getParameter("title"));
-      boardService.add(board);
-      request.setAttribute("viewUrl", "redirect:list");
-
-    } catch (Exception e) {
-      request.setAttribute("error", e);
-      request.setAttribute("url", "list");
-    }
+    Board board = new Board();
+    board.setTitle(request.getParameter("title"));
+    boardService.add(board);
+    return "redirect:list";
   }
 }

@@ -52,13 +52,23 @@ public class DispatcherServlet extends HttpServlet {
       // 클라이언트 요청을 처리할 request handler를 찾아 호출한다.
       RequestHandler requestHandler = handlerMapper.getHandler(pathInfo);
 
+      String viewUrl = null;
+
       if (requestHandler != null) {
         // Request Handler의 메서드 호출
-        requestHandler.getMethod().invoke( // @RequestMapping이 붙은 메서드를 호출
-            requestHandler.getBean(), // 페이지 컨트롤러 객체
-            request, // HttpServletRequest
-            response // HttpServletResponse
-        );
+        try {
+          viewUrl = (String) requestHandler.getMethod().invoke( // @RequestMapping이 붙은 메서드를 호출
+              requestHandler.getBean(), // 페이지 컨트롤러 객체
+              request, // HttpServletRequest
+              response // HttpServletResponse
+          );
+        } catch (Exception e) {
+          StringWriter out = new StringWriter();
+          e.printStackTrace(new PrintWriter(out));
+          request.setAttribute("errorDetail", out.toString());
+          request.getRequestDispatcher("/error.jsp").forward(request, response);
+          return;
+        }
       } else {
         logger.info("해당 명령을 지원하지 않습니다.");
         throw new Exception("해당 명령을 지원하지 않습니다.");
@@ -72,17 +82,6 @@ public class DispatcherServlet extends HttpServlet {
         }
       }
 
-      // 서블릿을 실행한 후 그 결과에 따라
-      // JSP를 실행할지 Error 페이지를 출력할 지 결정한다.
-      if (request.getAttribute("error") != null) {
-        Exception error = (Exception) request.getAttribute("error");
-        StringWriter out = new StringWriter();
-        error.printStackTrace(new PrintWriter(out));
-        request.setAttribute("errorDetail", out.toString());
-        request.getRequestDispatcher("/error.jsp").forward(request, response);
-        return;
-      }
-
       // 페이지 컨트롤러가 refresh URL을 설정했다면,
       // 응답헤더에 추가한다.
       String refreshUrl = (String) request.getAttribute("refreshUrl");
@@ -91,7 +90,6 @@ public class DispatcherServlet extends HttpServlet {
       }
 
       // 서블릿을 정상적으로 실행했다면 서블릿이 알려준 JSP를 실행한다.
-      String viewUrl = (String) request.getAttribute("viewUrl");
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9));
       } else {

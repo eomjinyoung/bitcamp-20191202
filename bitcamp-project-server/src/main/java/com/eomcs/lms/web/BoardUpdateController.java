@@ -15,30 +15,22 @@ public class BoardUpdateController {
   BoardService boardService;
 
   @RequestMapping("/board/update")
-  public void update(HttpServletRequest request, HttpServletResponse response) {
-    try {
-      if (request.getMethod().equals("GET")) {
-        int no = Integer.parseInt(request.getParameter("no"));
-        Board board = boardService.get(no);
-        request.setAttribute("board", board);
-        request.setAttribute("viewUrl", "/board/updateform.jsp");
-        return;
-      }
+  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    if (request.getMethod().equals("GET")) {
+      int no = Integer.parseInt(request.getParameter("no"));
+      Board board = boardService.get(no);
+      request.setAttribute("board", board);
+      return "/board/updateform.jsp";
+    }
 
-      request.setCharacterEncoding("UTF-8");
-      Board board = new Board();
-      board.setNo(Integer.parseInt(request.getParameter("no")));
-      board.setTitle(request.getParameter("title"));
+    Board board = new Board();
+    board.setNo(Integer.parseInt(request.getParameter("no")));
+    board.setTitle(request.getParameter("title"));
 
-      if (boardService.update(board) > 0) {
-        request.setAttribute("viewUrl", "redirect:list");
-      } else {
-        throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
-      }
-
-    } catch (Exception e) {
-      request.setAttribute("error", e);
-      request.setAttribute("url", "list");
+    if (boardService.update(board) > 0) {
+      return "redirect:list";
+    } else {
+      throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
     }
   }
 }
