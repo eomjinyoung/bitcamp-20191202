@@ -37,7 +37,7 @@ public class LessonUpdateServlet extends HttpServlet {
       lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
 
       if (lessonService.update(lesson) > 0) {
-        response.sendRedirect("list");
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("변경할 수업 번호가 유효하지 않습니다.");
       }
@@ -45,7 +45,6 @@ public class LessonUpdateServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

@@ -25,7 +25,7 @@ public class MemberDeleteServlet extends HttpServlet {
 
       int no = Integer.parseInt(request.getParameter("no"));
       if (memberService.delete(no) > 0) { // 삭제했다면,
-        response.sendRedirect("list");
+        request.setAttribute("viewUrl", "redirect:list");
       } else {
         throw new Exception("삭제할 회원 번호가 유효하지 않습니다.");
       }
@@ -33,7 +33,6 @@ public class MemberDeleteServlet extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

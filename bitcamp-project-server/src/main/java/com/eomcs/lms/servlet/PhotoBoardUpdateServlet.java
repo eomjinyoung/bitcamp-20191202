@@ -61,12 +61,11 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
 
       lessonNo = photoBoard.getLesson().getNo();
       photoBoardService.update(photoBoard);
-      response.sendRedirect("list?lessonNo=" + lessonNo);
+      request.setAttribute("viewUrl", "redirect:list?lessonNo=" + lessonNo);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

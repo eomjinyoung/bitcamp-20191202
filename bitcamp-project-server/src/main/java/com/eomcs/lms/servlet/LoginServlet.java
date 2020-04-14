@@ -31,14 +31,11 @@ public class LoginServlet extends HttpServlet {
         }
       }
       request.setAttribute("email", email);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/auth/form.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/auth/form.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
@@ -72,14 +69,12 @@ public class LoginServlet extends HttpServlet {
         response.setHeader("Refresh", "2;url=login");
       }
 
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/auth/login.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/auth/login.jsp");
 
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "login");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

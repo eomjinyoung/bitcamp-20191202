@@ -19,13 +19,13 @@
 수업: ${photoBoard.lesson.title}<br>
 <hr>
 사진 파일:<br>
+
 <p>
-
 <c:forEach items="${photoBoard.files}" var="photoFile">
-<img src='../upload/photoboard/${photoFile.filepath}' height='80'>
+<img src='${pageContext.servletContext.contextPath}/upload/photoboard/${photoFile.filepath}' height='80'>
 </c:forEach>
-
 </p>
+
 사진: <input name='photo' type='file'><br>
 사진: <input name='photo' type='file'><br>
 사진: <input name='photo' type='file'><br>

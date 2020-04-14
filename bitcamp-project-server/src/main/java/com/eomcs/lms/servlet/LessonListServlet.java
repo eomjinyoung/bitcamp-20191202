@@ -23,14 +23,11 @@ public class LessonListServlet extends HttpServlet {
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       LessonService lessonService = iocContainer.getBean(LessonService.class);
       request.setAttribute("list", lessonService.list());
-      
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/lesson/list.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/lesson/list.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

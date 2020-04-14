@@ -1,13 +1,17 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/app/*")
+@MultipartConfig(maxFileSize = 10000000)
 public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -27,7 +31,11 @@ public class DispatcherServlet extends HttpServlet {
     // 서블릿을 실행한 후 그 결과에 따라
     // JSP를 실행할지 Error 페이지를 출력할 지 결정한다.
     if (request.getAttribute("error") != null) {
-      request.getRequestDispatcher("/error").forward(request, response);
+      Exception error = (Exception) request.getAttribute("error");
+      StringWriter out = new StringWriter();
+      error.printStackTrace(new PrintWriter(out));
+      request.setAttribute("errorDetail", out.toString());
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
       return;
     }
 

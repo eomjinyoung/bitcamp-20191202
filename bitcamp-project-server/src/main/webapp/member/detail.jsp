@@ -8,7 +8,7 @@
 <h1>회원 상세정보(JSP + EL + JSTL)</h1>
 <c:if test="${not empty member}">
 <form action='update' method='post' enctype='multipart/form-data'>
-<img src='../upload/member/${member.photo}' height='80'><br>
+<img src='${pageContext.servletContext.contextPath}/upload/member/${member.photo}' height='80'><br>
 번호: <input name='no' type='text' readonly value='${member.no}'><br>
 이름: <input name='name' type='text' value='${member.name}'><br>
 이메일: <input name='email' type='email' value='${member.email}'><br>

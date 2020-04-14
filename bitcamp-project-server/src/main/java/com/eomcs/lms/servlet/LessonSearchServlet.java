@@ -54,14 +54,11 @@ public class LessonSearchServlet extends HttpServlet {
 
       List<Lesson> lessons = lessonService.search(map);
       request.setAttribute("list", lessons);
-      
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/lesson/search.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/lesson/search.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

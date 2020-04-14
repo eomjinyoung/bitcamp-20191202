@@ -38,14 +38,11 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
       Lesson lesson = lessonService.get(lessonNo);
       request.setAttribute("lesson", lesson);
-      
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/photoboard/form.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/photoboard/form.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
@@ -93,12 +90,11 @@ public class PhotoBoardAddServlet extends HttpServlet {
       photoBoard.setFiles(photoFiles);
       photoBoardService.add(photoBoard);
 
-      response.sendRedirect("list?lessonNo=" + lessonNo);
+      request.setAttribute("viewUrl", "redirect:list?lessonNo=" + lessonNo);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

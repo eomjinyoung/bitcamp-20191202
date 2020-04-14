@@ -28,12 +28,11 @@ public class PhotoBoardDeleteServlet extends HttpServlet {
       PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
 
       photoBoardService.delete(no);
-      response.sendRedirect("list?lessonNo=" + lessonNo);
+      request.setAttribute("viewUrl", "redirect:list?lessonNo=" + lessonNo);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

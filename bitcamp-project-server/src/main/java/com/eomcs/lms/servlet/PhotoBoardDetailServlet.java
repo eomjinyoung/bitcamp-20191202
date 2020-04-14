@@ -28,14 +28,11 @@ public class PhotoBoardDetailServlet extends HttpServlet {
 
       PhotoBoard photoBoard = photoBoardService.get(no);
       request.setAttribute("photoBoard", photoBoard);
-
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/photoboard/detail.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/photoboard/detail.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list?lessonNo=" + lessonNo);
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

@@ -28,14 +28,11 @@ public class MemberSearchServlet extends HttpServlet {
       String keyword = request.getParameter("keyword");
       List<Member> members = memberService.search(keyword);
       request.setAttribute("list", members);
-      
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/member/search.jsp").include(request, response);
+      request.setAttribute("viewUrl", "/member/search.jsp");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
       request.setAttribute("url", "list");
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }
