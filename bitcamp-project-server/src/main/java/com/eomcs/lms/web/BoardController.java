@@ -2,7 +2,6 @@ package com.eomcs.lms.web;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Board;
@@ -16,7 +15,7 @@ public class BoardController {
   BoardService boardService;
 
   @RequestMapping("/board/add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String add(HttpServletRequest request) throws Exception {
     if (request.getMethod().equals("GET")) {
       return "/board/form.jsp";
     }
@@ -28,8 +27,7 @@ public class BoardController {
   }
 
   @RequestMapping("/board/delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
+  public String delete(int no) throws Exception {
     if (boardService.delete(no) > 0) {
       return "redirect:list";
     } else {
@@ -38,32 +36,30 @@ public class BoardController {
   }
 
   @RequestMapping("/board/detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
+  public String detail(HttpServletRequest request, int no) throws Exception {
     Board board = boardService.get(no);
     request.setAttribute("board", board);
     return "/board/detail.jsp";
   }
 
   @RequestMapping("/board/list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String list(HttpServletRequest request) throws Exception {
     List<Board> boards = boardService.list();
     request.setAttribute("list", boards);
     return "/board/list.jsp";
   }
 
   @RequestMapping("/board/update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String update(HttpServletRequest request, int no, String title) throws Exception {
     if (request.getMethod().equals("GET")) {
-      int no = Integer.parseInt(request.getParameter("no"));
       Board board = boardService.get(no);
       request.setAttribute("board", board);
       return "/board/updateform.jsp";
     }
 
     Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
-    board.setTitle(request.getParameter("title"));
+    board.setNo(no);
+    board.setTitle(title);
 
     if (boardService.update(board) > 0) {
       return "redirect:list";

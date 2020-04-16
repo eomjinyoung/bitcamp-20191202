@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -57,11 +58,8 @@ public class DispatcherServlet extends HttpServlet {
       if (requestHandler != null) {
         // Request Handler의 메서드 호출
         try {
-          viewUrl = (String) requestHandler.getMethod().invoke( // @RequestMapping이 붙은 메서드를 호출
-              requestHandler.getBean(), // 페이지 컨트롤러 객체
-              request, // HttpServletRequest
-              response // HttpServletResponse
-          );
+          Map<String, Object> model = requestHandler.invoke(request, response);
+          viewUrl = (String) model.get("viewUrl");
         } catch (Exception e) {
           StringWriter out = new StringWriter();
           e.printStackTrace(new PrintWriter(out));

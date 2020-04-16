@@ -14,8 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.reflections.ReflectionUtils;
+import org.reflections.Reflections;
+import org.reflections.scanners.MethodParameterNamesScanner;
+import com.eomcs.lms.AppConfig;
 
 public class RequestHandler {
+
+  static Logger logger = LogManager.getLogger(AppConfig.class);
+
   Object bean;
   String path;
   Method method;
@@ -60,7 +69,8 @@ public class RequestHandler {
     this.path = path;
   }
 
-  public Object invoke(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public Map<String, Object> invoke(HttpServletRequest request, HttpServletResponse response)
+      throws Exception {
 
     // 페이지 컨트롤러가 작업한 결과를 받을 바구니를 준비한다.
     HashMap<String, Object> model = new HashMap<>();
@@ -89,11 +99,11 @@ public class RequestHandler {
     );
     List<String> paramNames = reflections.getMethodParamNames(method);
 
-    log.debug(String.format("%s.%s(", bean.getClass().getName(), method.getName()));
+    logger.debug(String.format("%s.%s(", bean.getClass().getName(), method.getName()));
     for (int i = 0; i < method.getParameterCount(); i++) {
-      log.debug(String.format("   %s,", paramNames.get(i)));
+      logger.debug(String.format("   %s,", paramNames.get(i)));
     }
-    log.debug(")");
+    logger.debug(")");
 
     return paramNames.subList(0, method.getParameterCount());
   }
@@ -161,8 +171,8 @@ public class RequestHandler {
     Object pojo = paramType.getConstructor().newInstance();
 
     // 세터 메서드를 추출한다.
-    Set<Method> methods = getMethods(paramType, withPrefix("set"));
-    log.debug(String.format("%s 의 세터 메서드:", paramType.getName()));
+    Set<Method> methods = ReflectionUtils.getMethods(paramType, ReflectionUtils.withPrefix("set"));
+    logger.debug(String.format("%s 의 세터 메서드:", paramType.getName()));
 
     // 클라이언트가 보낸 데이터 중에서 세터 메서드에 넘겨줄 데이터가 있다면 호출한다.
     for (Method m : methods) {
@@ -170,7 +180,7 @@ public class RequestHandler {
       // 메서드 이름에서 프로퍼티 명을 추출한다.
       // => 예: setCreatedDate() => "c" + "reatedDate" = createdDate
       String propName = m.getName().substring(3, 4).toLowerCase() + m.getName().substring(4);
-      log.debug("    " + propName);
+      logger.debug("    " + propName);
 
       // 세터를 호출할 때 넘겨 줄 값을 담을 변수를 준비.
       Object value = null;
@@ -185,7 +195,7 @@ public class RequestHandler {
         continue;
       }
 
-      log.debug(String.format("    %s()", m.getName()));
+      logger.debug(String.format("    %s()", m.getName()));
       m.invoke(pojo, value);
     }
 
