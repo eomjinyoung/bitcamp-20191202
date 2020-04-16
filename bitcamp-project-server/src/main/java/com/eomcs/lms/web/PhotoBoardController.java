@@ -1,11 +1,10 @@
 package com.eomcs.lms.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,43 +24,41 @@ public class PhotoBoardController {
   @Autowired
   LessonService lessonService;
 
-  @RequestMapping("/photoboard/add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    if (request.getMethod().equals("GET")) {
-      int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
-      Lesson lesson = lessonService.get(lessonNo);
-      request.setAttribute("lesson", lesson);
-      return "/photoboard/form.jsp";
-    }
-    int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
+  @RequestMapping("/photoboard/form")
+  public String form(int lessonNo, Map<String, Object> model) throws Exception {
+    model.put("lesson", lessonService.get(lessonNo));
+    return "/photoboard/form.jsp";
+  }
 
+  @RequestMapping("/photoboard/add")
+  public String add(//
+      int lessonNo, String title, Part[] photoFiles, //
+      HttpServletRequest request) throws Exception {
     Lesson lesson = lessonService.get(lessonNo);
     if (lesson == null) {
       throw new Exception("수업 번호가 유효하지 않습니다.");
     }
 
     PhotoBoard photoBoard = new PhotoBoard();
-    photoBoard.setTitle(request.getParameter("title"));
+    photoBoard.setTitle(title);
     photoBoard.setLesson(lesson);
 
-    ArrayList<PhotoFile> photoFiles = new ArrayList<>();
-    Collection<Part> parts = request.getParts();
+    ArrayList<PhotoFile> photos = new ArrayList<>();
     String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
-    for (Part part : parts) {
-      if (!part.getName().equals("photo") || //
-          part.getSize() <= 0) {
+    for (Part photoFile : photoFiles) {
+      if (photoFile.getSize() <= 0) {
         continue;
       }
       String filename = UUID.randomUUID().toString();
-      part.write(dirPath + "/" + filename);
-      photoFiles.add(new PhotoFile().setFilepath(filename));
+      photoFile.write(dirPath + "/" + filename);
+      photos.add(new PhotoFile().setFilepath(filename));
     }
 
-    if (photoFiles.size() == 0) {
+    if (photos.size() == 0) {
       throw new Exception("최소 한 개의 사진 파일을 등록해야 합니다.");
     }
 
-    photoBoard.setFiles(photoFiles);
+    photoBoard.setFiles(photos);
     photoBoardService.add(photoBoard);
 
     return "redirect:list?lessonNo=" + lessonNo;
@@ -69,56 +66,51 @@ public class PhotoBoardController {
   }
 
   @RequestMapping("/photoboard/delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
-    int no = Integer.parseInt(request.getParameter("no"));
+  public String delete(int no, int lessonNo) throws Exception {
     photoBoardService.delete(no);
     return "redirect:list?lessonNo=" + lessonNo;
   }
 
   @RequestMapping("/photoboard/detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
-    PhotoBoard photoBoard = photoBoardService.get(no);
-    request.setAttribute("photoBoard", photoBoard);
+  public String detail(int no, Map<String, Object> model) throws Exception {
+    model.put("photoBoard", photoBoardService.get(no));
     return "/photoboard/detail.jsp";
   }
 
   @RequestMapping("/photoboard/list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
+  public String list(int lessonNo, Map<String, Object> model) throws Exception {
     Lesson lesson = lessonService.get(lessonNo);
     if (lesson == null) {
       throw new Exception("수업 번호가 유효하지 않습니다.");
     }
-    request.setAttribute("lesson", lesson);
+    model.put("lesson", lesson);
 
     List<PhotoBoard> photoBoards = photoBoardService.listLessonPhoto(lessonNo);
-    request.setAttribute("list", photoBoards);
+    model.put("list", photoBoards);
     return "/photoboard/list.jsp";
   }
 
   @RequestMapping("/photoboard/update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
-    PhotoBoard photoBoard = photoBoardService.get(no);
-    photoBoard.setTitle(request.getParameter("title"));
+  public String update(//
+      int no, String title, Part[] photoFiles, //
+      HttpServletRequest request) throws Exception {
 
-    ArrayList<PhotoFile> photoFiles = new ArrayList<>();
-    Collection<Part> parts = request.getParts();
+    PhotoBoard photoBoard = photoBoardService.get(no);
+    photoBoard.setTitle(title);
+
+    ArrayList<PhotoFile> photos = new ArrayList<>();
     String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
-    for (Part part : parts) {
-      if (!part.getName().equals("photo") || //
-          part.getSize() <= 0) {
+    for (Part photoFile : photoFiles) {
+      if (photoFile.getSize() <= 0) {
         continue;
       }
       String filename = UUID.randomUUID().toString();
-      part.write(dirPath + "/" + filename);
-      photoFiles.add(new PhotoFile().setFilepath(filename));
+      photoFile.write(dirPath + "/" + filename);
+      photos.add(new PhotoFile().setFilepath(filename));
     }
 
-    if (photoFiles.size() > 0) {
-      photoBoard.setFiles(photoFiles);
+    if (photos.size() > 0) {
+      photoBoard.setFiles(photos);
     } else {
       photoBoard.setFiles(null);
     }

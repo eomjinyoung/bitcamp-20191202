@@ -1,10 +1,7 @@
 package com.eomcs.lms.web;
 
-import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Lesson;
@@ -17,20 +14,13 @@ public class LessonController {
   @Autowired
   LessonService lessonService;
 
+  @RequestMapping("/lesson/form")
+  public String form() {
+    return "/lesson/form.jsp";
+  }
+
   @RequestMapping("/lesson/add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    if (request.getMethod().equals("GET")) {
-      return "/lesson/form.jsp";
-    }
-
-    Lesson lesson = new Lesson();
-    lesson.setTitle(request.getParameter("title"));
-    lesson.setDescription(request.getParameter("description"));
-    lesson.setStartDate(Date.valueOf(request.getParameter("startDate")));
-    lesson.setEndDate(Date.valueOf(request.getParameter("endDate")));
-    lesson.setTotalHours(Integer.parseInt(request.getParameter("totalHours")));
-    lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
-
+  public String add(Lesson lesson) throws Exception {
     if (lessonService.add(lesson) > 0) {
       return "redirect:list";
     } else {
@@ -39,8 +29,7 @@ public class LessonController {
   }
 
   @RequestMapping("/lesson/delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
+  public String delete(int no) throws Exception {
     if (lessonService.delete(no) > 0) { // 삭제했다면,
       return "redirect:list";
     } else {
@@ -49,30 +38,19 @@ public class LessonController {
   }
 
   @RequestMapping("/lesson/detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
-    Lesson lesson = lessonService.get(no);
-    request.setAttribute("lesson", lesson);
+  public String detail(int no, Map<String, Object> model) throws Exception {
+    model.put("lesson", lessonService.get(no));
     return "/lesson/detail.jsp";
   }
 
   @RequestMapping("/lesson/list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setAttribute("list", lessonService.list());
+  public String list(Map<String, Object> model) throws Exception {
+    model.put("list", lessonService.list());
     return "/lesson/list.jsp";
   }
 
   @RequestMapping("/lesson/update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    Lesson lesson = new Lesson();
-    lesson.setNo(Integer.parseInt(request.getParameter("no")));
-    lesson.setTitle(request.getParameter("title"));
-    lesson.setDescription(request.getParameter("description"));
-    lesson.setStartDate(Date.valueOf(request.getParameter("startDate")));
-    lesson.setEndDate(Date.valueOf(request.getParameter("endDate")));
-    lesson.setTotalHours(Integer.parseInt(request.getParameter("totalHours")));
-    lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
-
+  public String update(Lesson lesson) throws Exception {
     if (lessonService.update(lesson) > 0) {
       return "redirect:list";
     } else {
@@ -81,35 +59,30 @@ public class LessonController {
   }
 
   @RequestMapping("/lesson/search")
-  public String search(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String search(Lesson lesson, Map<String, Object> model) throws Exception {
     HashMap<String, Object> map = new HashMap<>();
-    String value = request.getParameter("title");
-    if (value.length() > 0) {
-      map.put("title", value);
+
+    if (lesson.getTitle().length() > 0) {
+      map.put("title", lesson.getTitle());
     }
 
-    value = request.getParameter("startDate");
-    if (value.length() > 0) {
-      map.put("startDate", value);
+    if (lesson.getStartDate() != null) {
+      map.put("startDate", lesson.getStartDate().toString());
     }
 
-    value = request.getParameter("endDate");
-    if (value.length() > 0) {
-      map.put("endDate", value);
+    if (lesson.getEndDate() != null) {
+      map.put("endDate", lesson.getEndDate().toString());
     }
 
-    value = request.getParameter("totalHours");
-    if (value.length() > 0) {
-      map.put("totalHours", Integer.parseInt(value));
+    if (lesson.getTotalHours() > 0) {
+      map.put("totalHours", lesson.getTotalHours());
     }
 
-    value = request.getParameter("dayHours");
-    if (value.length() > 0) {
-      map.put("dayHours", Integer.parseInt(value));
+    if (lesson.getDayHours() > 0) {
+      map.put("dayHours", lesson.getDayHours());
     }
 
-    List<Lesson> lessons = lessonService.search(map);
-    request.setAttribute("list", lessons);
+    model.put("list", lessonService.search(map));
     return "/lesson/search.jsp";
   }
 }

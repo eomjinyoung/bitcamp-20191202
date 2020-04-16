@@ -12,11 +12,11 @@
 내용:<br>
 <textarea name='title' rows='5' cols='60'></textarea><br>
 <hr>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
 <button>제출</button>
 </form>
 

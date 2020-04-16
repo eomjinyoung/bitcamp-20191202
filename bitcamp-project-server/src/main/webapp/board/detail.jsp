@@ -13,7 +13,7 @@
 등록일: ${board.date}<br>
 조회수: ${board.viewCount}<br>
 <p><a href='delete?no=${board.no}'>삭제</a> 
-<a href='update?no=${board.no}'>변경</a></p>
+<a href='updateForm?no=${board.no}'>변경</a></p>
 </c:if>
 
 <c:if test="${empty requestScope.board}">

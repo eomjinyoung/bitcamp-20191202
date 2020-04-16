@@ -26,11 +26,11 @@
 </c:forEach>
 </p>
 
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
-사진: <input name='photo' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
+사진: <input name='photoFiles' type='file'><br>
 <p><button>변경</button>
 <a href='delete?no=${photoBoard.no}&lessonNo=${photoBoard.lesson.no}'>삭제</a></p>
 </form>

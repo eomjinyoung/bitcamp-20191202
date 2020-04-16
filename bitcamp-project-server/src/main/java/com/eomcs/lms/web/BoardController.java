@@ -2,7 +2,6 @@ package com.eomcs.lms.web;
 
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.domain.Board;
@@ -15,11 +14,13 @@ public class BoardController {
   @Autowired
   BoardService boardService;
 
+  @RequestMapping("/board/form")
+  public String form() throws Exception {
+    return "/board/form.jsp";
+  }
+
   @RequestMapping("/board/add")
-  public String add(HttpServletRequest request, Board board) throws Exception {
-    if (request.getMethod().equals("GET")) {
-      return "/board/form.jsp";
-    }
+  public String add(Board board) throws Exception {
     boardService.add(board);
     return "redirect:list";
   }
@@ -47,16 +48,14 @@ public class BoardController {
     return "/board/list.jsp";
   }
 
-  @RequestMapping("/board/update")
-  public String update(//
-      HttpServletRequest request, //
-      Board board, //
-      Map<String, Object> model) throws Exception {
+  @RequestMapping("/board/updateForm")
+  public String updateForm(int no, Map<String, Object> model) throws Exception {
+    model.put("board", boardService.get(no));
+    return "/board/updateform.jsp";
+  }
 
-    if (request.getMethod().equals("GET")) {
-      model.put("board", boardService.get(board.getNo()));
-      return "/board/updateform.jsp";
-    }
+  @RequestMapping("/board/update")
+  public String update(Board board) throws Exception {
     if (boardService.update(board) > 0) {
       return "redirect:list";
     } else {
