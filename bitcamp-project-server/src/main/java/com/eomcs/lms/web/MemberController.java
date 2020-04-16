@@ -1,9 +1,8 @@
 package com.eomcs.lms.web;
 
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,23 +16,17 @@ public class MemberController {
   @Autowired
   MemberService memberService;
 
+  @RequestMapping("/member/form")
+  public String form() {
+    return "/member/form.jsp";
+  }
+
   @RequestMapping("/member/add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    if (request.getMethod().equals("GET")) {
-      return "/member/form.jsp";
-    }
-
-    Member member = new Member();
-    member.setName(request.getParameter("name"));
-    member.setEmail(request.getParameter("email"));
-    member.setPassword(request.getParameter("password"));
-    member.setTel(request.getParameter("tel"));
-
-    Part photoPart = request.getPart("photo");
-    if (photoPart.getSize() > 0) {
+  public String add(HttpServletRequest request, Member member, Part photoFile) throws Exception {
+    if (photoFile.getSize() > 0) {
       String dirPath = request.getServletContext().getRealPath("/upload/member");
       String filename = UUID.randomUUID().toString();
-      photoPart.write(dirPath + "/" + filename);
+      photoFile.write(dirPath + "/" + filename);
       member.setPhoto(filename);
     }
 
@@ -45,8 +38,7 @@ public class MemberController {
   }
 
   @RequestMapping("/member/delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
+  public String delete(int no) throws Exception {
     if (memberService.delete(no) > 0) { // 삭제했다면,
       return "redirect:list";
     } else {
@@ -55,43 +47,30 @@ public class MemberController {
   }
 
   @RequestMapping("/member/detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    int no = Integer.parseInt(request.getParameter("no"));
-
+  public String detail(int no, Map<String, Object> model) throws Exception {
     Member member = memberService.get(no);
-    request.setAttribute("member", member);
+    model.put("member", member);
     return "/member/detail.jsp";
   }
 
   @RequestMapping("/member/list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    List<Member> members = memberService.list();
-    request.setAttribute("list", members);
+  public String list(Map<String, Object> model) throws Exception {
+    model.put("list", memberService.list());
     return "/member/list.jsp";
   }
 
   @RequestMapping("/member/search")
-  public String search(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String keyword = request.getParameter("keyword");
-    List<Member> members = memberService.search(keyword);
-    request.setAttribute("list", members);
+  public String search(String keyword, Map<String, Object> model) throws Exception {
+    model.put("list", memberService.search(keyword));
     return "/member/search.jsp";
   }
 
   @RequestMapping("/member/update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    Member member = new Member();
-    member.setNo(Integer.parseInt(request.getParameter("no")));
-    member.setName(request.getParameter("name"));
-    member.setEmail(request.getParameter("email"));
-    member.setPassword(request.getParameter("password"));
-    member.setTel(request.getParameter("tel"));
-
-    Part photoPart = request.getPart("photo");
-    if (photoPart.getSize() > 0) {
+  public String update(HttpServletRequest request, Member member, Part photoFile) throws Exception {
+    if (photoFile.getSize() > 0) {
       String dirPath = request.getServletContext().getRealPath("/upload/member");
       String filename = UUID.randomUUID().toString();
-      photoPart.write(dirPath + "/" + filename);
+      photoFile.write(dirPath + "/" + filename);
       member.setPhoto(filename);
     }
 

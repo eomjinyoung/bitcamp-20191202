@@ -9,7 +9,7 @@
 이름: <input name='name' type='text'><br>
 이메일: <input name='email' type='email'><br>
 암호: <input name='password' type='password'><br>
-사진: <input name='photo' type='file'><br>
+사진: <input name='photoFile' type='file'><br>
 전화: <input name='tel' type='tel'><br>
 <button>제출</button>
 </form>

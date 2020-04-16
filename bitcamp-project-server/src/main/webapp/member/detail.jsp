@@ -13,7 +13,7 @@
 이름: <input name='name' type='text' value='${member.name}'><br>
 이메일: <input name='email' type='email' value='${member.email}'><br>
 암호: <input name='password' type='password'><br>
-사진: <input name='photo' type='file'><br>
+사진: <input name='photoFile' type='file'><br>
 전화: <input name='tel' type='tel' value='${member.tel}'><br>
 <p><button>변경</button>
 <a href='delete?no=${member.no}'>삭제</a></p>

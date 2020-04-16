@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +62,13 @@ public class DispatcherServlet extends HttpServlet {
         try {
           Map<String, Object> model = requestHandler.invoke(request, response);
           viewUrl = (String) model.get("viewUrl");
+
+          // 요청 핸들러의 작업 결과를 꺼내서 JSP가 사용할 수 있도록
+          // ServletRequest 보관소에 저장한다.
+          Set<Entry<String, Object>> entrySet = model.entrySet();
+          for (Entry<String, Object> entry : entrySet) {
+            request.setAttribute(entry.getKey(), entry.getValue());
+          }
         } catch (Exception e) {
           StringWriter out = new StringWriter();
           e.printStackTrace(new PrintWriter(out));

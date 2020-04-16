@@ -1,6 +1,7 @@
 package com.eomcs.lms.web;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,10 @@ public class BoardController {
   BoardService boardService;
 
   @RequestMapping("/board/add")
-  public String add(HttpServletRequest request) throws Exception {
+  public String add(HttpServletRequest request, Board board) throws Exception {
     if (request.getMethod().equals("GET")) {
       return "/board/form.jsp";
     }
-
-    Board board = new Board();
-    board.setTitle(request.getParameter("title"));
     boardService.add(board);
     return "redirect:list";
   }
@@ -36,31 +34,29 @@ public class BoardController {
   }
 
   @RequestMapping("/board/detail")
-  public String detail(HttpServletRequest request, int no) throws Exception {
+  public String detail(int no, Map<String, Object> model) throws Exception {
     Board board = boardService.get(no);
-    request.setAttribute("board", board);
+    model.put("board", board);
     return "/board/detail.jsp";
   }
 
   @RequestMapping("/board/list")
-  public String list(HttpServletRequest request) throws Exception {
+  public String list(Map<String, Object> model) throws Exception {
     List<Board> boards = boardService.list();
-    request.setAttribute("list", boards);
+    model.put("list", boards);
     return "/board/list.jsp";
   }
 
   @RequestMapping("/board/update")
-  public String update(HttpServletRequest request, int no, String title) throws Exception {
+  public String update(//
+      HttpServletRequest request, //
+      Board board, //
+      Map<String, Object> model) throws Exception {
+
     if (request.getMethod().equals("GET")) {
-      Board board = boardService.get(no);
-      request.setAttribute("board", board);
+      model.put("board", boardService.get(board.getNo()));
       return "/board/updateform.jsp";
     }
-
-    Board board = new Board();
-    board.setNo(no);
-    board.setTitle(title);
-
     if (boardService.update(board) > 0) {
       return "redirect:list";
     } else {

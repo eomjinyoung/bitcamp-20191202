@@ -8,7 +8,7 @@
 <jsp:include page="/header.jsp"/>
 
   <h1>회원(JSP + EL + JSTL)</h1>
-  <a href='add'>새 회원</a><br>
+  <a href='form'>새 회원</a><br>
   <table border='1'>
   <tr>
     <th>번호</th>
