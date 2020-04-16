@@ -1,6 +1,8 @@
 package com.eomcs.lms.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +13,7 @@ import com.eomcs.lms.service.MemberService;
 import com.eomcs.util.RequestMapping;
 
 @Component
-public class LoginController {
+public class AuthController {
 
   @Autowired
   MemberService memberService;
@@ -62,5 +64,12 @@ public class LoginController {
     }
 
     return "/auth/login.jsp";
+  }
+
+  @RequestMapping("/auth/logout")
+  public String logout(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    request.getSession().invalidate();
+    return "redirect:../../index.html";
   }
 }
