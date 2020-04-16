@@ -35,3 +35,7 @@
 - com.eomcs.lms.web.PhotoBoardController 추가
   - com.eomcs.lms.web.PhotoBoardXxxController 삭제
 
+### 훈련3: 페이지 컨트롤러에 있는 여러 개의 요청 핸들러를 관리 목록에 등록한다.
+
+- com.eomcs.lms.ContextLoaderListener 변경
+  - 페이지 컨트롤러에서 모든 @RequestMapping 메서드를 찾아 등록한다.
