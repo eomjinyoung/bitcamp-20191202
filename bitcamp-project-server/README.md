@@ -8,41 +8,58 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/web/BoardController.java 추가
-- src/main/java/com/eomcs/lms/web/LessonController.java 추가
-- src/main/java/com/eomcs/lms/web/AuthController.java 추가
-- src/main/java/com/eomcs/lms/web/MemberController.java 추가
-- src/main/java/com/eomcs/lms/web/PhotoBoardController.java 추가
-- src/main/java/com/eomcs/lms/servlet/BoardXxxServlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/LessonXxxServlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/LoginServlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/LogoutXxxServlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/MemberXxxServlet.java 삭제
-- src/main/java/com/eomcs/lms/servlet/PhotoBoardXxxServlet.java 삭제
-- src/main/java/com/eomcs/lms/ContextLoaderListener.java 변경
+- src/main/java/com/eomcs/lms/web/BoardController.java 변경
+- src/main/java/com/eomcs/lms/web/LessonController.java 변경
+- src/main/java/com/eomcs/lms/web/AuthController.java 변경
+- src/main/java/com/eomcs/lms/web/MemberController.java 변경
+- src/main/java/com/eomcs/lms/web/PhotoBoardController.java 변경
+- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 변경
+- src/main/java/com/eomcs/lms/util/RequestHandler.java 변경
+- src/main/webapp/header.jsp 변경
+- src/main/webapp/board/list.jsp 변경
+- src/main/webapp/board/detail.jsp 변경
+- src/main/webapp/lesson/list.jsp 변경
+- src/main/webapp/lesson/detail.jsp 변경
+- src/main/webapp/member/list.jsp 변경
+- src/main/webapp/member/form.jsp 변경
+- src/main/webapp/member/detail.jsp 변경
+- src/main/webapp/photoboard/list.jsp 변경
+- src/main/webapp/photoboard/form.jsp 변경
+- src/main/webapp/photoboard/detail.jsp 변경
 
 ## 실습  
 
-### 훈련1: 게시판 기능의 CRUD 페이지 컨트롤러를 한 클래스로 합친다.
+### 훈련1: 프론트 컨트롤러에서 요청 핸들러의 파라미터 값을 준비하게 한다.
 
-- com.eomcs.lms.web.BoardController 추가
-  - BoardAddController, BoardListController, BoardDetailConroller, 
-    BoardUpdateController, BoardDeleteController의 메서드를 가져온다.
-- com.eomcs.lms.web.BoardXxxController 삭제
+- com.eomcs.lms.servlet.DispatcherServlet 변경
+  - 요청 핸들러 요청 부분을 변경한다.
+- com.eomcs.lms.util.RequestHandler 변경
+  - 요청 핸들러를 호출하는 메서드를 추가한다.
 
-### 훈련2: 수업,회원,로그인/로그아웃,사진게시판도 훈련1과 마찬가지로 처리한다.
 
-- com.eomcs.lms.web.LessonController 추가
-  - com.eomcs.lms.web.LessonXxxController 삭제
-- com.eomcs.lms.web.AuthController 추가
-  - com.eomcs.lms.web.LoginController 삭제
-  - com.eomcs.lms.web.LogoutController 삭제
-- com.eomcs.lms.web.MemberController 추가
-  - com.eomcs.lms.web.MemberXxxController 삭제
-- com.eomcs.lms.web.PhotoBoardController 추가
-  - com.eomcs.lms.web.PhotoBoardXxxController 삭제
+### 훈련2: 프론트 컨트롤러의 변경에 맞춰 페이지 컨트롤러를 변경한다.
 
-### 훈련3: 페이지 컨트롤러에 있는 여러 개의 요청 핸들러를 관리 목록에 등록한다.
-
-- com.eomcs.lms.ContextLoaderListener 변경
-  - 페이지 컨트롤러에서 모든 @RequestMapping 메서드를 찾아 등록한다.
+- com.eomcs.lms.web.XxxController 변경
+- src/main/webapp/header.jsp 변경
+  - 로그인 링크를 변경한다.
+- src/main/webapp/board/list.jsp 변경
+  - "새 글" 링크의 주소를 변경한다.
+- src/main/webapp/board/detail.jsp 변경
+  - "변경" 링크의 주소를 바꾼다.
+- src/main/webapp/lesson/list.jsp 변경
+  - "새 수업" 링크의 주소를 변경한다.
+- src/main/webapp/lesson/detail.jsp 변경
+  - "변경" 링크의 주소를 바꾼다.
+- src/main/webapp/member/list.jsp 변경
+  - "새 회원" 링크의 주소를 변경한다.
+- src/main/webapp/member/form.jsp 변경
+  - 사진 파라미터의 이름을 photo 에서 photoFile로 바꾼다.
+- src/main/webapp/member/detail.jsp 변경
+  - 사진 파라미터의 이름을 photo 에서 photoFile로 바꾼다.
+- src/main/webapp/photoboard/list.jsp 변경
+  - "새 사진" 링크의 주소를 변경한다.
+- src/main/webapp/photoboard/form.jsp 변경
+  - 사진 파라미터의 이름을 photo 에서 photoFiles로 바꾼다.
+- src/main/webapp/photoboard/detail.jsp 변경
+  - 사진 파라미터의 이름을 photo 에서 photoFiles로 바꾼다.
+  
