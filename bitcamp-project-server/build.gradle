@@ -25,6 +25,9 @@ repositories {
 }
 
 dependencies {
+  // Reflection API를 좀 더 쉽게 사용하게 도와주는 유틸리티
+  implementation 'org.reflections:reflections:0.9.12'
+
   // log4j 1.2.x 라이브러리
   //implementation 'log4j:log4j:1.2.17'
   
