@@ -2,17 +2,25 @@ package com.eomcs.lms.web;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
-import com.eomcs.util.RequestMapping;
 
-@Component
+@Controller
 public class BoardController {
+
+  static Logger logger = LogManager.getLogger(BoardController.class);
 
   @Autowired
   BoardService boardService;
+
+  public BoardController() {
+    logger.debug("BoardController 생성됨!");
+  }
 
   @RequestMapping("/board/form")
   public String form() throws Exception {

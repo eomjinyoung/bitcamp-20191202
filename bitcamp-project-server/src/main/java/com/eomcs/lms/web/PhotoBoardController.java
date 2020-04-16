@@ -7,15 +7,15 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
-import com.eomcs.util.RequestMapping;
 
-@Component
+@Controller
 public class PhotoBoardController {
 
   @Autowired
