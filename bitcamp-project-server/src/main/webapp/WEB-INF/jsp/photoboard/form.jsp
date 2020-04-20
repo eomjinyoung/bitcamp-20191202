@@ -1,9 +1,8 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <h1>사진 입력(JSP + EL)</h1>
 <form action='add' method='post' enctype='multipart/form-data'>
@@ -20,5 +19,5 @@
 <button>제출</button>
 </form>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

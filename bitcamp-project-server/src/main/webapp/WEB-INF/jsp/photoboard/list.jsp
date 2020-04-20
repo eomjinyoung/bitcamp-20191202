@@ -1,12 +1,9 @@
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
-<%@page import="com.eomcs.lms.domain.Lesson"%>
-<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
   <h1>강의 사진(JSP + EL + JSTL) - <a href='../lesson/detail?no=${lesson.no}'>${lesson.title}</a></h1>  
   <a href='form?lessonNo=${lesson.no}'>새 사진</a><br>
@@ -29,5 +26,5 @@
 
   </table>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

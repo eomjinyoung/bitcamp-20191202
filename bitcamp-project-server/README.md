@@ -1,4 +1,4 @@
-# 59_1 - Spring WebMVC 적용하기 II : 페이지 컨트롤러, MultipartResolver, ViewResolver
+# 59_2 - Spring WebMVC 적용하기 II : MultipartResolver, ViewResolver 등
 
 ## 학습목표
 
@@ -9,16 +9,13 @@
 
 ## 실습 소스 및 결과
 
-- src/main/java/com/eomcs/lms/ContextLoaderListener.java 삭제
-- src/main/java/com/eomcs/lms/servlet/DispatcherServlet.java 삭제
-- src/main/java/com/eomcs/lms/filter/CharacterEncodingFilter.java 삭제
-- src/main/java/com/eomcs/util/RequestHandler.java 삭제
-- src/main/java/com/eomcs/util/RequestMapping.java 삭제
-- src/main/java/com/eomcs/util/RequestMappingHandlerMapping.java 삭제
-- src/main/java/com/eomcs/lms/web/XxxController.java 변경
 - src/main/webapp/WEB-INF/web.xml 변경
-
-
+- src/main/java/com/eomcs/lms/AppWebApplicationInitializer.java 추가
+- src/main/java/com/eomcs/lms/AppConfig.java 변경
+- src/main/java/com/eomcs/lms/web/XxxController.java 변경
+- src/main/webapp/**/*.jsp 이동 및 변경
+  - src/main/webapp/WEB-INF/jsp/ 폴더로 이동
+  
 ## 실습  
 
 ### 훈련1: WebApplicationInitializer를 사용하여 DispatcherServlet을 설정한다.
@@ -33,12 +30,20 @@
 ### 훈련2: JSP 파일을 /WEB-INF/jsp/ 폴더로 옮긴다.
 
 - src/main/webapp/**/*.jsp 를 /WEB-INF/jsp/ 로 옮긴다.
+- src/main/webapp/**/*.jsp 변경
+  - header.jsp, footer.jsp 경로를 변경한다.
 
-### 훈련3: 페이지 컨트롤러의 view name을 변경한다.
+### 훈련3: 페이지 컨트롤러를 Spring WebMVC 에 맞춰 변경한다.
 
 - com.eomcs.lms.web.*Controller 변경
   - @RequestMapping을 클래스 선언부에도 붙인다.
   - @RequestMapping 대신에 @GetMapping 또는 @PostMapping을 사용한다.
-  - 리턴 값 변경
-  - 
+  - 멀티파트 파라미터 값을 받는 객체를 Part에서 MultipartFile로 교체한다.
+  - InternalResourceViewResolver의 동작에 맞춰 리턴 값을 변경한다.
+
+### 훈련4: 날짜 형식의 요청 데이터를 다룰 프로퍼티 에디터를 등록한다.
+
+- com.eomcs.lms.web.GlobalControllerAdvice 추가 
+  - 페이지 컨트롤러에 보조할 객체를 등록하기 위해 @ControllerAdvice 클래스를 정의한다.
+  - 날짜 파라미터를 처리하기 위해 @InitBinder 메서드를 정의한다.
 

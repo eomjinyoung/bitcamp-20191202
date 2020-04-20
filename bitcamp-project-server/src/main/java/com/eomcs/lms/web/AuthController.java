@@ -1,40 +1,35 @@
 package com.eomcs.lms.web;
 
-import java.util.ArrayList;
-import java.util.Map;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
   @Autowired
   MemberService memberService;
 
-  @RequestMapping("/auth/form")
-  public String form(HttpServletRequest request, Map<String, Object> model) {
-    String email = "";
-    Cookie[] cookies = request.getCookies();
-    if (cookies != null) {
-      for (Cookie cookie : cookies) {
-        if (cookie.getName().equals("email")) {
-          email = cookie.getValue();
-          break;
-        }
-      }
-    }
-    model.put("email", email);
-    return "/auth/form.jsp";
-  }
+  @GetMapping("form")
+  public void form() {}
 
-  @RequestMapping("/auth/login")
-  public String login(HttpServletRequest request, //
-      String email, String password, String saveEmail) throws Exception {
+  @PostMapping("login")
+  public String login( //
+      String email, //
+      String password, //
+      String saveEmail, //
+      HttpServletResponse response, //
+      HttpSession session, //
+      Model model) throws Exception {
 
     Cookie cookie = new Cookie("email", email);
     if (saveEmail != null) {
@@ -42,30 +37,23 @@ public class AuthController {
     } else {
       cookie.setMaxAge(0);
     }
-
-    // 프론트 컨트롤러가 쿠키를 응답헤더에 담을 수 있도록
-    // 쿠키 바구니에 저장한다.
-    @SuppressWarnings("unchecked")
-    ArrayList<Cookie> cookies = (ArrayList<Cookie>) request.getAttribute("cookies");
-    cookies.add(cookie);
+    response.addCookie(cookie);
 
     Member member = memberService.get(email, password);
     if (member != null) {
-      request.getSession().setAttribute("loginUser", member);
-      request.setAttribute("refreshUrl", "2;url=../../index.html");
-      // 인클루딩 되는 서블릿은 응답 헤더를 추가할 수 없다.
-      // 따라서 프론트 컨트롤러에게 추가해달라고 요청해야 한다.
+      session.setAttribute("loginUser", member);
+      model.addAttribute("refreshUrl", "2;url=../../index.html");
     } else {
-      request.getSession().invalidate();
-      request.setAttribute("refreshUrl", "2;url=login");
+      session.invalidate();
+      model.addAttribute("refreshUrl", "2;url=form");
     }
 
-    return "/auth/login.jsp";
+    return "auth/login";
   }
 
-  @RequestMapping("/auth/logout")
-  public String logout(HttpServletRequest request) {
-    request.getSession().invalidate();
+  @GetMapping("logout")
+  public String logout(HttpSession session) {
+    session.invalidate();
     return "redirect:../../index.html";
   }
 }

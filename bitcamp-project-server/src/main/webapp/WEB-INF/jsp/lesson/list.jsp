@@ -1,11 +1,9 @@
-<%@page import="com.eomcs.lms.domain.Lesson"%>
-<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
   <h1>강의(JSP + EL + JSTL)</h1>
   <a href='form'>새 강의</a><br>
@@ -37,5 +35,5 @@
 <button>검색</button>
 </form>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

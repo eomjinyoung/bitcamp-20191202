@@ -1,11 +1,9 @@
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
-<%@page import="com.eomcs.lms.domain.PhotoFile"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <h1>사진 상세정보(JSP + EL + JSTL)</h1>
 
@@ -22,7 +20,7 @@
 
 <p>
 <c:forEach items="${photoBoard.files}" var="photoFile">
-<img src='${pageContext.servletContext.contextPath}/upload/photoboard/${photoFile.filepath}' height='80'>
+<img src="${pageContext.servletContext.contextPath}/upload/photoboard/${photoFile.filepath}" height="80">
 </c:forEach>
 </p>
 
@@ -40,5 +38,5 @@
 <p>해당 사진게시물이 없습니다.</p>
 </c:if>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

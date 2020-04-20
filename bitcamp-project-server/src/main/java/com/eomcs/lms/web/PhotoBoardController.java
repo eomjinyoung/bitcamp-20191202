@@ -1,14 +1,16 @@
 package com.eomcs.lms.web;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
+import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -16,7 +18,11 @@ import com.eomcs.lms.service.LessonService;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @Controller
+@RequestMapping("/photoboard")
 public class PhotoBoardController {
+
+  @Autowired
+  ServletContext servletContext;
 
   @Autowired
   PhotoBoardService photoBoardService;
@@ -24,16 +30,16 @@ public class PhotoBoardController {
   @Autowired
   LessonService lessonService;
 
-  @RequestMapping("/photoboard/form")
-  public String form(int lessonNo, Map<String, Object> model) throws Exception {
-    model.put("lesson", lessonService.get(lessonNo));
-    return "/photoboard/form.jsp";
+  @GetMapping("form")
+  public void form(int lessonNo, Model model) throws Exception {
+    model.addAttribute("lesson", lessonService.get(lessonNo));
   }
 
-  @RequestMapping("/photoboard/add")
+  @PostMapping("add")
   public String add(//
-      int lessonNo, String title, Part[] photoFiles, //
-      HttpServletRequest request) throws Exception {
+      int lessonNo, //
+      String title, //
+      MultipartFile[] photoFiles) throws Exception {
     Lesson lesson = lessonService.get(lessonNo);
     if (lesson == null) {
       throw new Exception("수업 번호가 유효하지 않습니다.");
@@ -44,13 +50,13 @@ public class PhotoBoardController {
     photoBoard.setLesson(lesson);
 
     ArrayList<PhotoFile> photos = new ArrayList<>();
-    String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
-    for (Part photoFile : photoFiles) {
+    String dirPath = servletContext.getRealPath("/upload/photoboard");
+    for (MultipartFile photoFile : photoFiles) {
       if (photoFile.getSize() <= 0) {
         continue;
       }
       String filename = UUID.randomUUID().toString();
-      photoFile.write(dirPath + "/" + filename);
+      photoFile.transferTo(new File(dirPath + "/" + filename));
       photos.add(new PhotoFile().setFilepath(filename));
     }
 
@@ -65,47 +71,44 @@ public class PhotoBoardController {
 
   }
 
-  @RequestMapping("/photoboard/delete")
+  @GetMapping("delete")
   public String delete(int no, int lessonNo) throws Exception {
     photoBoardService.delete(no);
     return "redirect:list?lessonNo=" + lessonNo;
   }
 
-  @RequestMapping("/photoboard/detail")
-  public String detail(int no, Map<String, Object> model) throws Exception {
-    model.put("photoBoard", photoBoardService.get(no));
-    return "/photoboard/detail.jsp";
+  @GetMapping("detail")
+  public void detail(int no, Model model) throws Exception {
+    model.addAttribute("photoBoard", photoBoardService.get(no));
   }
 
-  @RequestMapping("/photoboard/list")
-  public String list(int lessonNo, Map<String, Object> model) throws Exception {
+  @GetMapping("list")
+  public void list(int lessonNo, Model model) throws Exception {
     Lesson lesson = lessonService.get(lessonNo);
     if (lesson == null) {
       throw new Exception("수업 번호가 유효하지 않습니다.");
     }
-    model.put("lesson", lesson);
-
-    List<PhotoBoard> photoBoards = photoBoardService.listLessonPhoto(lessonNo);
-    model.put("list", photoBoards);
-    return "/photoboard/list.jsp";
+    model.addAttribute("lesson", lesson);
+    model.addAttribute("list", photoBoardService.listLessonPhoto(lessonNo));
   }
 
-  @RequestMapping("/photoboard/update")
+  @PostMapping("update")
   public String update(//
-      int no, String title, Part[] photoFiles, //
-      HttpServletRequest request) throws Exception {
+      int no, //
+      String title, //
+      MultipartFile[] photoFiles) throws Exception {
 
     PhotoBoard photoBoard = photoBoardService.get(no);
     photoBoard.setTitle(title);
 
     ArrayList<PhotoFile> photos = new ArrayList<>();
-    String dirPath = request.getServletContext().getRealPath("/upload/photoboard");
-    for (Part photoFile : photoFiles) {
+    String dirPath = servletContext.getRealPath("/upload/photoboard");
+    for (MultipartFile photoFile : photoFiles) {
       if (photoFile.getSize() <= 0) {
         continue;
       }
       String filename = UUID.randomUUID().toString();
-      photoFile.write(dirPath + "/" + filename);
+      photoFile.transferTo(new File(dirPath + "/" + filename));
       photos.add(new PhotoFile().setFilepath(filename));
     }
 
