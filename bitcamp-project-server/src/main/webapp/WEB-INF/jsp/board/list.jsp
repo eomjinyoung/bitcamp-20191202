@@ -1,11 +1,9 @@
-<%@ page import="com.eomcs.lms.domain.Board"%>
-<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
   <h1>게시글(JSP + EL + JSTL)</h1>
   <a href='form'>새 글</a><br>
@@ -28,5 +26,5 @@
 
 </table>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

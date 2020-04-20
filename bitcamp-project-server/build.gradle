@@ -74,7 +74,14 @@ dependencies {
   
   // JSTL API 및 구현 라이브러리
   implementation 'jstl:jstl:1.2'
-    
+
+  // Spring의 MultipartResolver를 사용하려면 
+  // Servlet 3.0에서 제공하는 multipart 처리기를 등록하거나, 
+  // 또는 Apache에서 제공하는 multipart 처리기를 등록해야 한다.
+  // 
+  // => apache의 multipart 처리기 등록
+  implementation 'commons-fileupload:commons-fileupload:1.4'
+  
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
 }

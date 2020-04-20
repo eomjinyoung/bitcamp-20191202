@@ -1,16 +1,19 @@
 package com.eomcs.lms.web;
 
 import java.util.List;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.service.BoardService;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
   static Logger logger = LogManager.getLogger(BoardController.class);
@@ -22,18 +25,16 @@ public class BoardController {
     logger.debug("BoardController 생성됨!");
   }
 
-  @RequestMapping("/board/form")
-  public String form() throws Exception {
-    return "/board/form.jsp";
-  }
+  @GetMapping("form")
+  public void form() throws Exception {}
 
-  @RequestMapping("/board/add")
+  @PostMapping("add")
   public String add(Board board) throws Exception {
     boardService.add(board);
     return "redirect:list";
   }
 
-  @RequestMapping("/board/delete")
+  @GetMapping("delete")
   public String delete(int no) throws Exception {
     if (boardService.delete(no) > 0) {
       return "redirect:list";
@@ -42,27 +43,24 @@ public class BoardController {
     }
   }
 
-  @RequestMapping("/board/detail")
-  public String detail(int no, Map<String, Object> model) throws Exception {
+  @GetMapping("detail")
+  public void detail(int no, Model model) throws Exception {
     Board board = boardService.get(no);
-    model.put("board", board);
-    return "/board/detail.jsp";
+    model.addAttribute("board", board);
   }
 
-  @RequestMapping("/board/list")
-  public String list(Map<String, Object> model) throws Exception {
+  @GetMapping("list")
+  public void list(Model model) throws Exception {
     List<Board> boards = boardService.list();
-    model.put("list", boards);
-    return "/board/list.jsp";
+    model.addAttribute("list", boards);
   }
 
-  @RequestMapping("/board/updateForm")
-  public String updateForm(int no, Map<String, Object> model) throws Exception {
-    model.put("board", boardService.get(no));
-    return "/board/updateform.jsp";
+  @GetMapping("updateForm")
+  public void updateForm(int no, Model model) throws Exception {
+    model.addAttribute("board", boardService.get(no));
   }
 
-  @RequestMapping("/board/update")
+  @PostMapping("update")
   public String update(Board board) throws Exception {
     if (boardService.update(board) > 0) {
       return "redirect:list";

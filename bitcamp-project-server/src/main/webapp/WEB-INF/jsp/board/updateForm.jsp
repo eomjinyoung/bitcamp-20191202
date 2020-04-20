@@ -1,9 +1,8 @@
-<%@page import="com.eomcs.lms.domain.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <h1>게시물 변경(JSP + EL + JSTL)</h1>
 
@@ -15,5 +14,5 @@
 조회수: ${board.viewCount}<br>
 <button>변경</button>
 </form>
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

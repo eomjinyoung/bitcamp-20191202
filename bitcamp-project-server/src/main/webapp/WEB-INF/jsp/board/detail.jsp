@@ -3,7 +3,7 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <h1>게시물 상세정보(JSP + EL + JSTL)</h1>
 
@@ -20,5 +20,5 @@
 <p>해당 게시물이 없습니다.</p>
 </c:if>
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
     

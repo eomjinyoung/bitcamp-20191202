@@ -24,9 +24,21 @@
 ### 훈련1: WebApplicationInitializer를 사용하여 DispatcherServlet을 설정한다.
 
 - com.eomcs.lms.web.AppWebApplicationInitializer 추가 
+- com.eomcs.lms.AppConfig 변경
+  - ViewResolver 객체 등록
+  - MultipartResolver 객체 등록
+  - WebMVC 관련 애노테이션을 처리할 객체 등록 : @EnableWebMVC
  
 
-### 훈련1: ViewResolver를 InternalResourceViewResolver로 교체한다.
+### 훈련2: JSP 파일을 /WEB-INF/jsp/ 폴더로 옮긴다.
 
-- 
+- src/main/webapp/**/*.jsp 를 /WEB-INF/jsp/ 로 옮긴다.
+
+### 훈련3: 페이지 컨트롤러의 view name을 변경한다.
+
+- com.eomcs.lms.web.*Controller 변경
+  - @RequestMapping을 클래스 선언부에도 붙인다.
+  - @RequestMapping 대신에 @GetMapping 또는 @PostMapping을 사용한다.
+  - 리턴 값 변경
+  - 
 
