@@ -1,4 +1,4 @@
-# 59_2 - Spring WebMVC 적용하기 II : MultipartResolver, ViewResolver 등
+# 59_3 - Spring WebMVC 적용하기 II : DispatcherServlet 여러 개 설정하기
 
 ## 학습목표
 

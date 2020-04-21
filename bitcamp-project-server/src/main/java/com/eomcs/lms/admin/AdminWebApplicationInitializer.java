@@ -1,11 +1,10 @@
-package com.eomcs.lms.web;
+package com.eomcs.lms.admin;
 
 import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import com.eomcs.lms.AppConfig;
 
-public class AppWebApplicationInitializer
+public class AdminWebApplicationInitializer
     extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   // String uploadTmpDir;
@@ -17,12 +16,12 @@ public class AppWebApplicationInitializer
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class<?>[] {AppConfig.class};
+    return null;
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class<?>[] {AppWebConfig.class};
+    return new Class<?>[] {AdminWebConfig.class};
   }
 
   @Override
@@ -34,12 +33,12 @@ public class AppWebApplicationInitializer
 
   @Override
   protected String[] getServletMappings() {
-    return new String[] {"/app/*"};
+    return new String[] {"/admin/*"};
   }
 
   @Override
   protected String getServletName() {
-    return "app";
+    return "admin";
   }
 
 
