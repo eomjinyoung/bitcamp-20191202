@@ -25,6 +25,9 @@ repositories {
 }
 
 dependencies {
+  // Thumbnailator 썸네일 생성 라이브러리
+  implementation 'net.coobird:thumbnailator:0.4.11'
+  
   // Reflection API를 좀 더 쉽게 사용하게 도와주는 유틸리티
   implementation 'org.reflections:reflections:0.9.12'
 

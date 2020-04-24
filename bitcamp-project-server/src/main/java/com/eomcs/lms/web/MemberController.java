@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
+import net.coobird.thumbnailator.ThumbnailParameter;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
 @Controller
 @RequestMapping("/member")
@@ -35,6 +38,17 @@ public class MemberController {
       String filename = UUID.randomUUID().toString();
       photoFile.transferTo(new File(dirPath + "/" + filename));
       member.setPhoto(filename);
+
+      // 목록에서 출력할 썸네일 이미지 생성
+      Thumbnails.of(dirPath + "/" + filename)//
+          .size(20, 20)//
+          .outputFormat("jpg")//
+          .toFiles(new Rename() {
+            @Override
+            public String apply(String name, ThumbnailParameter param) {
+              return name + "_20x20";
+            }
+          });
     }
 
     if (memberService.add(member) > 0) {

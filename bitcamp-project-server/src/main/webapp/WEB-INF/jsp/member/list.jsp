@@ -19,7 +19,9 @@
 <c:forEach items="${list}" var="item">
   <tr>
     <td>${item.no}</td> 
-    <td><a href='detail?no=${item.no}'>${item.name}</a></td> 
+    <td>
+      <img src="../../upload/member/${item.photo}_20x20.jpg">
+      <a href='detail?no=${item.no}'>${item.name}</a></td> 
     <td>${item.email}</td> 
     <td>${item.tel}</td>
     <td>${item.registeredDate}</td>
