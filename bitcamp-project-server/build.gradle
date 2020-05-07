@@ -85,6 +85,9 @@ dependencies {
   // => apache의 multipart 처리기 등록
   implementation 'commons-fileupload:commons-fileupload:1.4'
   
+  // Tiles 라이브러리 
+  implementation 'org.apache.tiles:tiles-jsp:3.0.8'
+  
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
 }
