@@ -14,6 +14,8 @@
        TilesView 템플릿 엔진이 사용할 레이아웃을 정의한다.  -->
   <definition name="*/*" extends="base">
     <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+    <put-attribute name="css.page" value="../../css/{1}.css" />
+    <put-attribute name="css.common" value="../../css/common.css" />
   </definition>
   
 </tiles-definitions>
