@@ -12,23 +12,8 @@
 </c:if>
 <title>Bitcamp-LMS</title>
 <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous'>
-<style>
-body {
-  background-color: LightGray;
-}
-div.container {
-  background: white;
-  border: 1px solid gray;
-  width: 600px;
-}
-footer {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: navy;
-  color: white;
-  text-align: center;
-}
-</style>
+<link rel='stylesheet' href='<tiles:getAsString name="css.common"/>'>
+<link rel='stylesheet' href='<tiles:getAsString name="css.page"/>'>
 </head>
 <body>
 

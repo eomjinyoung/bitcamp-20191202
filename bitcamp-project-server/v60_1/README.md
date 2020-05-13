@@ -14,6 +14,12 @@
 - src/main/webapp/WEB-INF/tiles/header.jsp 생성
 - src/main/webapp/WEB-INF/tiles/footer.jsp 생성
 - src/main/webapp/WEB-INF/views/**/*.jsp 생성
+- src/main/webapp/css/common.css 생성
+- src/main/webapp/css/auth.css 생성
+- src/main/webapp/css/board.css 생성
+- src/main/webapp/css/member.css 생성
+- src/main/webapp/css/lesson.css 생성
+- src/main/webapp/css/photoboard.css 생성
   
 ## 실습  
 
