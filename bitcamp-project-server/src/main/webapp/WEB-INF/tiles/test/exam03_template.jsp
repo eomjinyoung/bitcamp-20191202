@@ -7,13 +7,8 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<c:if test="${not empty refreshUrl}">
-<meta http-equiv="Refresh" content="${refreshUrl}">
-</c:if>
-<title>Bitcamp-LMS</title>
+<title>test</title>
 <link rel='stylesheet' href='${pageContext.getServletContext().getContextPath()}/node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='<tiles:getAsString name="css.common"/>'>
-<link rel='stylesheet' href='<tiles:getAsString name="css.page"/>'>
 </head>
 <body>
 
@@ -29,6 +24,8 @@
 <script src='${pageContext.getServletContext().getContextPath()}/node_modules/@popperjs/core/dist/umd/popper.min.js'></script>
 <script src='${pageContext.getServletContext().getContextPath()}/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
 <script src='${pageContext.getServletContext().getContextPath()}/node_modules/sweetalert/dist/sweetalert.min.js'></script>
-
+<script>
+console.log("페이지 끝!");
+</script>
 </body>
 </html>

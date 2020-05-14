@@ -7,13 +7,8 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<c:if test="${not empty refreshUrl}">
-<meta http-equiv="Refresh" content="${refreshUrl}">
-</c:if>
-<title>Bitcamp-LMS</title>
+<title>test</title>
 <link rel='stylesheet' href='${pageContext.getServletContext().getContextPath()}/node_modules/bootstrap/dist/css/bootstrap.min.css'>
-<link rel='stylesheet' href='<tiles:getAsString name="css.common"/>'>
-<link rel='stylesheet' href='<tiles:getAsString name="css.page"/>'>
 </head>
 <body>
 
