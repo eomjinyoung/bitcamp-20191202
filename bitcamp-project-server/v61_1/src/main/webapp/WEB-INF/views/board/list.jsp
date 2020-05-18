@@ -3,6 +3,11 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style>
+h1 {
+  text-decoration: underline;
+}
+</style>
   <h1>게시글(JSP + EL + JSTL)</h1>
   <a href='form'>새 글</a><br>
   <table border='1'>
