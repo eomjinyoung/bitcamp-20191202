@@ -37,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
+  public Member get(String email) throws Exception {
+    return memberDao.findByEmail(email);
+  }
+
+  @Override
   public Member get(String email, String password) throws Exception {
     HashMap<String, Object> params = new HashMap<>();
     params.put("email", email);

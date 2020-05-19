@@ -1,9 +1,8 @@
-# 61_1 - NPM 도입하여 JavaScript, CSS 라이브러리 관리하기
+# 62_1 - Facebook SNS 로그인 적용
 
 ## 학습목표
 
-- NPM을 사용하여 JavaScript와 CSS 라이브러리를 관리할 수 있다.
-- NPM의 설정 파일을 읽고 해석할 수 있다.
+- Facebook 로그인을 적용할 수 있다.
 
 ## 실습 소스 및 결과
 
@@ -13,11 +12,10 @@
 
 ## 실습  
 
-### 훈련1: NPM 설정 파일(package.json)을 준비한다.
+### 훈련1: 로그인 폼에 페이스북 로그인 버튼을 추가
 
-- webapp/package.json 파일 생성
-  - 'src/main/webapp$ npm init' 실행
-  - HTML에서 사용할 라이브러리를 두는 폴더에 생성한다.
+- /WEB-INF/views/auth/form.jsp 변경
+  - 페이지북 로그인 버튼 태그 추가
   
 ### 훈련2: npm을 사용하여 bootstrap 라이브러리를 가져온다.
 

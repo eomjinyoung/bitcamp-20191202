@@ -13,6 +13,8 @@ public interface MemberService {
 
   Member get(int no) throws Exception;
 
+  Member get(String email) throws Exception;
+
   Member get(String email, String password) throws Exception;
 
   List<Member> search(String keyword) throws Exception;

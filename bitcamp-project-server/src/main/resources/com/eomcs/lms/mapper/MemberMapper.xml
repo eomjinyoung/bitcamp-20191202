@@ -23,7 +23,8 @@
       photo,
   </sql>
   
-  <insert id="insert" parameterType="Member">
+  <insert id="insert" parameterType="Member"
+    useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into lms_member(
       name, 
       email, 
@@ -56,6 +57,16 @@
       lms_member
     where 
       member_id=#{no}
+  </select>
+  
+  <select id="findByEmail" resultMap="MemberMap" parameterType="string">
+    select 
+      <include refid="select1"/>
+      pwd
+    from 
+      lms_member
+    where 
+      email=#{email}
   </select>
   
   <update id="update" parameterType="Member">

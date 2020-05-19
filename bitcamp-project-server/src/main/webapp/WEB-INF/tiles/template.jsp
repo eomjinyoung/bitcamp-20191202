@@ -13,7 +13,7 @@
 <title>Bitcamp-LMS</title>
 <link rel='stylesheet' href='${pageContext.getServletContext().getContextPath()}/node_modules/bootstrap/dist/css/bootstrap.min.css'>
 <link rel='stylesheet' href='<tiles:getAsString name="css.common"/>'>
-<link rel='stylesheet' href='<tiles:getAsString name="css.page2"/>'>
+<link rel='stylesheet' href='<tiles:getAsString name="css.page"/>'>
 </head>
 <body>
 
