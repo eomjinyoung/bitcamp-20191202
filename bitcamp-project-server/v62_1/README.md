@@ -1,8 +1,9 @@
-# 62_1 - Facebook SNS 로그인 적용
+# 62_1 - Facebook SNS 로그인 적용 + sidebar 레이아웃 템플릿 적용
 
 ## 학습목표
 
 - Facebook 로그인을 적용할 수 있다.
+- Tiles 템플릿을 다룰 수 있다.
 
 ## 실습 소스 및 결과
 
@@ -13,6 +14,14 @@
 - src/main/java/com/eomcs/lms/service/impl/MemberServiceImpl.java 변경
 - src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
 - src/main/resources/com/eomcs/lms/mapper/MemberMapper.xml 변경
+- src/main/webapp/WEB-INF/defs/tiles.xml 변경
+- src/main/webapp/WEB-INF/tiles/template2.jsp 추가
+- src/main/webapp/WEB-INF/views/auth/side.jsp 추가
+- src/main/webapp/WEB-INF/views/board/side.jsp 추가
+- src/main/webapp/WEB-INF/views/lesson/side.jsp 추가
+- src/main/webapp/WEB-INF/views/member/side.jsp 추가
+- src/main/webapp/WEB-INF/views/photoboard/side.jsp 추가
+- src/main/webapp/css/common.css 변경 
 
 ## 실습  
 
@@ -39,4 +48,5 @@
 
 - /WEB-INF/views/member/list.jsp 변경
   - 회원 이름 뿐만아니라 회원 사진도 링크에 포함한다.
-  
+
+### 훈련4: 화면에서 사이드바 추가하기

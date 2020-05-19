@@ -3,6 +3,17 @@
 body {
   background-color: LightGray;
 }
+
+#side {
+	/* border: 1px solid red; */
+	float: left;
+}
+
+#content {
+	/* border: 1px solid blue; */
+	margin-left: 200px;
+	padding: 10px;
+}
 div.container {
   background: white;
   border: 1px solid gray;
