@@ -6,9 +6,13 @@
 
 ## 실습 소스 및 결과
 
-- src/main/webapp/package.json 생성
-- src/main/webapp/WEB-INF/tiles/template.jsp 변경
-- src/main/webapp/WEB-INF/tiles/footer.jsp 변경
+- src/main/webapp/WEB-INF/views/auth/form.jsp 변경
+- src/main/webapp/WEB-INF/views/member/list.jsp 변경
+- src/main/java/com/eomcs/lms/web/AuthController.java 변경
+- src/main/java/com/eomcs/lms/service/MemberService.java 변경
+- src/main/java/com/eomcs/lms/service/impl/MemberServiceImpl.java 변경
+- src/main/java/com/eomcs/lms/dao/MemberDao.java 변경
+- src/main/resources/com/eomcs/lms/mapper/MemberMapper.xml 변경
 
 ## 실습  
 
@@ -16,36 +20,23 @@
 
 - /WEB-INF/views/auth/form.jsp 변경
   - 페이지북 로그인 버튼 태그 추가
+  - 페이스북 API 로딩 자바스크립트 코드 추가
+
+### 훈련2: 페이스북 로그인 요청 처리 추가
+
+- com.eomcs.lms.web.AuthController 변경
+  - `/auth/facebookLogin` 요청 핸들러 추가
+- com.eomcs.lms.service.MemberService 변경
+  - get(String email) 메서드 선언 추가 
+- com.eomcs.lms.service.impl.MemberServiceImpl 변경
+  - get(String email) 메서드 구현
+- com.eomcs.lms.dao.MemberDao 변경
+  - findByEmail(String email) 메서드 선언 추가
+- src/main/resources/com/eomcs/lms/mapper/MemberMapper 변경
+  - findByEmail SQL 문 추가
+
+### 훈련3: 회원 목록에서 회원 사진에 링크 걸기
+
+- /WEB-INF/views/member/list.jsp 변경
+  - 회원 이름 뿐만아니라 회원 사진도 링크에 포함한다.
   
-### 훈련2: npm을 사용하여 bootstrap 라이브러리를 가져온다.
-
-- 'npm install bootstrap --save'
-  - npm이 접속하는 서버에서 bootstrap 라이브러리를 가져온다.
-  - node_modules 라는 폴더를 생성하여 그 폴더 안에 라이브러리를 둔다.
-  - '--save' 옵션은 package.json 파일에 의존 라이브러리 정보를 등록하게 해준다.
- 
-### 훈련3: npm을 사용하여 bootstrap이 의존하는 popperjs 라이브러리를 가져온다.
-
-- 'npm install @popperjs/core --save'
-  - npm이 접속하는 서버에서 popperjs 라이브러리를 가져온다.
-  - node_modules 라는 폴더를 생성하여 그 폴더 안에 라이브러리를 둔다.
-  - '--save' 옵션은 package.json 파일에 의존 라이브러리 정보를 등록하게 해준다.
-
-### 훈련4: npm을 사용하여 jQuery 라이브러리를 가져온다.
-
-- 'npm install jquery --save'
-  - npm이 접속하는 서버에서 jquery 라이브러리를 가져온다.
-  - node_modules 라는 폴더를 생성하여 그 폴더 안에 라이브러리를 둔다.
-  - '--save' 옵션은 package.json 파일에 의존 라이브러리 정보를 등록하게 해준다.
-
-### 훈련5: npm을 사용하여 sweetalert 라이브러리를 가져온다.
-
-- 'npm install sweetalert --save'
-  - npm이 접속하는 서버에서 sweetalert 라이브러리를 가져온다.
-  - node_modules 라는 폴더를 생성하여 그 폴더 안에 라이브러리를 둔다.
-  - '--save' 옵션은 package.json 파일에 의존 라이브러리 정보를 등록하게 해준다.
-
-
-
-
-
