@@ -4,7 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
   <!-- 여러 템플릿에서 공통으로 사용할 레이아웃을 정의한다. -->
-  <definition name="base" template="/WEB-INF/tiles/template.jsp">
+  <definition name="base" template="/WEB-INF/tiles/template2.jsp">
     <!-- template.jsp 안에서 사용할 JSP 파일의 이름을 설정한다. -->
     <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
     <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
@@ -13,6 +13,7 @@
   <!-- request handler가 리턴한 JSP의 경로가 'board/*' 일 경우
        TilesView 템플릿 엔진이 사용할 레이아웃을 정의한다.  -->
   <definition name="*/*" extends="base">
+    <put-attribute name="side" value="/WEB-INF/views/{1}/side.jsp" />
     <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     <put-attribute name="css.page" value="../../css/{1}.css" />
     <put-attribute name="css.page2" value="../../css/{1}/{2}.css" />

@@ -1,8 +1,9 @@
-# 62_1 - Facebook SNS 로그인 적용
+# 62_1 - Facebook SNS 로그인 적용 + sidebar 레이아웃 템플릿 적용
 
 ## 학습목표
 
 - Facebook 로그인을 적용할 수 있다.
+- Tiles 템플릿을 다룰 수 있다.
 
 ## 실습 소스 및 결과
 
