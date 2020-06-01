@@ -643,7 +643,7 @@ $ git fetch origin
 $ git pull
 ```
 
-### git push [원격 저장소 이름] [로컬 브랜치 이름]
+### git push [원격 저장소 이름] [로컬 브랜치 이름]:[원격 브랜치 이름]
 
 - 로컬 저장소 브랜치를 원격 저장소로 업로드(push) 한다.
 - 전제 조건
@@ -653,6 +653,14 @@ $ git pull
 
 ```
 예1) 로컬 저장소의 master 브랜치를 원격 저장소에 업로드 하기
+$ git push --set-upstream origin master:master
+
+예2) 로컬 저장소의 내용을 한 번 원격 저장소에 업로드 했다면 
+     --set-upstream 옵션을 생략할 수 있다.
+$ git push origin master:master
+
+예2) 원격 브랜치 이름을 생략할 수 있다.
+     원력 브랜치 이름을 생략하면 로컬 브랜치 이름으로 업로드 된다.
 $ git push origin master
 ```
 
